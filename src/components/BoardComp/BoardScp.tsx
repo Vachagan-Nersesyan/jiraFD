@@ -104,6 +104,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
     }, [currentProject.board.boardArr])
 
 
+    
 
 
     const filterBoardCompSrcvlFunc: (str: string, board: Array<BoardArrType>) => void = (str: string, board: Array<BoardArrType>) => {
@@ -132,7 +133,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
     // ddd
 
     const updateBoardIssArrCompFunc = (str: string, arr: Array<IssuesType>) => {
-        debugger
+
         updateChangedBoardArrFunc({ str, arr })
         // debugger
         // console.log(boardArr,'boardArrboardArrboardArr')
@@ -140,7 +141,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
 
     const reorder = (list: Array<IssuesType>, startIndex: number, endIndex: number, boardInfo: BoardArrType) => {
-        debugger
+
 
         const result = [...list]
 
@@ -168,7 +169,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
     const remove = (list: Array<IssuesType>, index: number, boardInfo: BoardArrType) => {
 
-        
+
 
         let fInd: string | number = 0
         for (let i in list) {
@@ -191,7 +192,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
     const appendAt = (list: Array<IssuesType>, index: number, issueItem: IssuesType, boardInfo: BoardArrType) => {
 
-        
+
         let fInd: string | number = 0
         for (let i in list) {
             if (list[i].id === index) {
@@ -218,7 +219,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
             return
         }
 
-        
+
 
         if (src.droppableId === dest.droppableId) {
             // debugger
@@ -257,7 +258,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
         console.log(currentProject)
 
-        
+
     }
 
 

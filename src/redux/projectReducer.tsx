@@ -91,6 +91,7 @@ const initialState: InitialStateType = {
             projectType: 'Software project',
             key: 'P1',
             lead: 'Vachagan',
+            backlogSecIssueArr: [],
             defaultAssignee: 'Unissagned',
             board: { ...boardExample, boardUniqName: "Sprint 1 board" },
             boardUniqName: "Sprint 1 board"
@@ -101,6 +102,7 @@ const initialState: InitialStateType = {
             name: 'Sprint 2',
             projectType: 'Software project',
             key: 'P2',
+            backlogSecIssueArr: [],
             lead: 'Karlen',
             defaultAssignee: 'Unissagned',
             board: { ...boardExample, boardUniqName: "Sprint 2 board" },
@@ -136,7 +138,10 @@ const initialState: InitialStateType = {
 
     currentProjectNumber: 0,
 
-    allProjectsIssueArr: []
+    allProjectsIssueArr: [],
+
+    backlogIssueArr: [],
+
 
 }
 
@@ -147,6 +152,7 @@ export type InitialStateType = {
     getBoardIssueItem: IssuesType,
     currentProjectNumber: number,
     allProjectsIssueArr: Array<IssuesType>,
+    backlogIssueArr: Array<IssuesType>,
 }
 
 
@@ -167,6 +173,12 @@ export const projectSlice = createSlice({
         changeBoardToProject(state: InitialStateType, action: PayloadAction<string>) {
             // state.currentProject = action.payload
         },
+
+        setBacklogIssueArr(state: InitialStateType, action: PayloadAction<Array<IssuesType>>) {
+            state.backlogIssueArr = action.payload
+        },
+
+
         addingBoardToProject(state: InitialStateType, action: PayloadAction<{ projectName: string, board: InitialStateBoardOverlayType }>) {
 
             // console.log(action.payload.board)
@@ -693,9 +705,42 @@ export const projectSlice = createSlice({
         },
 
         changeGetBoardIssueItemFunc(state: InitialStateType, action: PayloadAction<IssuesType>) {
-            debugger
+
             console.log(current(state), 'state.getBoardIssueItem')
             state.getBoardIssueItem = action.payload
+        },
+
+        addingIssueInBacklogFunc(state: InitialStateType, action: PayloadAction<IssuesType>) {
+
+            for (let i in state.projectArr) {
+                if (state.projectArr[i].name === action.payload.issuesProject) {
+                    state.projectArr[i].board.boardArr.map((val) => {
+
+                        if (val.uniqText === action.payload.issueStatus) {
+
+                            val.boardIssue.push(action.payload)
+                            val.boardIssue.map((val1, ind1) => {
+                                val1.id = Number(ind1) + 1
+                            })
+
+                        }
+                    })
+                }
+            }
+
+        },
+        addIssueToBacklogArr(state: InitialStateType, action: PayloadAction<{ str: string, obj: IssuesType }>) {
+            for (let i in state.projectArr) {
+                if (state.projectArr[i].name === action.payload.str) {
+                    state.projectArr[i].backlogSecIssueArr.push(action.payload.obj)
+
+                    state.projectArr[i].backlogSecIssueArr.map((val1, ind1) => {
+                        val1.id = Number(ind1) + 1
+                    })
+                }
+            }
+
+            console.log(current(state))
         },
 
         changeAllBoardItems(state: InitialStateType, action: PayloadAction<InitialStateBoardOverlayType>) {
@@ -730,6 +775,7 @@ export type ProjectType = {
     lead: string,
     board: InitialStateBoardOverlayType,
     defaultAssignee: string,
+    backlogSecIssueArr: Array<IssuesType>,
     boardUniqName: string
 }
 

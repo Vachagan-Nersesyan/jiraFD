@@ -221,3 +221,23 @@ export function filterBoardByGlobalTypeUtFunc(str: string, items: Array<IssuesTy
 
 
 }
+
+
+export function filterBacklogUtFunc(str: string, items: Array<IssuesType>) {
+
+    let itemsClone: Array<IssuesType> = []
+
+
+    items.filter((val) => {
+        if (val.summary.includes(str)) {
+
+            itemsClone.push(val)
+        }
+    })
+
+    console.log(itemsClone)
+
+    return itemsClone
+
+
+}

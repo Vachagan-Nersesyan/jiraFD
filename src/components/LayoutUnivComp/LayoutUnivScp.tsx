@@ -19,12 +19,19 @@ import { FaAffiliatetheme, FaAirbnb, FaAlgolia, FaAlignLeft, FaAlipay, FaAmazonP
 
 import firstPic from './1.svg'
 import secondPic from './2.svg'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../redux/redux-store'
 
 
 const { Header, Sider, Content } = Layout;
 
 
-const LayoutUnivComp: React.FC<OwnProps> = (props) => {
+const LayoutUnivComp: React.FC<OwnProps> = () => {
+
+    const currentProjectNumberComp = useSelector((state: AppStateType) => state.project.currentProjectNumber)
+
+    // console.log(currentProjectNumberComp,'currentProjectNumberComp')
+
 
     const [btnOnCollapsed, setBtnOnCollapsed] = useState(true)
 
@@ -202,14 +209,17 @@ const LayoutUnivComp: React.FC<OwnProps> = (props) => {
                                                     </div>
                                                 ), '1'),
                                                 getItem((
-                                                    <div className={styles.layout_sider_inner_menu_content}>
-                                                        <div className={styles.layout_sider_inner_menu_content_1_item}>
-                                                            <FaChartBar />
+                                                    <NavLink to={`/jiraItems/backblog/${currentProjectNumberComp}`}>
+                                                        <div className={styles.layout_sider_inner_menu_content}>
+                                                            <div className={styles.layout_sider_inner_menu_content_1_item}>
+                                                                <FaChartBar />
+                                                            </div>
+                                                            <div className={styles.layout_sider_inner_menu_content_2_item}>
+                                                                Backlog
+                                                            </div>
                                                         </div>
-                                                        <div className={styles.layout_sider_inner_menu_content_2_item}>
-                                                            Backlog
-                                                        </div>
-                                                    </div>
+                                                    </NavLink>
+
                                                 ), '2'),
                                                 getItem((
                                                     <div className={styles.layout_sider_inner_menu_content}>
