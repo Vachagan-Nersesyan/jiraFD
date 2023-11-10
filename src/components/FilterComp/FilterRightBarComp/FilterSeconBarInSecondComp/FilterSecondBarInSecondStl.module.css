@@ -1,0 +1,42 @@
+.filter_sec_part_content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.filter_itm {
+    padding-right: 2em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1em;
+    font-weight: 800;
+}
+
+.filter_itm_othr{
+    padding:0 2em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1em;
+    font-weight: 800;
+}
+
+.filter_inp_itm{
+    margin-right: 1em;
+}
+
+.filter_sec_col{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filter_sec_col_content svg{
+    font-size: 1.5em;
+    color: #172B4D;
+}
+
+.fitler_rg_bar_views_content{
+    color: #172B4D;
+    font-size: 1em;
+    font-weight: 800;
+}

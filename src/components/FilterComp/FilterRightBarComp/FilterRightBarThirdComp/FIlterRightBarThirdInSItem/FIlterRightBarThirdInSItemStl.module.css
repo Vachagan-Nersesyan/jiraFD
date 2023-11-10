@@ -1,0 +1,104 @@
+.filter_rg_br_rg_prt_cnt_col {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.filter_rg_br_rg_prt_cnt_col {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: .5em;
+}
+
+.filter_rg_br_rg_prt_cnt_col_sec {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 2em;
+}
+
+.filter_rg_br_rg_prt_cnt_col_sec button {
+    margin-left: .5em;
+    font-size: 1em;
+    border: none;
+    box-shadow: none;
+}
+
+.filter_rg_br_rg_prt_cnt_col:last-child {
+    margin-bottom: 2em;
+}
+
+.filter_rg_br_rg_prt_cnt_col button {
+    margin-left: .5em;
+    font-size: 1.5em;
+    border: none;
+    box-shadow: none;
+}
+
+.filter_rg_br_rg_prt_cnt_col_dropdown_cont ul li:hover {
+    background-color: transparent !important;
+}
+
+.filter_rg_br_rg_prt_cnt_col_dropdown_cont_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+    transition: .3s ease-in-out;
+}
+
+.filter_rg_br_rg_prt_cnt_col_dropdown_cont_item:hover {
+    background-color: #f1f1f1;
+}
+
+.filt_rig_s_itm_content {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1em;
+}
+
+.filt_rig_s_itm_content_ovrl {
+    margin-bottom: 1em;
+}
+
+.filt_rig_s_itm_sec_cont {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.filter_rg_br_rg_prt_forth_content {
+    margin-bottom: 1em;
+}
+
+.filter_rg_br_rg_prt_content_container {
+    height: 35em;
+    overflow: scroll;
+}
+
+.filter_rg_br_rg_itm_footer_content_container_sec_col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filter_rg_br_rg_itm_footer_cnt {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.filter_rg_br_rg_itm_footer_content_container_sec_col {
+    padding-top: 1em;
+}
+
+.filter_rg_br_rg_itm_footer_content_container_sec_col a {
+    text-decoration: none;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1em;
+}
+
+.filter_rg_br_rg_itm_footer_content_container{
+    margin-bottom: 2em;
+}

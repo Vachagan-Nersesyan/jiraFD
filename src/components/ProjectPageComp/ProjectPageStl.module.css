@@ -1,0 +1,90 @@
+.project_page_content_in_1_sect_title {
+    font-size: 1.5em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: .5em;
+}
+
+.project_page_content_in_1_sect_title span {
+    font-size: .5em;
+    color: #0C66E4;
+    background-color: #E9F2FF;
+    font-weight: 800;
+    border: 1px solid #0C66E4;
+    padding: .5em;
+}
+
+.project_page_content_in_1_sect_2_item {
+    font-size: 1em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 2em;
+}
+
+.project_page_content_in_1_sect_3_item_content_1_item {
+    font-size: 1em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: .5em;
+}
+
+.project_page_content_in_tab_content_overlay {
+    display: flex;
+    justify-content: flex-end;
+}
+.project_page_content_in_1_sect_2_item_picture_overlay{
+    height:30em;
+    overflow: hidden;
+}
+.project_page_content_in_1_sect_2_item_picture {
+    height: 100%;
+    overflow: scroll;
+}
+.project_page_content_in_1_sect_2_item_picture img{
+    width: 100%;
+    height: auto;
+}
+
+.project_page_content_in_1_sect_3_item_content_1_item_1_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-weight: 800;
+    font-size: 1.2em;
+}
+
+.project_page_content_in_1_sect_3_item_content_1_item_2_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1em;
+}
+
+.development_page_content_overlay_sec_col{
+    overflow: hidden;
+}
+
+.project_page_content_in_tab_content_overlay{
+    text-align: left ;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: .5em;
+}
+
+.project_page_content_in_tab_content_overlay_icon{
+    margin-right: .5em;
+}
+
+.project_page_content_in_tab_content{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.project_page_content_in_1_sect_3_item_content_tab{
+    overflow: hidden;
+}
+
+.development_page_content_overlay_first_col{
+    padding:0 2em !important;
+}

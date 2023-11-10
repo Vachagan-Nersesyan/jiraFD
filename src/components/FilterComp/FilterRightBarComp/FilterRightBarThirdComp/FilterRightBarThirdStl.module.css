@@ -1,0 +1,37 @@
+.filter_right_bar_third_part_content {
+    padding-top: 3em;
+}
+
+.filter_first_col {
+    height: 40em;
+    overflow: scroll;
+}
+
+.filter_first_col_title {
+    margin-bottom: .5em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.filter_first_col_title_1_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1.2em;
+    font-weight: 800;
+    margin-right: 1em;
+}
+
+
+.filter_right_bar_third_part_content_issue_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.filter_right_bar_third_part_content_issue_item_in_item_2 {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}

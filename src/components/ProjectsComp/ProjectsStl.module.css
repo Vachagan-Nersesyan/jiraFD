@@ -1,0 +1,87 @@
+.project_content_container {
+    padding-top: 5em;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.project_content_title {
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-weight: 800;
+    font-size: 2em;
+    border-bottom: 2px solid #F1F2F4;
+}
+
+.project_content_sec_item {
+    margin-bottom: 1em;
+}
+
+.project_content_third_item {
+    margin-bottom: 2em;
+    display: flex;
+
+}
+
+.project_content_sec_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1.2em;
+}
+
+.sect_item {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project_content_third_item_content_list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+.project_content_third_item_content_in_txt_content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-right: 2em;
+}
+
+.project_content_third_item_content_in_txt_content_1_item {
+    margin-right: 1em;
+}
+
+.project_content_third_item_content_in_txt_content_2_item_1_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+}
+
+.project_content_third_item_content_in_txt_content_2_item_2_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: .8em;
+    margin-bottom: 1em;
+}
+
+.project_content_third_item_content_in_txt_content_2_item_3_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: .8em;
+    margin-bottom: 1em;
+}
+
+.project_tab_content_title{
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-weight: 800;
+}
+
+.project_tab_last_item{
+    background-color: #f1f1f1;
+    color: #172B4D;
+    box-shadow: none;
+}

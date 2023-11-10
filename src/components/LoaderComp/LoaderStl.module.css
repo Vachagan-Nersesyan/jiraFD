@@ -1,0 +1,9 @@
+.loader_gif_comp_content{
+    display: flex;
+    justify-content: center;
+}
+
+.loader_gif_comp_content img{
+    width: 40%;
+    height: 40%;
+}

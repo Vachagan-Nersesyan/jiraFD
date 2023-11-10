@@ -1,0 +1,35 @@
+.all_project_content {
+    padding-top: 6em;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.project_content_title {
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-weight: 800;
+    font-size: 2em;
+}
+
+.dashboard_cont_col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.all_proj_second_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.dashboard_filter_title{
+    font-family: 'Oxygen', sans-serif;
+    color: #626F86;
+    font-weight: 800;
+}
+
+.dashboard_filter_content{
+    margin-right: 1em;
+}

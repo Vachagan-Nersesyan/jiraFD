@@ -1,0 +1,78 @@
+.main_bar_sub_right_bar_content_2_itm {
+    height: 30em;
+    overflow: scroll;
+}
+
+.main_bar_right_cnt_title {
+    font-size: 2em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+}
+
+.main_bar_sttngs_itm_admin_contentsec_ovrl {
+    text-decoration: none;
+}
+
+.main_bar_sub_right_bar_content_2_itm ul li:hover {
+    background-color: transparent !important;
+
+}
+
+.main_bar_sttngs_itm_title {
+    font-size: .8em;
+    font-weight: 800;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+}
+
+.main_bar_sttngs_itm_admin_content {
+    margin-bottom: 1em;
+}
+
+.main_bar_sttngs_itm_admin_contentsec_row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.main_bar_sub_right_bar_content_2_itm_icon {
+    color: #44546F;
+    font-size: 1.5em;
+}
+
+.main_bar_sttngs_itm_admin_contentsec_col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main_bar_sttngs_itm_admin_contentsec_col svg {
+    color: #172B4D;
+    font-size: 1em;
+}
+
+.main_bar_sttngs_itm_admin_contentsec_f_col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_bar_sttngs_itm_admin_contentsec_f_col_title svg {
+    color: #172B4D;
+    font-size: 1.3em;
+}
+
+.main_bar_sttngs_itm_admin_content_1_item {
+    color: #172B4D;
+    font-weight: 800;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 1em;
+}
+
+.main_bar_sttngs_itm_admin_content_2_item {
+    color: #172B4D;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 1em;
+}

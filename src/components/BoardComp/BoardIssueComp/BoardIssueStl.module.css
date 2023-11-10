@@ -1,0 +1,101 @@
+.timeline_content_in_forth_card_section_in_item_1_item_other_itm {
+    height: 10em;
+    /* background-color: #FFFFFF; */
+    overflow: hidden;
+    padding: 1em;
+    transition: .3s;
+}
+
+.timeline_content_in_forth_card_section_in_item_1_item_other_itm:hover {
+    background-color: #E9EBEE
+}
+
+
+.timeline_content_in_forth_card_section_in_item_1_item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.timeline_content_in_forth_card_section_in_item_1_item input {
+    width: 100%;
+}
+
+
+.timeline_content_in_forth_card_section_in_item_1_item_content,
+.timeline_content_in_forth_card_section_in_item_2_item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.timeline_content_in_forth_card_section_in_item_1_item_content_1_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timeline_content_in_forth_card_section_in_item_1_item_content_1_item_title {
+    margin-right: .5em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+
+.timeline_content_in_forth_card_section_in_item_1change_name {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.timeline_content_in_forth_card_section_in_item_1change_name_in_1_item {
+    width: 100%;
+    margin-bottom: .5em;
+}
+
+.timeline_content_in_forth_card_section_in_item_1change_name_in_1_item input {
+    width: 100%;
+}
+
+.timeline_content_in_forth_card_section_in_item_1change_name_in_2_item {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.timeline_content_in_forth_card_section_in_item_1change_name_in_2_in_item {
+    border: 1px solid black;
+    margin-left: .5em;
+    cursor: pointer;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    padding: .5em;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_title {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_title svg {
+    margin-right: .5em;
+    color: red;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_inp_nm {
+    width: 3em;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item button {
+    margin-left: .5em;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_title_elps svg {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.board_issue_modal_itm {
+    width: 100% !important;
+}

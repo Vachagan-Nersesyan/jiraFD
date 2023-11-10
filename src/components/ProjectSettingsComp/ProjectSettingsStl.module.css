@@ -1,0 +1,12 @@
+.development_page_content_form_content{
+    margin:  0 auto;
+    width: 30%;
+}
+
+.development_page_content_form_content_change_icon{
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

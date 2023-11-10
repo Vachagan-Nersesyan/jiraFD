@@ -1,0 +1,31 @@
+.filter_first_bar_right_cnt{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filter_first_col{
+    height: 30em;
+    overflow: scroll;
+}
+
+.filter_second_col{
+    padding: 2em;
+}
+
+.filter_rght_br_col_cnt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.btn{
+    background-color: red;
+}
+
+.filter_rg_br_rg_prt_cnt_col{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}

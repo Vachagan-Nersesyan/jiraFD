@@ -1,0 +1,33 @@
+.all_project_content {
+    padding-top: 6em;
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+.project_content_title {
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-weight: 800;
+    font-size: 2em;
+    border-bottom: 2px solid #F1F2F4;
+}
+
+.all_proj_cont_col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.all_proj_second_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.all_proj_drpds_itm svg {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1.5em;
+}

@@ -1,0 +1,33 @@
+.timeline_content_in_third_section_sec_col_title {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-right: 1em;
+}
+
+.timeline_content_in_third_section_sec_col {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.timeline_content_in_third_section_sec_col button {
+    margin-left: 1em;
+}
+
+.timeline_content_in_third_section_sec_col button:last-child svg {
+    font-size: 1.2em;
+    margin-right: .2em;
+}
+
+.timeline_content_in_forth_card_section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.timeline_content_in_forth_card_section_in_card {
+    margin-right: 1em;
+    background-color: #F7F8F9;
+    /* background-color: red; */
+
+}

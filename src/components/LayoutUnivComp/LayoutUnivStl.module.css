@@ -1,0 +1,213 @@
+.layout_content {
+    height: 100%;
+    background-color: #FFFFFF;
+    padding-top: 2em;
+    /* overflow: hidden; */
+}
+
+.layout_content_container {
+    height: 100%;
+}
+
+.filter_content_overl {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    height: 100%;
+    z-index: 2;
+}
+
+.layout_univ_siders {
+    padding: 3.5em 0;
+    overflow: hidden;
+    left: 0;
+    position: fixed;
+    z-index: 3;
+    background-color: #FFFFFF !important;
+    border-right: 10px solid #172B4D;
+    height: 100%;
+    transition: .3s ease-in-out;
+}
+
+.filter_sider_button_ovrl {
+    padding-top: 8em;
+}
+
+.filter_sider_button {
+    border-radius: 50%;
+    transform: translateX(-.5em);
+    z-index: 4;
+    background-color: white;
+    border: 2px solid #EEEFF2;
+    transition: .3s;
+}
+
+.filter_sider_button:hover {
+    background-color: #1677FF !important;
+    transition: .3s;
+}
+
+.side_bar_layout_itm {
+    padding: 0 1em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.side_bar_layout_itm_logo {
+    margin-right: 1em;
+}
+
+.side_bar_layout_itm_1_item {
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 800;
+    color: #172B4D;
+}
+
+.side_bar_layout_itm_2_item {
+    font-family: 'Oxygen', sans-serif;
+    font-size: .7em;
+    color: #172B4D;
+}
+
+.side_bar_layout_itm_sec {
+    display: flex;
+    padding: 0 1em;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
+.side_bar_layout_itm_sec_1_item {
+    font-family: 'Oxygen', sans-serif;
+    font-size: .8em;
+    color: #172B4D;
+    font-weight: 800;
+    margin-bottom: 1.5em;
+}
+
+.side_bar_layout_itm_sec_2_item a {
+    text-decoration: none;
+    border: 1px solid #2168E3;
+    color: #2168E3;
+    padding: .5em 1em;
+    border-radius: 1em;
+    transition: .3s ease-in-out;
+}
+
+.side_bar_layout_itm_sec_2_item a:hover {
+    background-color: #1677FF;
+    color: white;
+}
+
+.layout_sider_inner_menu_title {
+    font-family: 'Oxygen', sans-serif;
+    font-size: .8em;
+    color: #172B4D;
+    font-weight: 800;
+}
+
+
+.side_bar_layout_itm ul li ul li {
+    padding: 1.5em !important;
+}
+
+.layout_sider_inner_menu_content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.side_bar_layout_itm_oth {
+    padding: 1em;
+    transition: .3s ease-in-out;
+}
+
+.side_bar_layout_itm_oth:hover {
+    background-color: #f1f1f1;
+}
+
+.side_bar_layout_other_item {
+    color: #172B4D;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'Oxygen', sans-serif;
+    transition: .3s ease-in-out;
+}
+
+.side_bar_layout_other_item svg {
+    margin-right: .5em;
+    font-size: 1.2em;
+}
+
+.side_bar_layout_other_item a {
+    margin-right: .5em;
+    font-family: 'Oxygen', sans-serif;
+    text-decoration: none;
+    color: #172B4D;
+}
+
+.side_bar_layout_itm_oth_last {
+    padding-top: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.side_bar_layout_itm_oth_last_1_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.side_bar_layout_itm_oth_last_2_item a {
+    font-weight: 800;
+    font-family: 'Oxygen', sans-serif;
+    text-decoration: none;
+    color: #172B4D;
+}
+
+.side_bar_layout_itm_oth_last_2_item a:hover {
+    text-decoration: underline;
+}
+
+.layout_first_modal {
+    font-weight: 800;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.side_bar_layout_itm_oth_f_modal_btn {
+    cursor: pointer;
+    font-family: 'Oxygen', sans-serif;
+    color: #1677FF;
+    border: 1px solid #1677FF;
+    padding: .5em 1em;
+    margin-left: .1em;
+    transition: .3s ease-in-out;
+}
+
+.side_bar_layout_itm_oth_f_modal_btn:hover {
+    background-color: #1677FF;
+    color: white;
+}
+
+.layout_first_modal_inp_txt {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.layout_first_modal_third_mdl_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: .5em;
+}
+
+.layout_first_modal_inp_txt_label_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: .8em;
+    margin-bottom: 1em;
+}
