@@ -316,6 +316,50 @@ export const projectSlice = createSlice({
         },
 
 
+        addIssueBacklogToBoardFunc(state: InitialStateType, action: PayloadAction<{ obj: IssuesType, projectName: string }>) {
+            for (let i in state.projectArr) {
+                if (state.projectArr[i].name === action.payload.projectName) {
+                    state.projectArr[i].board.boardArr[0].boardIssue.push(action.payload.obj)
+                    state.projectArr[i].backlogSecIssueArr.map((val, ind) => {
+
+                        if (val.uniqId === action.payload.obj.uniqId) {
+
+                            state.projectArr[i].backlogSecIssueArr.splice(ind, 1)
+                        }
+                    })
+                }
+            }
+
+        },
+
+        addFlagToBacklogIssueFunc(state: InitialStateType, action: PayloadAction<string>) {
+            for (let i in state.projectArr) {
+                if (state.projectArr[i].name === state.getBoardIssueItem.issuesProject) {
+                    state.projectArr[i].backlogSecIssueArr.map((val, ind) => {
+
+                        if (val.uniqId === state.getBoardIssueItem.uniqId) {
+                            val.flag = !val.flag
+                            state.getBoardIssueItem.flag = !state.getBoardIssueItem.flag
+                        }
+                    })
+                }
+            }
+        },
+
+        deleteFlagToBacklogIssueFunc(state: InitialStateType, action: PayloadAction) {
+            for (let i in state.projectArr) {
+                if (state.projectArr[i].name === state.getBoardIssueItem.issuesProject) {
+                    state.projectArr[i].backlogSecIssueArr.map((val, ind) => {
+                        if (val.uniqId === state.getBoardIssueItem.uniqId) {
+
+                            state.projectArr[i].backlogSecIssueArr.splice(ind, 1)
+                        }
+                    })
+                }
+            }
+        },
+
+
 
         // boards functions start
 

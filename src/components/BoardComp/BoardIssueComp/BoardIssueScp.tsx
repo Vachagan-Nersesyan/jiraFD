@@ -16,7 +16,7 @@ import { BoardArrType } from '../../../redux/projectReducer';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 
-const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc,getBoardIssueItem, deleteIssueFunc, addIssueFlagFunc, valueInd, val, addDesctiptionIssFunc, val2, changeIssNameFunc }) => {
+const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBoardIssueItem, deleteIssueFunc, addIssueFlagFunc, valueInd, val, addDesctiptionIssFunc, val2, changeIssNameFunc }) => {
 
 
 

@@ -24,7 +24,7 @@ import BacklogSecCreateIssueComp from './BacklogSecCreateIssueComp/BacklogSecCre
 
 let backlogBoardIssuesArr: Array<IssuesType> = []
 
-const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ boardArr, backlogSecIssueArr, addIssueToBacklogArr, addingIssueInBacklogFunc, getBoardIssueItem, currentProjectName, backlogIssueArr, setBacklogIssueArr, changeGetBoardIssueItemFunc, deleteIssueFunc, addIssueFlagFunc }) => {
+const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ deleteFlagToBacklogIssueFunc, addFlagToBacklogIssueFunc, addIssueBacklogToBoardFunc, boardArr, backlogSecIssueArr, addIssueToBacklogArr, addingIssueInBacklogFunc, getBoardIssueItem, currentProjectName, backlogIssueArr, setBacklogIssueArr, changeGetBoardIssueItemFunc, deleteIssueFunc, addIssueFlagFunc }) => {
 
     useEffect(() => {
 
@@ -243,6 +243,25 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
         }
     ]
 
+    const backblogSettingsSecItmArr = [
+        {
+            key: '1',
+            label: (
+                <div onClick={() => addFlagToBacklogIssueFunc('')}>
+                    Add flag
+                </div>
+            )
+        },
+        {
+            key: '1',
+            label: (
+                <div onClick={() => deleteFlagToBacklogIssueFunc()}>
+                    Delete Issue
+                </div>
+            )
+        },
+    ]
+
 
 
 
@@ -299,6 +318,12 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
         addIssueToBacklogArr({ str, obj })
     }
 
+
+    const addIssueBacklogToBoardCompFunc = (obj: IssuesType, projectName: string) => {
+        // addIssueToBoardsFunc({ obj, uniqtext })
+        addIssueBacklogToBoardFunc({ obj, projectName })
+    }
+
     const collapseItems = [
         {
             key: '1',
@@ -328,6 +353,11 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                                             </div>
                                         </Col>
                                         <Col span={12} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col}>
+
+                                            <Button type='primary' onClick={() => addIssueBacklogToBoardCompFunc(val, currentProjectName)}>
+                                                Add to board
+                                            </Button>
+
                                             <Button>
                                                 <Dropdown menu={{
                                                     items: backblogEpicArr.map((val, ind) => {
@@ -369,7 +399,7 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                                             </div>
                                             <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
                                                 <Button>
-                                                    <Dropdown menu={{ items: backblogSettingsItmArr }}>
+                                                    <Dropdown menu={{ items: backblogSettingsSecItmArr }}>
                                                         <a onClick={(e) => e.preventDefault()}>
                                                             <Space>
                                                                 <FaEllipsis />
@@ -728,7 +758,10 @@ const BackblogCompCont = compose<React.ComponentType>(
         changeGetBoardIssueItemFunc: projectSlice.actions.changeGetBoardIssueItemFunc,
         setBacklogIssueArr: projectSlice.actions.setBacklogIssueArr,
         addingIssueInBacklogFunc: projectSlice.actions.addingIssueInBacklogFunc,
-        addIssueToBacklogArr: projectSlice.actions.addIssueToBacklogArr
+        addIssueToBacklogArr: projectSlice.actions.addIssueToBacklogArr,
+        addIssueBacklogToBoardFunc: projectSlice.actions.addIssueBacklogToBoardFunc,
+        addFlagToBacklogIssueFunc: projectSlice.actions.addFlagToBacklogIssueFunc,
+        deleteFlagToBacklogIssueFunc: projectSlice.actions.deleteFlagToBacklogIssueFunc
     })
 )(BackblogComp)
 
@@ -749,9 +782,16 @@ type MapDispatchToPropsType = {
     changeGetBoardIssueItemFunc: (obj: IssuesType) => void,
     setBacklogIssueArr: (arr: Array<IssuesType>) => void,
     addingIssueInBacklogFunc: (obj: IssuesType) => void,
-    addIssueToBacklogArr: ({ str, obj }: AddIssueToBacklogArrArgsType) => void
+    addIssueToBacklogArr: ({ str, obj }: AddIssueToBacklogArrArgsType) => void,
+    addIssueBacklogToBoardFunc: ({ obj, projectName }: AddIssueBacklogToBoardFuncArgsType) => void,
+    addFlagToBacklogIssueFunc: (str: string) => void,
+    deleteFlagToBacklogIssueFunc: () => void
 }
 
+export type AddIssueBacklogToBoardFuncArgsType = {
+    obj: IssuesType,
+    projectName: string,
+}
 
 
 export type AddIssueToBacklogArrArgsType = {
