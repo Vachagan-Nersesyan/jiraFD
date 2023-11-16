@@ -53,6 +53,13 @@ export const boardExample = {
         issuesChilds: [],
         flag: false,
         issueLabel: [],
+
+        issuesInnerItems: [],
+
+
+        isSubIssue: false
+
+
     },
 
     // }
@@ -79,6 +86,23 @@ export const getBoardIssueItemExample: IssuesType = {
     issuesChilds: [],
     flag: false,
     issueLabel: [],
+    issuesInnerItems: [],
+    isSubIssue: false
+
+
+}
+
+export const projectExample = {
+    id: 0,
+    picture: '',
+    name: 'Sprint 1',
+    projectType: 'Software project',
+    key: 'P1',
+    lead: 'Vachagan',
+    backlogSecIssueArr: [],
+    defaultAssignee: 'Unissagned',
+    board: { ...boardExample, boardUniqName: "" },
+    boardUniqName: ""
 }
 
 
@@ -122,6 +146,8 @@ const initialState: InitialStateType = {
         issueTypePic: '',
         issueStatus: '',
         currentDate: '',
+        issuesInnerItems: [],
+
         summary: '',
         descriptionText: '',
         description: [],
@@ -134,6 +160,9 @@ const initialState: InitialStateType = {
         issuesChilds: [],
         flag: false,
         issueLabel: [],
+
+        isSubIssue: false
+
     },
 
     currentProjectNumber: 0,
@@ -161,6 +190,82 @@ export const projectSlice = createSlice({
     initialState,
     reducers: {
 
+        createProjectFunc(state: InitialStateType, action: PayloadAction<{ name: string, key: string }>) {
+            
+            let newProjectClone = { ...projectExample }
+            newProjectClone.board = {...projectExample.board}
+
+            newProjectClone.id = state.projectArr.length
+            newProjectClone.name = action.payload.name
+            newProjectClone.key = action.payload.key
+            newProjectClone.board.boardUniqName = `${action.payload.name} board`
+            newProjectClone.boardUniqName = `${action.payload.name} board`
+
+            state.projectArr.push(newProjectClone)
+
+            // newProjectClone.board.boardUniqName = ''
+
+
+            console.log(current(state))
+
+        },
+
+        changeProjectInfoFunc(state: InitialStateType, action: PayloadAction<{ name: string, key: string, lead: string, defaultAssignee: string }>) {
+
+            
+            let currentProject = state.projectArr[state.currentProjectNumber]
+
+
+            for (let i in action.payload) {
+
+                switch (i) {
+                    case 'name': {
+
+                        currentProject.name = action.payload.name
+
+                        break
+                    }
+
+                    case 'key': {
+
+                        currentProject.key = action.payload.key
+
+                        break
+                    }
+
+
+                    case 'lead': {
+
+                        currentProject.lead = action.payload.lead
+
+                        break
+                    }
+
+
+                    case 'defaultAssignee': {
+
+                        currentProject.defaultAssignee = action.payload.defaultAssignee
+
+                        break
+                    }
+
+
+
+                    default: break
+                }
+
+                //     for(let j in currentProject){
+                //         if(i === j){
+                //             currentProject[`${i}`]  = 
+                //         }
+                //     }
+            }
+
+
+            console.log(currentProject)
+            console.log(current(state))
+        },
+
         setAllProjectsIssuesArr(state: InitialStateType, action: PayloadAction<Array<IssuesType>>) {
             state.allProjectsIssueArr = action.payload
         },
@@ -178,6 +283,62 @@ export const projectSlice = createSlice({
             state.backlogIssueArr = action.payload
         },
 
+        addIssueInnerIssueFunc(state: InitialStateType, action: PayloadAction<IssuesType>) {
+
+            for (let i in state.projectArr) {
+                if (state.projectArr[i].name === action.payload.issuesProject) {
+                    state.projectArr[i].board.boardArr.map((val) => {
+
+                        if (val.uniqText === state.getBoardIssueItem.issueStatus) {
+                            val.boardIssue.map((val2) => {
+
+                                if (val2.uniqId === state.getBoardIssueItem.uniqId) {
+
+                                    val2.issuesInnerItems.push(action.payload)
+                                    state.getBoardIssueItem.issuesInnerItems.push(action.payload)
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+
+            // debugger
+
+            console.log(current(state))
+        },
+
+        changeIssueInnerIssueSummary(state: InitialStateType, action: PayloadAction<{ str: string, id: string }>) {
+
+
+            for (let i in state.projectArr) {
+
+                if (state.projectArr[i].name === state.getBoardIssueItem.issuesProject) {
+                    state.projectArr[i].board.boardArr.map((val) => {
+
+                        if (val.uniqText === state.getBoardIssueItem.issueStatus) {
+                            val.boardIssue.map((val2) => {
+
+                                if (val2.uniqId === state.getBoardIssueItem.uniqId) {
+
+                                    val2.issuesInnerItems.map((val3, ind3) => {
+
+                                        if (val3.uniqId === action.payload.id) {
+                                            val3.summary = action.payload.str
+                                            state.getBoardIssueItem.issuesInnerItems[ind3].summary = action.payload.str
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+
+
+            console.log(current(state))
+
+        },
 
         addingBoardToProject(state: InitialStateType, action: PayloadAction<{ projectName: string, board: InitialStateBoardOverlayType }>) {
 
@@ -374,7 +535,7 @@ export const projectSlice = createSlice({
 
         addIssueToBoardsFunc(state: InitialStateType, action: PayloadAction<{ obj: IssuesType, uniqtext: string }>) {
 
-
+            debugger
             let currentBoard = state.projectArr[state.currentProjectNumber].board.boardArr
 
             for (let i in currentBoard) {
@@ -807,7 +968,7 @@ export const projectSlice = createSlice({
 })
 
 
-export const { changeGetBoardIssueItemFunc, setAllProjectsIssuesArr, changeAllBoardItems, changeBoardUniqName, setCurrentProject, addingCurrentBoardToProject, changeBoardToProject, addingIssueToCurrentBoard, addingBoardToProject } = projectSlice.actions
+export const { changeProjectInfoFunc, createProjectFunc, changeGetBoardIssueItemFunc, setAllProjectsIssuesArr, changeAllBoardItems, changeBoardUniqName, setCurrentProject, addingCurrentBoardToProject, changeBoardToProject, addingIssueToCurrentBoard, addingBoardToProject } = projectSlice.actions
 export default projectSlice.reducer
 
 export type ProjectType = {

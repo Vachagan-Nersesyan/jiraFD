@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import styles from './ProjectsStl.module.css'
 
@@ -9,9 +9,41 @@ import { Tabs, Dropdown, Space, Button } from 'antd';
 import type { TabsProps } from 'antd';
 import { NavLink } from "react-router-dom";
 import { FaAlignCenter } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import { AppStateType } from "../../redux/redux-store";
+import { IssuesType } from "../../redux/issuesReducer";
+import { useDispatch } from "react-redux";
+import { setCurrentProject } from "../../redux/projectReducer";
+
+let allProjectsWorkCompArr: Array<IssuesType> = []
+let allProjectsWorkCompAssigneArr: Array<IssuesType> = []
+
 
 
 const ProjectsComp: React.FC<OwnProps> = () => {
+
+    const allProjectsWorkComp = useSelector((state: AppStateType) => state.project.projectArr)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+
+        allProjectsWorkCompArr = []
+        allProjectsWorkCompAssigneArr = []
+
+        allProjectsWorkComp.map((val) => {
+            val.board.boardArr.map((val1) => {
+                val1.boardIssue.map((val2) => {
+                    allProjectsWorkCompArr.push(val2)
+
+                    if (val2.assignee === 'Vachagan') {
+                        allProjectsWorkCompAssigneArr.push(val2)
+                    }
+
+                })
+            })
+        })
+    }, [allProjectsWorkComp])
 
     const projInfoArr = [
         {
@@ -109,28 +141,18 @@ const ProjectsComp: React.FC<OwnProps> = () => {
         {
             id: 1,
             title: 'Project',
-            link: ''
+            link: '/jiraItems/allProjects'
         },
         {
             id: 2,
-            title: 'Board',
-            link: ''
+            title: 'Search People',
+            link: 'jiraItems/searchPeople'
         },
         {
             id: 3,
-            title: 'Filter',
-            link: ''
-        },
-        {
-            id: 4,
             title: 'Dashboard',
-            link: ''
+            link: 'jiraItems/dashboard'
         },
-        {
-            id: 5,
-            title: 'Plan',
-            link: ''
-        }
     ]
 
 
@@ -149,118 +171,60 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                     <div className={styles.project_tab_content_title}>
                         IN THE LAST WEEK
                     </div>
-                    <div>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={projectWorkedItmArr}
-                            renderItem={(item, index) => (
-                                <List.Item>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                        title={<a href="https://ant.design">{item.title}</a>}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                    />
-                                </List.Item>
-                            )}
-                        />
-                    </div>
-                    <div className={styles.project_tab_content_title}>
-                        IN THE LAST MONTH
-                    </div>
-                    <div>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={projectWorkedItmLstWkArr}
-                            renderItem={(item, index) => (
-                                <List.Item>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                        title={<a href="https://ant.design">{item.title}</a>}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                    />
-                                </List.Item>
-                            )}
-                        />
-                    </div>
+                    {
+                        allProjectsWorkCompArr.map((val) => {
+                            return (
+                                <NavLink to={`/jiraItems/issues/${val.id}`}>
+                                    <div>
+                                        <div>
+                                            <img src={val.issueTypePic} />
+                                        </div>
+                                        <div>
+                                            {val.summary}
+                                        </div>
+                                        <div>
+                                            {val.issuesProject}
+                                        </div>
+                                    </div>
+                                </NavLink>
+                            )
+                        })
+                    }
+
                 </div>
             ),
         },
         {
             key: '2',
-            label: 'Viewed',
-            children: (
+            label: (
                 <div>
-                    <div className={styles.project_tab_content_title}>
-                        TODAY
-                    </div>
-                    <div>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={projectWorkedTdItmArr}
-                            renderItem={(item, index) => (
-                                <List.Item>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                        title={<a href="https://ant.design">{item.title}</a>}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                    />
-                                </List.Item>
-                            )}
-                        />
-                    </div>
-                    <div className={styles.project_tab_content_title}>
-                        YESTERDAY
-                    </div>
-                    <div>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={projectWorkedYstdItmLstWkArr}
-                            renderItem={(item, index) => (
-                                <List.Item>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                        title={<a href="https://ant.design">{item.title}</a>}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                    />
-                                </List.Item>
-                            )}
-                        />
-                    </div>
+                    Assigned to me <span>{allProjectsWorkCompAssigneArr.length}</span>
                 </div>
+            ),
+            children: (
+
+                allProjectsWorkCompAssigneArr.map((val) => {
+                    return (
+                        <NavLink to={`/jiraItems/issues/${val.id}`}>
+                            <div>
+                                <div>
+                                    <img src={val.issueTypePic} />
+                                </div>
+                                <div>
+                                    {val.summary}
+                                </div>
+                                <div>
+                                    {val.issuesProject}
+                                </div>
+                            </div>
+                        </NavLink>
+                    )
+                })
+
             ),
         },
         {
             key: '3',
-            label: (
-                <div>
-                    Assigned to me <span>0</span>
-                </div>
-            ),
-            children: (
-                <div>
-                    <div className={styles.project_tab_content_title}>
-                        IN PROGRESS
-                    </div>
-                    <div>
-                        <List
-                            itemLayout="horizontal"
-                            dataSource={projectWorkedInPrgItmArr}
-                            renderItem={(item, index) => (
-                                <List.Item>
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                        title={<a href="https://ant.design">{item.title}</a>}
-                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                    />
-                                </List.Item>
-                            )}
-                        />
-                    </div>
-                </div>
-            ),
-        },
-        {
-            key: '4',
             label: 'Starred',
             children: (
                 <div>
@@ -298,7 +262,7 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                         Recent projects
                     </Col>
                     <Col className={styles.sect_item} span={12}>
-                        <NavLink to={'/'}>
+                        <NavLink to={'/jiraItems/allProjects'}>
                             View all projects
                         </NavLink>
                     </Col>
@@ -306,7 +270,7 @@ const ProjectsComp: React.FC<OwnProps> = () => {
             </div>
             <div className={styles.project_content_third_item}>
                 {
-                    projInfoArr.map((item) => {
+                    allProjectsWorkComp.map((item) => {
                         return (
                             <div className={styles.project_content_third_item_content_in_txt_content}>
                                 <div className={styles.project_content_third_item_content_in_txt_content_1_item}>
@@ -314,54 +278,17 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                                 </div>
                                 <div className={styles.project_content_third_item_content_in_txt_content_2_item}>
                                     <div className={styles.project_content_third_item_content_in_txt_content_2_item_1_item}>
-                                        {item.subtitle}
+                                        {item.name}
                                     </div>
                                     <div className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
                                         QUICK LINKS
                                     </div>
                                     <div className={styles.project_content_third_item_content_in_txt_content_2_item_3_item}>
-                                        <Row>
-                                            <Col span={16} className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
-                                                My open issues
-                                            </Col>
-                                            <Col span={8}>
-                                                {item.openIs}
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                    <div>
-                                        <Row>
-                                            <Col span={16} className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
-                                                Done issues
-                                            </Col>
-                                            <Col span={8}>
-                                                {item.doneIs}
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                    <div>
-                                        <Dropdown menu={{
-                                            items: [
-                                                {
-                                                    label: (
-                                                        item.boardName.map((val) => {
-                                                            return (
-                                                                <div>
-                                                                    {val}
-                                                                </div>
-                                                            )
-                                                        })
-                                                    ),
-                                                    key: '1'
-                                                },
-                                            ]
-                                        }} trigger={['click']}>
-                                            <a onClick={(e) => e.preventDefault()}>
-                                                <Space className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
-                                                    1 board
-                                                </Space>
-                                            </a>
-                                        </Dropdown>
+
+                                        <NavLink onClick={() => dispatch(setCurrentProject(item.id))} to={`/jiraItems/board/${item.id}`} className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
+                                            {item.boardUniqName}
+                                        </NavLink>
+
                                     </div>
                                 </div>
                             </div>

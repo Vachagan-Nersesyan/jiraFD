@@ -9,6 +9,7 @@
     box-shadow: -1px 12px 7px -1px rgba(244, 245, 247, 0.74);
     position: relative;
     z-index: 2;
+    background-color: white;
 }
 
 .menu {

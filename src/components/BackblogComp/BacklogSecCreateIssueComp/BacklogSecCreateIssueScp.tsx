@@ -49,6 +49,9 @@ const BacklogSecCreateIssueComp: React.FC<OwnProps> = ({ backlogSecCreateIssueCo
         issuesChilds: [],
         flag: false,
         issueLabel: [],
+        issuesInnerItems: [],
+        isSubIssue: false
+
     }
 
 

@@ -66,7 +66,7 @@ const MainBarAccountComp: React.FC<OwnProps> = () => {
         },
         {
             label: (
-                <NavLink to={'/'} className={styles.main_bar_user_cntn_link}>
+                <NavLink to={'/jiraItems/userPage'} className={styles.main_bar_user_cntn_link}>
                     Profile
                 </NavLink>
             ),

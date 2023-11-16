@@ -50,6 +50,9 @@ const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlo
         issuesChilds: [],
         flag: false,
         issueLabel: [],
+        issuesInnerItems: [],
+        isSubIssue : false
+
     }
 
 

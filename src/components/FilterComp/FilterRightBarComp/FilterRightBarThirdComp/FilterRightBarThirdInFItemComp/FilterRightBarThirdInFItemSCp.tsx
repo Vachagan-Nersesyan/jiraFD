@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import styles from './FilterRightBarThirdInFItemStl.module.css'
 import { Breadcrumb, Button, Col, Input, Row, Space } from 'antd'
-import { FaChartBar, FaChartLine, FaEllipsis, FaFileWord, FaLink, FaUser, FaUserLarge } from 'react-icons/fa6'
+import { FaChartBar, FaChartLine, FaCheck, FaClosedCaptioning, FaEllipsis, FaEye, FaFileWord, FaLink, FaPencil, FaUser, FaUserLarge } from 'react-icons/fa6'
 import { IssuesCommentsType, IssuesType } from '../../../../../redux/issuesReducer'
 import { AppStateType } from '../../../../../redux/redux-store'
 import { connect, useSelector } from 'react-redux'
 
 import { compose } from 'redux'
 import { ChangeIssNameFuncType } from '../../../../BoardComp/BoardScp'
-import { projectSlice } from '../../../../../redux/projectReducer'
+import { changeGetBoardIssueItemFunc, projectSlice } from '../../../../../redux/projectReducer'
+import { v4 as uuidv4 } from 'uuid';
+
 
 import IssueCommentComp from './FilterItemsIssueCommentComp/FilterItemsIssueCommentScp'
+import { useDispatch } from 'react-redux'
 
-const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ getBoardIssueItem, deleteCommentIssueFunc, changeCommentIssueFunc, addCommentIssueFunc, changeIssDescriptionFunc, changeIssNameFunc }) => {
+const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ changeIssueInnerIssueSummary, addIssueInnerIssueFunc, issuesInnerItems, getBoardIssueItem, deleteCommentIssueFunc, changeCommentIssueFunc, addCommentIssueFunc, changeIssDescriptionFunc, changeIssNameFunc }) => {
 
 
     console.log(getBoardIssueItem, 'getBoardIssueItem')
+
+    const dispatch = useDispatch()
 
 
     const [issueNameTp, setIssueNameTp] = useState<boolean>(false)
@@ -26,6 +31,9 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
     const [issueCommentTp, setIssueCommentTp] = useState<boolean>(false)
     const [issueComment, setIssueComment] = useState<string>('')
+
+
+    const [addChildItems, setAddChildItems] = useState<boolean>(false)
 
 
 
@@ -46,7 +54,64 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
         setIssueComment('')
     }
 
-    console.log(getBoardIssueItem,'getBoardIssueItem')
+    const [innerIssueSummary, setInnerIssueSummary] = useState<string>('')
+
+
+
+
+    const addIssueInnerIssueCompFunc: () => void = () => {
+        let issueInnerObj: IssuesType = {
+            id: issuesInnerItems.length + 1,
+            uniqId: uuidv4(),
+            issuesProject: '',
+            issueTypeName: 'Task',
+            issueTypePic: '',
+            issueStatus: '',
+            currentDate: '',
+            descriptionText: '',
+            summary: '',
+            description: [],
+            assignee: '',
+            storyPoint: 0,
+            reporter: 'Vachagan',
+            issueShortName: '',
+            issueComments: [],
+            doneRecently: '',
+            issuesChilds: [],
+            flag: false,
+            issueLabel: [],
+            issuesInnerItems: [],
+            isSubIssue: false
+
+        }
+        issueInnerObj.issuesProject = getBoardIssueItem.issuesProject
+
+        issueInnerObj.issueStatus = 'todo'
+        issueInnerObj.isSubIssue = true
+
+
+
+
+        issueInnerObj.summary = innerIssueSummary
+
+        issueInnerObj.issueTypePic = '/pictures/issueImages/5.svg'
+
+
+        let current = new Date();
+        let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+
+        issueInnerObj.currentDate = cDate
+
+        addIssueInnerIssueFunc(issueInnerObj)
+
+        setInnerIssueSummary('')
+
+    }
+
+    console.log(getBoardIssueItem, 'getBoardIssueItem')
+
+
+
 
 
     return (
@@ -99,6 +164,13 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
                     <Button><FaChartBar /></Button>
                     <Button ><FaChartLine /></Button>
                     <Button><FaEllipsis /></Button>
+                    {
+                        !getBoardIssueItem.isSubIssue
+                            ?
+                            <Button onClick={() => setAddChildItems(true)}>Add child</Button>
+                            :
+                            null
+                    }
                 </Space>
             </div>
             <div className={styles.filter_right_bar_third_in_1_item_content_4_item}>
@@ -134,6 +206,56 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
 
             </div>
+
+            {
+                !getBoardIssueItem.isSubIssue
+                    ?
+                    <div>
+                        {
+                            !addChildItems
+                                ?
+                                null
+                                :
+                                <div>
+                                    <div>
+                                        Create inner issues
+                                    </div>
+                                    <div>
+                                        <Input onChange={(e) => setInnerIssueSummary(e.target.value)} placeholder='What needs to be done?' />
+                                    </div>
+                                    <div>
+                                        <Button type='primary' onClick={() => addIssueInnerIssueCompFunc()}>Create</Button>
+                                        <Button onClick={() => setAddChildItems(false)}>Cancel</Button>
+                                    </div>
+                                </div>
+                        }
+
+                        {
+                            issuesInnerItems.length === 0
+                                ?
+                                null
+                                :
+                                <div>
+                                    Issue Inner Issues
+                                    {
+                                        issuesInnerItems.map((val) => {
+                                            return (
+                                                <SubIssueComp changeIssueInnerIssueSummary={changeIssueInnerIssueSummary} subIssueInfo={val} />
+                                            )
+                                        })
+                                    }
+                                </div>
+                        }
+                    </div>
+                    :
+                    null
+
+            }
+
+
+
+
+
             <div>
                 <FilterRightBarNavBarForthItemComp />
             </div>
@@ -218,8 +340,14 @@ export const FilterRightBarNavBarForthItemComp: React.FC<{}> = () => {
 
 
 function mapStateToProps(state: AppStateType): MapStateToPropsType {
+
+    let currentProjectNumberfst = state.project.currentProjectNumber
+
+
     return {
-        getBoardIssueItem: state.project.getBoardIssueItem
+        getBoardIssueItem: state.project.getBoardIssueItem,
+        issuesInnerItems: state.project.getBoardIssueItem.issuesInnerItems,
+
     }
 }
 
@@ -230,7 +358,9 @@ const FilterRightBarThirdInFItemCompCont = compose<React.ComponentType>(
         changeIssDescriptionFunc: projectSlice.actions.changeIssDescriptionFunc,
         addCommentIssueFunc: projectSlice.actions.addCommentIssueFunc,
         changeCommentIssueFunc: projectSlice.actions.changeCommentIssueFunc,
-        deleteCommentIssueFunc: projectSlice.actions.deleteCommentIssueFunc
+        deleteCommentIssueFunc: projectSlice.actions.deleteCommentIssueFunc,
+        addIssueInnerIssueFunc: projectSlice.actions.addIssueInnerIssueFunc,
+        changeIssueInnerIssueSummary: projectSlice.actions.changeIssueInnerIssueSummary
     })
 )(FilterRightBarThirdInFItemComp)
 
@@ -242,7 +372,8 @@ type OwnProps = {
 }
 
 type MapStateToPropsType = {
-    getBoardIssueItem: IssuesType
+    getBoardIssueItem: IssuesType,
+    issuesInnerItems: Array<IssuesType>
 }
 
 type MapDispatchToPropsType = {
@@ -250,8 +381,14 @@ type MapDispatchToPropsType = {
     changeIssDescriptionFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
     addCommentIssueFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
     changeCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
-    deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void
+    deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
+    addIssueInnerIssueFunc: (obj: IssuesType) => void,
+    changeIssueInnerIssueSummary: ({ str, id }: ChangeIssueInnerIssueSummaryArgsType) => void
+}
 
+export type ChangeIssueInnerIssueSummaryArgsType = {
+    str: string,
+    id: string
 }
 
 export type ChangeCommentIssueFuncType = {
@@ -265,4 +402,84 @@ export type ChangeIssDescriptionFuncType = {
     str: string,
     id: number,
     boardName: string
+}
+
+
+
+// SUB ISSUE ITEM
+
+const SubIssueComp: React.FC<SubIssueOwnPropsType> = ({ subIssueInfo, changeIssueInnerIssueSummary }) => {
+
+    const dispatch = useDispatch()
+
+    const [innerIssueChangeNameCont, setInnerIssueChangeNameCont] = useState<boolean>(false)
+    const [innerIssueChangeName, setInnerIssueChangeName] = useState<string>('')
+
+    const changeIssueInnerIssueSummartCompFunc: (str: string, id: string) => void = (str: string, id: string) => {
+        changeIssueInnerIssueSummary({ str, id })
+    }
+
+
+
+
+    return (
+        <div>
+            <div>
+                <img src={subIssueInfo.issueTypePic} alt="" />
+            </div>
+            {
+                !innerIssueChangeNameCont
+                    ?
+                    <div>
+                        {
+                            subIssueInfo.summary
+                        }
+                    </div>
+                    :
+                    <div>
+                        <Input onChange={(e) => setInnerIssueChangeName(e.target.value)} />
+                        <div onClick={() => {
+                            setInnerIssueChangeNameCont(false)
+                            changeIssueInnerIssueSummartCompFunc(innerIssueChangeName, subIssueInfo.uniqId)
+                        }
+                        }>
+                            <FaCheck />
+                        </div>
+                        <div onClick={() => setInnerIssueChangeNameCont(false)}>
+                            <FaClosedCaptioning />
+                        </div>
+
+                    </div>
+            }
+
+            <div onClick={() => {
+                setInnerIssueChangeNameCont(true)
+            }}>
+                <FaPencil />
+            </div>
+
+            <div onClick={() => dispatch(changeGetBoardIssueItemFunc(subIssueInfo))}>
+                <FaEye />
+                Watch
+            </div>
+
+            <div>
+                {
+                    subIssueInfo.assignee
+                }
+            </div>
+            <div>
+                {
+                    subIssueInfo.issueStatus
+                }
+            </div>
+        </div>
+    )
+}
+
+
+type SubIssueOwnPropsType = {
+    subIssueInfo: IssuesType,
+    changeIssueInnerIssueSummary: ({ str, id }: ChangeIssueInnerIssueSummaryArgsType) => void
+
 }

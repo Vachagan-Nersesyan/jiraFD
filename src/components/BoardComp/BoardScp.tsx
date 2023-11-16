@@ -46,6 +46,8 @@ function withRouter<T extends PropsWithRouter>(Component: React.FC<T>):
 
 const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ router, addingBoardToProject, boardArr, getBoardIssueFunc, getBoardIssueItem, changeBoardLimitFunc, deleteBoardFunc, addIssueFlagFunc, deleteIssueFunc, updateChangedBoardArrFunc, addBoardFunc, addIssueToBoardsFunc, projectsArr, addDesctiptionIssFunc, changeIssNameFunc }) => {
 
+
+
     const currentProject = projectsArr[Number(router.params.id)]
 
     const dispatch = useDispatch()
@@ -64,7 +66,6 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
     const currentsecProject = useSelector((state: AppStateType) => state.project.currentBoard)
 
     useEffect(() => {
-
 
         setInitialBoardInfo(currentProject.board.boardArr)
     }, [currentProject])
@@ -104,7 +105,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
     }, [currentProject.board.boardArr])
 
 
-    
+
 
 
     const filterBoardCompSrcvlFunc: (str: string, board: Array<BoardArrType>) => void = (str: string, board: Array<BoardArrType>) => {
@@ -501,7 +502,10 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
     let currentProjectNumberfst = state.project.currentProjectNumber
 
+    debugger
+
     return {
+
         projectsArr: state.project.projectArr,
         // issuesArr: state.issues.filteredIssuesArr,
         boardArr: state.project.projectArr[currentProjectNumberfst].board.boardArr,

@@ -199,14 +199,17 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                                                 )
                                                 , 'sub1', '', [
                                                 getItem((
-                                                    <div className={styles.layout_sider_inner_menu_content}>
-                                                        <div className={styles.layout_sider_inner_menu_content_1_item}>
-                                                            <FaBarsStaggered />
+                                                    <NavLink to={`/jiraItems/timeline/${currentProjectNumberComp}`}>
+
+                                                        <div className={styles.layout_sider_inner_menu_content}>
+                                                            <div className={styles.layout_sider_inner_menu_content_1_item}>
+                                                                <FaBarsStaggered />
+                                                            </div>
+                                                            <div className={styles.layout_sider_inner_menu_content_2_item}>
+                                                                Timeline
+                                                            </div>
                                                         </div>
-                                                        <div className={styles.layout_sider_inner_menu_content_2_item}>
-                                                            Timeline
-                                                        </div>
-                                                    </div>
+                                                    </NavLink>
                                                 ), '1'),
                                                 getItem((
                                                     <NavLink to={`/jiraItems/backblog/${currentProjectNumberComp}`}>
@@ -222,14 +225,17 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
 
                                                 ), '2'),
                                                 getItem((
-                                                    <div className={styles.layout_sider_inner_menu_content}>
-                                                        <div className={styles.layout_sider_inner_menu_content_1_item}>
-                                                            <FaClipboard />
+                                                    <NavLink to={`/jiraItems/board/${currentProjectNumberComp}`}>
+
+                                                        <div className={styles.layout_sider_inner_menu_content}>
+                                                            <div className={styles.layout_sider_inner_menu_content_1_item}>
+                                                                <FaClipboard />
+                                                            </div>
+                                                            <div className={styles.layout_sider_inner_menu_content_2_item}>
+                                                                Board
+                                                            </div>
                                                         </div>
-                                                        <div className={styles.layout_sider_inner_menu_content_2_item}>
-                                                            Board
-                                                        </div>
-                                                    </div>
+                                                    </NavLink>
                                                 ), '3'),
                                             ]),
 
@@ -240,14 +246,17 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                                                     </div>
                                                 ), 'sub2', '', [
                                                 getItem((
-                                                    <div className={styles.layout_sider_inner_menu_content}>
-                                                        <div className={styles.layout_sider_inner_menu_content_1_item}>
-                                                            <FaCode />
+                                                    <NavLink to={`/jiraItems/development/${currentProjectNumberComp}`}>
+
+                                                        <div className={styles.layout_sider_inner_menu_content}>
+                                                            <div className={styles.layout_sider_inner_menu_content_1_item}>
+                                                                <FaCode />
+                                                            </div>
+                                                            <div className={styles.layout_sider_inner_menu_content_2_item}>
+                                                                Code
+                                                            </div>
                                                         </div>
-                                                        <div className={styles.layout_sider_inner_menu_content_2_item}>
-                                                            Code
-                                                        </div>
-                                                    </div>
+                                                    </NavLink>
                                                 ), '4')
                                             ]),
 
@@ -260,7 +269,7 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                             </div>
                             <div className={styles.side_bar_layout_itm_oth}>
                                 <div className={styles.side_bar_layout_other_item}>
-                                    <NavLink to={'/'}>
+                                    <NavLink to={`/jiraItems/projectPage/${currentProjectNumberComp}`}>
                                         <FaAffiliatetheme /> Project pages
                                     </NavLink>
                                 </div>
@@ -372,7 +381,7 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                             </div>
                             <div className={styles.side_bar_layout_itm_oth}>
                                 <div className={styles.side_bar_layout_other_item}>
-                                    <NavLink to={'/'}>
+                                    <NavLink to={`/jiraItems/projectSettings/${currentProjectNumberComp}`}>
                                         <FaAmazonPay /> Project settings
                                     </NavLink>
                                 </div>

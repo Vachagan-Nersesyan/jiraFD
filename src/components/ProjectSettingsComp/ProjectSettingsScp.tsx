@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from './ProjectSettingsStl.module.css'
 import secStyles from '../DevelopmentComp/DevelopmentStl.module.css'
@@ -6,8 +6,12 @@ import secStyles from '../DevelopmentComp/DevelopmentStl.module.css'
 import { Breadcrumb, Button, Col, Dropdown, Form, Input, Row, Select, Space } from 'antd'
 import type { FormItemProps } from 'antd';
 import { FaAffiliatetheme, FaEllipsis } from 'react-icons/fa6';
+import { useDispatch } from 'react-redux';
+import { changeProjectInfoFunc } from '../../redux/projectReducer';
 
 const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
+
+    const dispatch = useDispatch()
 
     const MyFormItemContext = React.createContext<(string | number)[]>([]);
 
@@ -33,6 +37,32 @@ const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
 
         return <Form.Item name={concatName} {...props} />;
     };
+
+
+    const [projectName, setProjectName] = useState<string>('')
+    const [projectKey, setProjectKey] = useState<string>('')
+
+    const [projectLead, setProjectLead] = useState<string>('')
+    const [зrojectAssignee, setProjectAssignee] = useState<string>('')
+
+
+    const setNewSettingsProject: () => void = () => {
+        let projectSettingsFstObj: ProjectSettingsFstObjType = {
+            name: '',
+            key: '',
+            lead: '',
+            defaultAssignee: '',
+        }
+
+        projectSettingsFstObj.name = projectName
+        projectSettingsFstObj.key = projectKey
+        projectSettingsFstObj.lead = projectLead
+        projectSettingsFstObj.defaultAssignee = зrojectAssignee
+
+        dispatch(changeProjectInfoFunc(projectSettingsFstObj))
+
+    }
+
 
     return (
         <div className={secStyles.development_page_content_overlay}>
@@ -95,51 +125,24 @@ const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
                         </div>
                         <MyFormItemGroup prefix={['name']}>
                             <MyFormItem name="firstName" label="Name">
-                                <Input />
+                                <Input onChange={(e) => setProjectName(e.target.value)} />
                             </MyFormItem>
                             <MyFormItem name="lastName" label="Key">
-                                <Input />
+                                <Input onChange={(e) => setProjectKey(e.target.value)} />
                             </MyFormItem>
                         </MyFormItemGroup>
-                        <MyFormItem name="firstName" label="Category">
-                            <Select
-                                showSearch
-                                placeholder="Select a person"
-                                optionFilterProp="children"
-                                options={[
-                                    {
-                                        value: 'jack',
-                                        label: 'Jack',
-                                    },
-                                    {
-                                        value: 'lucy',
-                                        label: 'Lucy',
-                                    },
-                                    {
-                                        value: 'tom',
-                                        label: 'Tom',
-                                    },
-                                ]}
-                            />
-                        </MyFormItem>
+
                         <MyFormItem name="firstName" label="Project lead">
                             <Select
                                 showSearch
                                 placeholder="Select a person"
                                 optionFilterProp="children"
+                                onChange={(value: string) => setProjectLead(value)}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
-                                    },
-                                    {
-                                        value: 'lucy',
-                                        label: 'Lucy',
-                                    },
-                                    {
-                                        value: 'tom',
-                                        label: 'Tom',
-                                    },
+                                        value: 'Vachagan',
+                                        label: 'Vachagan',
+                                    }
                                 ]}
                             />
                             <div>
@@ -151,19 +154,17 @@ const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
                                 showSearch
                                 placeholder="Select a person"
                                 optionFilterProp="children"
+                                onChange={(value: string) => setProjectAssignee(value)}
+
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
+                                        value: 'Project Lead',
+                                        label: 'Project Lead',
                                     },
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
-                                    },
-                                    {
-                                        value: 'tom',
-                                        label: 'Tom',
-                                    },
+                                        value: 'Unassigned',
+                                        label: 'Unassigned',
+                                    }
                                 ]}
                             />
                         </MyFormItem>
@@ -171,7 +172,7 @@ const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
 
                     </MyFormItemGroup>
 
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" onClick={setNewSettingsProject}>
                         Save
                     </Button>
                 </Form>
@@ -183,3 +184,11 @@ const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
 export default ProjectSettingsComp
 
 type OwnProps = {}
+
+
+type ProjectSettingsFstObjType = {
+    name: string
+    key: string
+    lead: string
+    defaultAssignee: string
+}

@@ -3,6 +3,7 @@ import { Action, applyMiddleware, combineReducers, legacy_createStore as createS
 import { configureStore } from '@reduxjs/toolkit'
 import projectSlice from './projectReducer'
 import issuesSlice from './issuesReducer'
+import userSlice from './userReducer'
 // import boardSlice  from './boardsReducer'
 
 import thunkMiddleware, { ThunkAction } from 'redux-thunk'
@@ -14,6 +15,7 @@ const store = configureStore({
     reducer: {
         project: projectSlice,
         issues: issuesSlice,
+        user: userSlice
         // boards : boardSlice
     }
 })

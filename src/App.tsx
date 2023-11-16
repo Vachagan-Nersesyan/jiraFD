@@ -28,6 +28,9 @@ const TimelineComp = lazy(() => import(("./components/TimelineComp")))
 
 const LoginScp = lazy(() => import(("./components/LoginComp")))
 
+const UserPageComp = lazy(() => import(("./components/UserPageComp")))
+
+
 
 const App: React.FC<OwnProps> = () => {
   return (
@@ -46,12 +49,17 @@ const App: React.FC<OwnProps> = () => {
 
 
                 <Route path='/jiraItems/filter/:id' element={<FilterComp />} />
+
+                {/* jnjel dashboard ?  */}
+
                 <Route path='/jiraItems/dashboard' element={<DashboardComp />} />
                 <Route path='/jiraItems/searchPeople' element={<SearchPeopleComp />} />
                 <Route path='/jiraItems/allProjects' element={<AllProjectsComp />} />
                 <Route path='/jiraItems/projectsWork' element={<ProjectsComp />} />
 
-                
+                <Route path='/jiraItems/userPage' element={<UserPageComp />} />
+
+
 
                 {/* make page for board */}
 

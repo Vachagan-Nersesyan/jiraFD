@@ -1,4 +1,4 @@
-import { BoardArrType } from "../redux/projectReducer"
+import { BoardArrType, ProjectType } from "../redux/projectReducer"
 import { IssuesType } from "../redux/issuesReducer"
 
 export function filterBoardUtFunc(str: string, items: Array<BoardArrType>) {
@@ -131,7 +131,7 @@ export function filterBoardByGlobalTypeUtFunc(str: string, items: Array<IssuesTy
 
     let itemsClone: Array<IssuesType> = []
 
-    debugger
+
 
     switch (str) {
         case 'Done issues': {
@@ -230,6 +230,27 @@ export function filterBacklogUtFunc(str: string, items: Array<IssuesType>) {
 
     items.filter((val) => {
         if (val.summary.includes(str)) {
+
+            itemsClone.push(val)
+        }
+    })
+
+    console.log(itemsClone)
+
+    return itemsClone
+
+
+}
+
+
+
+export function filterProjectsUtFunc(str: string, items: Array<ProjectType>) {
+
+    let itemsClone: Array<ProjectType> = []
+    
+
+    items.filter((val) => {
+        if (val.name.includes(str)) {
 
             itemsClone.push(val)
         }

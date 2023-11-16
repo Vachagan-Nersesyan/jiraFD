@@ -59,6 +59,11 @@ const BoardCreateIssueComp: React.FC<OwnProps> = ({ boardArr, foo, boardIssueArr
         issuesChilds: [],
         flag: false,
         issueLabel: [],
+
+        issuesInnerItems: [],
+        isSubIssue: false
+
+
     }
 
 

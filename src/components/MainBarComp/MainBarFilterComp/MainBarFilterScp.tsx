@@ -3,8 +3,20 @@ import styles from './MainBarFilterStl.module.css'
 import { Dropdown, MenuProps, Space } from 'antd'
 import { FaAngleDown, FaJs } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
+import { filterBoardByGlobalTypeUtFunc } from '../../../utils/helperScp'
+import { useDispatch } from 'react-redux'
+import { changeActualFilterdCloneIssueArrFunc } from '../../../redux/issuesReducer'
+import { AppStateType } from '../../../redux/redux-store'
+import { useSelector } from 'react-redux'
 
 const MainBarFilterComp: React.FC<OwnProps> = () => {
+
+    const dispatch = useDispatch()
+    const filteredIssuesInitArr = useSelector((state: AppStateType) => state.issues.filteredIssuesInitArr)
+
+    const chooseFilterNameCompFunc: (str: string) => void = (str: string) => {
+        dispatch(changeActualFilterdCloneIssueArrFunc(filterBoardByGlobalTypeUtFunc(str, filteredIssuesInitArr)))
+    }
 
     const filterItmsArr = [
         {
@@ -27,6 +39,10 @@ const MainBarFilterComp: React.FC<OwnProps> = () => {
             id: 4,
             filterName: 'Open issues',
         },
+        {
+            id: 5,
+            filterName: 'My open issues',
+        },
     ]
 
     const filterItems: MenuProps['items'] = [
@@ -42,7 +58,7 @@ const MainBarFilterComp: React.FC<OwnProps> = () => {
                         {
                             filterItmsArr.map((val) => {
                                 return (
-                                    <NavLink to={`/jiraItems/filter/${val.id}`} className={styles.menu_work_content_1_item_2_itm_flt}> 
+                                    <NavLink onClick={() => chooseFilterNameCompFunc(val.filterName)} to={`/jiraItems/filter/${val.id}`} className={styles.menu_work_content_1_item_2_itm_flt}>
                                         <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
                                             <FaJs />
                                         </div>

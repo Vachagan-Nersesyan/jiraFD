@@ -3,7 +3,7 @@ import styles from './MainBarProjectStl.module.css'
 import { Dropdown, MenuProps, Modal, Space } from 'antd'
 import { FaAngleDown, FaJs } from 'react-icons/fa6'
 import { NavLink, useLocation } from 'react-router-dom'
-import { ProjectType, addingBoardToProject, addingCurrentBoardToProject, changeBoardToProject, changeAllBoardItems, changeBoardUniqName, setCurrentProject } from '../../../redux/projectReducer'
+import { ProjectType, addingBoardToProject, addingCurrentBoardToProject, changeBoardToProject, changeAllBoardItems, changeBoardUniqName, setCurrentProject, createProjectFunc } from '../../../redux/projectReducer'
 import { AppStateType } from '../../../redux/redux-store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -18,16 +18,21 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
     const dispatch = useDispatch()
 
     // delete selector
+
     const projectArr = useSelector((state: AppStateType) => state.project.projectArr)
     const currentProject = useSelector((state: AppStateType) => state.project.currentProject)
     const currentProjectIndex = useSelector((state: AppStateType) => state.project.currentProjectNumber)
+
 
     const board = useSelector((state: AppStateType) => state.project.projectArr[currentProjectIndex].board)
     const currentBoard = useSelector((state: AppStateType) => state.project.currentBoard)
 
     let location = useLocation();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const [projectNameObj, setProjectNameObj] = useState<string>('')
+    const [projectKeyObj, setProjectKeyObj] = useState<string>('')
 
 
 
@@ -44,7 +49,6 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
             // alert('asdfasdfasd')
 
 
-
             dispatch(changeAllBoardItems(currentBoard))
             // &&
 
@@ -59,7 +63,12 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
         setIsModalOpen(true);
     };
 
+    const createProjectCompFunc = () => {
+        dispatch(createProjectFunc({ name: projectNameObj, key: projectKeyObj }))
+    }
+
     const handleOk = () => {
+        createProjectCompFunc()
         setIsModalOpen(false);
     };
 
@@ -92,6 +101,8 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
 
         dispatch(changeBoardUniqName(projectName))
     }
+
+
 
     const projectItems: MenuProps['items'] = [
         {
@@ -178,9 +189,9 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
             </Dropdown>
             {/* delete modal hishel ara */}
             <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <input type="text" />
+                <input type="text" onChange={(e) => setProjectNameObj(e.target.value)} />
                 Write key
-                <input type="text" />
+                <input type="text" onChange={(e) => setProjectKeyObj(e.target.value)} />
                 <input type='submit' />
 
             </Modal>
@@ -191,3 +202,4 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
 export default MainBarProjectsComp
 
 type OwnProps = {}
+

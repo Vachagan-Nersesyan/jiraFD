@@ -94,7 +94,7 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
 
     const createIssueCompFunc: (obj: IssuesType, str: string, projectName: string) => void = (obj, str, projectName) => {
-        debugger
+        // debugger
 
         if (boardUniqName.includes(obj.issuesProject)) {
             addIssueToBoardsFunc({ obj, uniqtext: str })
@@ -106,9 +106,9 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
         }
 
-        debugger
+        // debugger
 
-        console.log(projectArr)
+        // console.log(projectArr)
 
     }
 
@@ -131,7 +131,10 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
         issuesChilds: [],
         flag: false,
         issueLabel: [],
-        currentDate: ''
+        currentDate: '',
+
+        issuesInnerItems: [],
+        isSubIssue: false
 
     }
 
@@ -139,7 +142,7 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
     const projectHandleChange = (value: string) => {
 
-        
+
         // issueObj.issuesProject = value
         setProjectName(value)
 
@@ -290,7 +293,7 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
                                 createIssueCompFunc(issueObj, issueObj.issueStatus, issueObj.issuesProject)
                                 // addIssuetoProjFunc(issueObj)
                                 issueObj = { ...issueObjClone }
-                                
+
                                 setSubmitting(false);
                             }
                             }

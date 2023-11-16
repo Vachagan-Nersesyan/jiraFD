@@ -248,7 +248,8 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         currentBoard: state.project.currentBoard,
         board: state.project.projectArr[currentProjectNumberfst].board,
         issueFilterType: state.issues,
-        allProjectsIssueArr: state.project.allProjectsIssueArr
+        allProjectsIssueArr: state.project.allProjectsIssueArr,
+
     }
 }
 
@@ -258,7 +259,7 @@ const FilterRightBarThirdCompCont = compose<React.ComponentType>(
         changeGetBoardIssueItemFunc: projectSlice.actions.changeGetBoardIssueItemFunc,
         addingBoardToProject: projectSlice.actions.addingBoardToProject,
         changeActualFilterdIssuesArrFunc: issuesSlice.actions.changeActualFilterdIssuesArrFunc,
-        setAllProjectsIssuesArr: projectSlice.actions.setAllProjectsIssuesArr
+        setAllProjectsIssuesArr: projectSlice.actions.setAllProjectsIssuesArr,
 
     })
 )(FilterRightBarThirdComp)

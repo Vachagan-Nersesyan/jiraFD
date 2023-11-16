@@ -61,8 +61,11 @@ export type IssuesType = {
     flag: boolean,
     issueLabel: Array<IssuesLabelType>,
     issueShortName: string,
-    doneRecently : string
-    currentDate: string
+    doneRecently: string,
+    currentDate: string,
+
+    isSubIssue: boolean,
+    issuesInnerItems: Array<IssuesType>
 }
 
 export type IssuesCommentsType = {
