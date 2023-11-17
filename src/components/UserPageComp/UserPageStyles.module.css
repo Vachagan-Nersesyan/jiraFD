@@ -144,3 +144,99 @@
     text-decoration: underline;
     color: #172B4D;
 }
+
+.userpage_content_container_second_col {
+    padding: 3em;
+}
+
+.userpage_content_container_second_col_content {
+    margin-bottom: 3em;
+}
+
+.userpage_content_container_second_col_content_title {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: .5em;
+}
+
+.userpage_content_container_second_col_content_subtitle {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 2em;
+}
+
+.userpage_content_container_second_col_content_third_item {
+    height: 20em;
+    overflow: scroll;
+    border: 1px solid #F1F2F4;
+    padding: 1.5em;
+    border-radius: .5em;
+}
+
+.userpage_content_container_second_col_content_third_item_in_content {
+    margin-bottom: 1em;
+}
+
+.userpage_content_container_second_col_content_third_item_in_content a {
+    text-decoration: none;
+}
+
+.userpage_content_container_second_col_content_third_item_in_content_in_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.userpage_content_container_second_col_content_third_item_in_content_in_item_pic {
+    margin-right: 1.5em;
+}
+
+.userpage_content_container_second_col_content_third_item_in_content_in_item_pic img {
+    width: 150%;
+}
+
+.userpage_content_container_second_col_content_third_item_in_content_in_item_txt_title {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-weight: 700;
+}
+
+.userpage_content_container_second_col_content_third_item_in_content_in_item_txt_subtitle {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: .9em;
+}
+
+.userpage_content_container_second_col_content_project_items {
+    height: 20em;
+    overflow: scroll;
+    border: 1px solid #F1F2F4;
+    padding: 1.5em;
+    border-radius: .5em;
+}
+
+.userpage_content_container_second_col_content_project_items_in_content {
+    border: 1px solid #F1F2F4;
+    cursor: pointer;
+    padding: 1em;
+    margin-bottom: 1em;
+    transition: .3s ease-in-out;
+
+}
+
+.userpage_content_container_second_col_content_project_items_in_content:hover {
+    background-color: #172B4D;
+    color: white;
+}
+
+.userpage_content_container_second_col_content_project_items_in_content a {
+    text-decoration: none;
+}
+
+.userpage_content_container_second_col_content_project_items_in_content_in_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}

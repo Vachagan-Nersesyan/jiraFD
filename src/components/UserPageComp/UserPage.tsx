@@ -11,14 +11,13 @@ import { changeUserInfo } from '../../redux/userReducer'
 import { changeGetBoardIssueItemFunc, setCurrentProject } from '../../redux/projectReducer'
 
 
-let issuesUserPageArr: Array<IssuesType> = []
 
 const UserPageComp: React.FC<OwnProps> = () => {
 
     const issuesArrUspgComp = useSelector((state: AppStateType) => state.project.projectArr)
     const userInfo = useSelector((state: AppStateType) => state.user.info)
 
-
+    const [issuesUserPageArr, setIssuesUserPageArr] = useState<Array<IssuesType>>([])
 
     const dispatch = useDispatch()
 
@@ -73,9 +72,11 @@ const UserPageComp: React.FC<OwnProps> = () => {
 
     ]
 
+
+
     useEffect(() => {
 
-        issuesUserPageArr = []
+        let issuesUserPageFstArr: Array<IssuesType> = []
 
         issuesArrUspgComp.map((val) => {
 
@@ -83,12 +84,15 @@ const UserPageComp: React.FC<OwnProps> = () => {
 
                 val1.boardIssue.map((val2) => {
 
-                    issuesUserPageArr.push(val2)
+                    issuesUserPageFstArr.push(val2)
                 })
             })
         })
+
+        setIssuesUserPageArr(issuesUserPageFstArr)
         console.log(issuesUserPageArr)
-    }, [])
+
+    }, [issuesArrUspgComp])
 
     const [userInfoHk, setUserInfoHk] = useState<string>('')
 
@@ -174,44 +178,80 @@ const UserPageComp: React.FC<OwnProps> = () => {
                             </NavLink>
                         </div>
                     </Col>
-                    <Col span={17}>
-                        <div>
-                            <div>
+                    <Col span={17} className={styles.userpage_content_container_second_col}>
+                        <div className={styles.userpage_content_container_second_col_content}>
+                            <div className={styles.userpage_content_container_second_col_content_title}>
                                 Worked on
                             </div>
-                            <div>
+                            <div className={styles.userpage_content_container_second_col_content_subtitle}>
                                 Others will only see what they can access.
                             </div>
-                            <div>
+                            <div className={styles.userpage_content_container_second_col_content_third_item}>
                                 {
-                                    issuesUserPageArr.map((val) => {
-                                        return (
-                                            <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
-                                                {val.summary}
-                                            </NavLink>
-                                        )
-                                    })
+                                    issuesUserPageArr.length === 0
+                                        ?
+                                        <div className={styles.userpage_content_container_second_col_content_subtitle}>
+                                            There is not a project
+                                        </div>
+                                        :
+                                        issuesUserPageArr.map((val) => {
+                                            return (
+                                                <div className={styles.userpage_content_container_second_col_content_third_item_in_content}>
+                                                    <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+
+                                                        <div className={styles.userpage_content_container_second_col_content_third_item_in_content_in_item}>
+                                                            <div className={styles.userpage_content_container_second_col_content_third_item_in_content_in_item_pic}>
+                                                                <img src={val.issueTypePic} />
+                                                            </div>
+                                                            <div className={styles.userpage_content_container_second_col_content_third_item_in_content_in_item_txt_content}>
+                                                                <div className={styles.userpage_content_container_second_col_content_third_item_in_content_in_item_txt_title}>
+                                                                    {val.summary}
+                                                                </div>
+                                                                <div className={styles.userpage_content_container_second_col_content_third_item_in_content_in_item_txt_subtitle}>
+                                                                    {val.issuesProject}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </NavLink>
+                                                </div>
+                                            )
+                                        })
                                 }
                             </div>
                         </div>
-                        <div>
-                            <div>
+                        <div className={styles.userpage_content_container_second_col_content}>
+                            <div className={styles.userpage_content_container_second_col_content_title}>
                                 Places you work in
                             </div>
-                            <div>
+                            <div className={styles.userpage_content_container_second_col_content_project_items}>
                                 {
-                                    issuesArrUspgComp.map((val) => {
-                                        return (
-                                            <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
-                                                {val.name}
-                                            </NavLink>
-                                        )
-                                    })
+                                    issuesArrUspgComp.length === 0
+                                        ?
+                                        <div className={styles.userpage_content_container_second_col_content_subtitle}>
+                                            There is not a project
+                                        </div>
+                                        :
+                                        issuesArrUspgComp.map((val) => {
+                                            return (
+                                                <div className={styles.userpage_content_container_second_col_content_project_items_in_content}>
+                                                    <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                                        <div className={styles.userpage_content_container_second_col_content_project_items_in_content_in_item}>
+                                                            <div className={styles.userpage_content_container_second_col_content_project_items_in_content_in_item_1_item}>
+                                                                <img src={val.picture} />
+                                                            </div>
+                                                            <div className={styles.userpage_content_container_second_col_content_project_items_in_content_in_item_2_item}>
+                                                                {val.name}
+                                                            </div>
+                                                        </div>
+                                                    </NavLink>
+                                                </div>
+                                            )
+                                        })
                                 }
                             </div>
                         </div>
-                        <div>
-                            <div>
+                        <div className={styles.userpage_content_container_second_col_content}>
+                            <div className={styles.userpage_content_container_second_col_content_subtitle}>
                                 Tell us about your experience with profiles and search within this directory.
                             </div>
                             <Button>

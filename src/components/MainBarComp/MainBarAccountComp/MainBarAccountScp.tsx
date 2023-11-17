@@ -3,9 +3,21 @@ import styles from './MainBarAccountStl.module.css'
 import { Dropdown, MenuProps, Space } from 'antd'
 import { FaAngleRight, FaCheckDouble, FaCircleUser, FaGrip, FaMedapps } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../../firebase'
 
-const MainBarAccountComp: React.FC<OwnProps> = () => {
+const MainBarAccountComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
+
+    const handleSignOut = () => {
+
+        signOut(auth)
+            .then(() => {
+                localStorage.removeItem("user")
+                setLocalStorageHook(false)
+            })
+            .catch(error => console.log(error))
+    }
 
     const userItems: MenuProps['items'] = [
         {
@@ -131,9 +143,9 @@ const MainBarAccountComp: React.FC<OwnProps> = () => {
         },
         {
             label: (
-                <NavLink to={'/'} className={styles.main_bar_user_cntn_link}>
+                <div onClick={() => handleSignOut()} className={styles.main_bar_user_cntn_link}>
                     Log out
-                </NavLink>
+                </div>
             ),
             key: '9',
         },
@@ -155,4 +167,7 @@ const MainBarAccountComp: React.FC<OwnProps> = () => {
 
 export default MainBarAccountComp
 
-type OwnProps = {}
+type OwnProps = {
+    setLocalStorageHook: (type: boolean) => void
+
+}

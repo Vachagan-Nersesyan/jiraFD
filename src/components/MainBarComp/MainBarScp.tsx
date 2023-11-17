@@ -30,7 +30,7 @@ import MainBarAccountComp from './MainBarAccountComp/MainBarAccountScp'
 const { Sider } = Layout;
 
 
-const MainBarComp: React.FC<OwnProps> = () => {
+const MainBarComp: React.FC<OwnProps> = ({setLocalStorageHook}) => {
 
     const [collapsed, setCollapsed] = useState(true);
 
@@ -255,7 +255,7 @@ const MainBarComp: React.FC<OwnProps> = () => {
         },
         {
             label: (
-                <MainBarAccountComp />
+                <MainBarAccountComp setLocalStorageHook={setLocalStorageHook} />
             ),
             key: '5',
         },
@@ -388,4 +388,6 @@ const MainBarComp: React.FC<OwnProps> = () => {
 
 export default MainBarComp
 
-type OwnProps = {}
+type OwnProps = {
+    setLocalStorageHook: (type: boolean) => void
+}

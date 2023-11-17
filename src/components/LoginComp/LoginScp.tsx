@@ -4,68 +4,100 @@ import styles from './LoginStl.module.css'
 
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-
-const API_KEY = 'AIzaSyBG4nwtLrLYhqp_1ZV8Xqfe-f3lxNcIRdU'
-
-const LoginScp: React.FC<OwnProps> = () => {
-    const [user, setUser] = useState<any>([]);
-    const [profile, setProfile] = useState<any>([]);
-    const [showUserItems, setShowUserItems] = useState<boolean>(false);
+import { FaAtlassian, FaCircle, FaJira } from 'react-icons/fa6';
+import { Button, Input } from 'antd';
+import { NavLink } from 'react-router-dom';
+import SignIn from '../SignIn';
 
 
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
-    });
-
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setProfile(res.data);
-                        setShowUserItems(true)
-                    })
-                    .catch((err) => console.log(err));
-            }
-        },
-        [user]
-    );
-
-    const logOut = () => {
-        googleLogout();
-        setProfile(null);
-    };
-
+const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
     return (
-        <div>
-            <h2>React Google Login</h2>
-            <br />
-            <br />
-            {showUserItems ? (
-                <div>
-                    <img src={profile.picture} alt="user image" />
-                    <h3>User Logged in</h3>
-                    <p>Name: {profile.name}</p>
-                    <p>Email Address: {profile.email}</p>
-                    <br />
-                    <br />
-                    <button onClick={logOut}>Log out</button>
+        <div className={styles.register_bg}>
+
+            <div className={styles.register_content}>
+
+
+
+                <div className={styles.register_content_1_item}>
+                    <div className={styles.register_content_1_item_1_item}>
+                        <FaJira />
+                    </div>
+                    <div className={styles.register_content_1_item_2_item}>
+                        Trello
+                    </div>
                 </div>
-            ) : (
-                <button onClick={() => login()}>Sign in with Google 🚀 </button>
-            )}
+
+
+
+                <div className={styles.register_content_2_item}>
+                    Log out of your Atlassian account
+                </div>
+
+
+
+                <div className={styles.register_content_3_item}>
+                    <div className={styles.register_content_3_item_1_item}>
+                        <Input placeholder="Please Write Your Email" />
+                    </div>
+                    <div className={styles.register_content_3_item_1_item}>
+                        <Input placeholder="Please Write Your Password" />
+                    </div>
+                </div>
+
+
+
+
+                <div className={styles.register_content_4_item}>
+                    <Button type="primary">Log in</Button>
+                </div>
+
+                <SignIn setLocalStorageHook={setLocalStorageHook} />
+
+
+
+                <div className={styles.register_content_5_item}>
+                    <NavLink to='/'>
+                        Log in to another account
+                    </NavLink>
+                </div>
+
+
+
+                <div className={styles.register_content_6_item}>
+                    <div className={styles.register_content_6_item_1_item}>
+                        <FaAtlassian />
+                    </div>
+                    <div className={styles.register_content_6_item_2_item}>
+                        ATLASSIAN
+                    </div>
+                </div>
+
+
+
+                <div className={styles.register_content_6_item}>
+                    One account for Trello, Jira, Confluence and <NavLink to='/'>more</NavLink>.
+                </div>
+
+
+
+                <div className={styles.register_content_7_item}>
+                    <NavLink to='/'>
+                        Privacy Policy
+                    </NavLink>
+                    <span><FaCircle /></span>
+                    <NavLink to='/'>
+                        User Notice
+                    </NavLink>
+                </div>
+
+            </div>
         </div>
-    );
+    )
 }
 
 
 export default LoginScp
 
-type OwnProps = {}
+type OwnProps = {
+    setLocalStorageHook: (type: boolean) => void
+}
