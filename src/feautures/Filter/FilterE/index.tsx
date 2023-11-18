@@ -1,0 +1,3 @@
+import FilterRightBarThirdInFItemComp from './ui/FilterRightBarThirdInFItemSCp'
+
+export default FilterRightBarThirdInFItemComp

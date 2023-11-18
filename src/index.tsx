@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './app/App';
 
-import './index.css'
+import './app/styles/index.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import store, { AppStateType } from './redux/redux-store';
+import store, { AppStateType } from './entities/store/redux-store';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -19,7 +19,7 @@ function rerenderEntireTree(state: AppStateType) {
 
   root.render(
     <GoogleOAuthProvider clientId="613891743871-hp150i76mkm6gs2k03a4kood6kl0he6f.apps.googleusercontent.com">
-        <App />
+      <App />
     </GoogleOAuthProvider>
 
   );
