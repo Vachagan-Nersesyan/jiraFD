@@ -118,7 +118,8 @@ const initialState: InitialStateType = {
             backlogSecIssueArr: [],
             defaultAssignee: 'Unissagned',
             board: { ...boardExample, boardUniqName: "Sprint 1 board" },
-            boardUniqName: "Sprint 1 board"
+            boardUniqName: "Sprint 1 board",
+
         },
         {
             id: 1,
@@ -130,7 +131,8 @@ const initialState: InitialStateType = {
             lead: 'Karlen',
             defaultAssignee: 'Unissagned',
             board: { ...boardExample, boardUniqName: "Sprint 2 board" },
-            boardUniqName: "Sprint 2 board"
+            boardUniqName: "Sprint 2 board",
+
 
         }
     ],
@@ -172,6 +174,7 @@ const initialState: InitialStateType = {
     backlogIssueArr: [],
 
 
+
 }
 
 export type InitialStateType = {
@@ -182,6 +185,7 @@ export type InitialStateType = {
     currentProjectNumber: number,
     allProjectsIssueArr: Array<IssuesType>,
     backlogIssueArr: Array<IssuesType>,
+
 }
 
 
@@ -191,9 +195,9 @@ export const projectSlice = createSlice({
     reducers: {
 
         createProjectFunc(state: InitialStateType, action: PayloadAction<{ name: string, key: string }>) {
-            
+
             let newProjectClone = { ...projectExample }
-            newProjectClone.board = {...projectExample.board}
+            newProjectClone.board = { ...projectExample.board }
 
             newProjectClone.id = state.projectArr.length
             newProjectClone.name = action.payload.name
@@ -210,13 +214,56 @@ export const projectSlice = createSlice({
 
         },
 
+        chooseProjectForTeamFunc(state: InitialStateType, action: PayloadAction<{ str: string, projectName: string, id: string }>) {
+
+
+            if (action.payload.projectName) {
+                state.projectArr.map((val) => {
+                    if (val.name === action.payload.projectName) {
+
+                        let teamObj: TeamType = {
+                            id: action.payload.id,
+                            teamName: '',
+                            teamPeaoples: []
+
+                        }
+
+                        val.team = teamObj
+
+                        val.team.teamName = action.payload.str
+
+                    }
+                })
+            }
+
+            console.log(current(state))
+
+        },
+
+        addDeveloperFunc(state: InitialStateType, action: PayloadAction<DeveloperInfoType>) {
+
+
+            state.projectArr.map((val) => {
+                if (val.team?.teamName === action.payload.teamName) {
+
+                    val.team?.teamPeaoples.push({ ...action.payload, id: val.team.teamPeaoples.length })
+                }
+            })
+
+
+            console.log(current(state))
+
+        },
+
         changeProjectInfoFunc(state: InitialStateType, action: PayloadAction<{ name: string, key: string, lead: string, defaultAssignee: string }>) {
 
-            
+
             let currentProject = state.projectArr[state.currentProjectNumber]
 
 
             for (let i in action.payload) {
+
+                // uxxel 
 
                 switch (i) {
                     case 'name': {
@@ -968,8 +1015,17 @@ export const projectSlice = createSlice({
 })
 
 
-export const { changeProjectInfoFunc, createProjectFunc, changeGetBoardIssueItemFunc, setAllProjectsIssuesArr, changeAllBoardItems, changeBoardUniqName, setCurrentProject, addingCurrentBoardToProject, changeBoardToProject, addingIssueToCurrentBoard, addingBoardToProject } = projectSlice.actions
+export const { addDeveloperFunc, chooseProjectForTeamFunc, changeProjectInfoFunc, createProjectFunc, changeGetBoardIssueItemFunc, setAllProjectsIssuesArr, changeAllBoardItems, changeBoardUniqName, setCurrentProject, addingCurrentBoardToProject, changeBoardToProject, addingIssueToCurrentBoard, addingBoardToProject } = projectSlice.actions
 export default projectSlice.reducer
+
+
+export interface DeveloperInfoType {
+    uniqId : string,
+    id: number,
+    name: string,
+    picture: string,
+    teamName?: string
+}
 
 export type ProjectType = {
     id: number,
@@ -981,7 +1037,14 @@ export type ProjectType = {
     board: InitialStateBoardOverlayType,
     defaultAssignee: string,
     backlogSecIssueArr: Array<IssuesType>,
-    boardUniqName: string
+    boardUniqName: string,
+    team?: TeamType
+}
+
+export interface TeamType {
+    id: string,
+    teamName: string,
+    teamPeaoples: Array<DeveloperInfoType>
 }
 
 

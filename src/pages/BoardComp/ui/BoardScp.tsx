@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './BoardStl.module.css'
 import secStyles from '../../TimelineComp/ui/TimelineStl.module.css'
 import { Breadcrumb, Button, Card, Col, Dropdown, Input, InputNumber, Modal, RadioChangeEvent, Row, Select, SelectProps, Space } from 'antd'
-import { FaAddressBook, FaAlignJustify, FaAngleDown, FaCheck, FaEllipsis, FaMinus, FaPen, FaPlus, FaUser, FaXmark } from 'react-icons/fa6';
+import { FaAddressBook, FaAlignJustify, FaAngleDown, FaCheck, FaEllipsis, FaMinus, FaPen, FaPlus, FaUser, FaUsers, FaXmark } from 'react-icons/fa6';
 import { NavLink, NavigateFunction, Params, useLocation, useNavigate, useNavigation, useParams } from "react-router-dom";
 
 
@@ -59,6 +59,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
     const cc = useSelector((state: AppStateType) => state.project.currentBoard)
 
+    const userInfo = useSelector((state: AppStateType) => state.user.info)
 
 
     const [initialBoardInfo, setInitialBoardInfo] = useState<Array<BoardArrType>>(currentProject.board.boardArr)
@@ -332,11 +333,29 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                             }} placeholder="Basic usage" />
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
-                            <Button><FaUser /></Button>
+                            <NavLink to={'/jiraItems/userPage'}>
+                                <img src={`${userInfo.picture}`} />
+                            </NavLink>
                         </div>
-                        <div>
-                            <BackblogandBoardModal />
-                        </div>
+                        {
+                            !currentProject.team
+                                ?
+                                null
+                                :
+                                <NavLink to={`/jiraItems/team/${currentProject.team?.id}`}>
+                                    <div>
+                                        <div>
+                                            Team work
+                                        </div>
+                                        <div>
+                                            {currentProject.team?.teamName}
+                                        </div>
+                                        <div>
+                                            <FaUsers />
+                                        </div>
+                                    </div>
+                                </NavLink>
+                        }
                     </Col>
                     <Col span={8} className={styles.timeline_content_in_third_section_sec_col}>
                         <div className={styles.timeline_content_in_third_section_sec_col_title}>

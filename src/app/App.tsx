@@ -30,6 +30,10 @@ const LoginScp = lazy(() => import(("../pages/LoginComp")))
 
 const UserPageComp = lazy(() => import(("../pages/UserPageComp")))
 
+const TeamPage = lazy(() => import("../pages/TeamComp"))
+
+const TeamDeveloperPage = lazy(() => import("../pages/TeamDeveloperComp"))
+
 
 
 const App: React.FC<OwnProps> = () => {
@@ -93,6 +97,10 @@ const App: React.FC<OwnProps> = () => {
                     <Route path='/jiraItems/development/:id' element={<LayoutUnivComp />} />
                     <Route path='/jiraItems/projectPage/:id' element={<LayoutUnivComp />} />
                     <Route path='/jiraItems/projectSettings/:id' element={<LayoutUnivComp />} />
+
+                    <Route path='/jiraItems/team/:id' element={<TeamPage />} />
+                    <Route path='/jiraItems/teamDeveloper/:id' element={<TeamDeveloperPage />} />
+
 
                     {/* <Route path='/' element={<ProjectsComp />} /> */}
 

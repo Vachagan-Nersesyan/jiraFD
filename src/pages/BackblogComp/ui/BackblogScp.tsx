@@ -3,7 +3,7 @@ import styles from './BackblogStl.module.css'
 import secStyles from '../../TimelineComp/ui/TimelineStl.module.css'
 
 import { Breadcrumb, Button, Checkbox, Col, Collapse, Dropdown, Input, InputNumber, Modal, Row, Select, Space } from 'antd'
-import { FaAddressBook, FaAirbnb, FaAlgolia, FaAlignJustify, FaAmazon, FaAnchorCircleXmark, FaChartBar, FaChartLine, FaEllipsis, FaEye, FaLink, FaLockOpen, FaPlus, FaRegThumbsUp, FaShareNodes, FaUser, FaUserLarge, FaUserPlus } from 'react-icons/fa6'
+import { FaAddressBook, FaAirbnb, FaAlgolia, FaAlignJustify, FaAmazon, FaAnchorCircleXmark, FaChartBar, FaChartLine, FaEllipsis, FaEye, FaLink, FaLockOpen, FaPlus, FaRegThumbsUp, FaShareNodes, FaUser, FaUserLarge, FaUserPlus, FaUsers } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import Sider from 'antd/es/layout/Sider'
 import { FilterRightBarThirdSecItemComp, FilterRightBarThirdThirdItemComp } from '../../../feautures/Filter/FilterG/ui/FIlterRightBarThirdInSItemScp'
@@ -20,11 +20,16 @@ import { AddIssueFlagFuncArgsType, DeleteIssueFuncArgsType } from '../../BoardCo
 import { filterBacklogUtFunc, filterBoardUtFunc } from '../../../widgets/helperScp'
 import BacklogCreateIssueComp from '../../../feautures/Backlog/BacklogA/ui/BacklogCreateIssueScp'
 import BacklogSecCreateIssueComp from '../../../feautures/Backlog/BacklogB/ui/BacklogSecCreateIssueScp'
+import { useSelector } from 'react-redux'
 
 
 let backlogBoardIssuesArr: Array<IssuesType> = []
 
-const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ deleteFlagToBacklogIssueFunc, addFlagToBacklogIssueFunc, addIssueBacklogToBoardFunc, boardArr, backlogSecIssueArr, addIssueToBacklogArr, addingIssueInBacklogFunc, getBoardIssueItem, currentProjectName, backlogIssueArr, setBacklogIssueArr, changeGetBoardIssueItemFunc, deleteIssueFunc, addIssueFlagFunc }) => {
+const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({currentProject, deleteFlagToBacklogIssueFunc, addFlagToBacklogIssueFunc, addIssueBacklogToBoardFunc, boardArr, backlogSecIssueArr, addIssueToBacklogArr, addingIssueInBacklogFunc, getBoardIssueItem, currentProjectName, backlogIssueArr, setBacklogIssueArr, changeGetBoardIssueItemFunc, deleteIssueFunc, addIssueFlagFunc }) => {
+
+
+    const userInfo = useSelector((state: AppStateType) => state.user.info)
+
 
     useEffect(() => {
 
@@ -486,10 +491,30 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                             }} placeholder="Basic usage" />
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
-                            <Button ><FaUser /></Button>
+                            <NavLink to={'/jiraItems/userPage'}>
+                                <img src={`${userInfo.picture}`} />
+                            </NavLink>
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
-                            <BackblogandBoardModal />
+                            {
+                                !currentProject.team
+                                    ?
+                                    null
+                                    :
+                                    <NavLink to={`/jiraItems/team/${currentProject.team?.id}`}>
+                                        <div>
+                                            <div>
+                                                Team work
+                                            </div>
+                                            <div>
+                                                {currentProject.team?.teamName}
+                                            </div>
+                                            <div>
+                                                <FaUsers />
+                                            </div>
+                                        </div>
+                                    </NavLink>
+                            }
                         </div>
                     </Col>
                     <Col span={8} className={styles.timeline_content_in_third_section_sec_col}>
@@ -747,7 +772,8 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         getBoardIssueItem: state.project.getBoardIssueItem,
         backlogIssueArr: state.project.backlogIssueArr,
         currentProjectName: state.project.projectArr[getCurrentProjectIndexNumber].name,
-        backlogSecIssueArr: state.project.projectArr[getCurrentProjectIndexNumber].backlogSecIssueArr
+        backlogSecIssueArr: state.project.projectArr[getCurrentProjectIndexNumber].backlogSecIssueArr,
+        currentProject : state.project.projectArr[getCurrentProjectIndexNumber]
     }
 }
 
@@ -773,7 +799,8 @@ type MapStateToPropsType = {
     getBoardIssueItem: IssuesType,
     backlogIssueArr: Array<IssuesType>,
     currentProjectName: string,
-    backlogSecIssueArr: Array<IssuesType>
+    backlogSecIssueArr: Array<IssuesType>,
+    currentProject : ProjectType
 }
 
 type MapDispatchToPropsType = {

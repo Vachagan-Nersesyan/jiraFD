@@ -1,12 +1,98 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './MainBarTeamStl.module.css'
 import { Button, Checkbox, Col, Dropdown, Input, MenuProps, Modal, Row, Select, Space, Tooltip } from 'antd'
 import { FaAngleDown, FaJs, FaPlus, FaUserGroup } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../../../entities/store/redux-store'
+import { DeveloperInfoType, ProjectType, TeamType, addDeveloperFunc, chooseProjectForTeamFunc } from '../../../../entities/project/projectReducer'
+import { useDispatch } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid';
 
 const MainBarTeamComp: React.FC<OwnProps> = () => {
+
+    const dispatch = useDispatch()
+
     const [teamIsModalOpen, setTeamIsModalOpen] = useState([false, false]);
     const [teamIsSecModalOpen, setTeamSecIsModalOpen] = useState([false, false]);
+
+    const projectTeamArr = useSelector((state: AppStateType) => state.project.projectArr)
+    // const currentProjectTeamArr = useSelector((state: AppStateType) => state.project.currentProjectNumber)
+
+
+
+    // ^^^
+
+    const [projectTeamHkArr, setProjectTeamHkArr] = useState<Array<ProjectType>>(projectTeamArr)
+
+    useEffect(() => {
+
+        setProjectTeamHkArr(projectTeamArr)
+
+    }, [projectTeamArr])
+
+
+    // team
+
+    const [teamName, setTeamName] = useState<string>('')
+    const [teamProjectName, setteamProjectName] = useState<string>('')
+
+
+    // people
+
+    const [projectPeopleTeamHkArr, setProjectPeopleTeamHkArr] = useState<Array<TeamType>>([])
+
+    useEffect(() => {
+
+        let projectsAllTeamsArr: Array<TeamType> = []
+
+        projectTeamArr.map((val) => {
+            if (val.team) {
+                projectsAllTeamsArr.push(val.team)
+
+            }
+        })
+
+        setProjectPeopleTeamHkArr(projectsAllTeamsArr)
+
+    }, [])
+
+    useEffect(() => {
+
+        let projectsAllTeamsArr: Array<TeamType> = []
+
+        projectTeamArr.map((val) => {
+            if (val.team) {
+                projectsAllTeamsArr.push(val.team)
+
+            }
+        })
+
+        setProjectPeopleTeamHkArr(projectsAllTeamsArr)
+
+    }, [projectTeamArr])
+
+
+    const [peopleName, changePeopleName] = useState<string>('')
+
+    const [developerTeam, setDeveloperTeam] = useState<string>('')
+
+    const addPeopleCompFunc = () => {
+
+
+        let developerObj: DeveloperInfoType = {
+            uniqId: uuidv4(),
+            id: 9999,
+            name: peopleName,
+            teamName: developerTeam,
+
+            // change developers picture 
+            picture: ''
+
+        }
+
+        dispatch(addDeveloperFunc(developerObj))
+    }
 
 
 
@@ -25,40 +111,77 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
     };
 
     const teamsItems: MenuProps['items'] = [
+
+        {
+            label: (
+                <div>
+                    <div>
+                        TEAMS
+                    </div>
+                    <div>
+
+                        {
+                            projectPeopleTeamHkArr.length === 0
+                                ?
+                                <div>
+                                    There isnt any team
+                                </div>
+                                :
+                                <div>
+                                    {
+                                        projectPeopleTeamHkArr.map((val) => {
+                                            return (
+                                                <div>
+                                                    <NavLink to={`/jiraItems/team/${val.id}`}>
+                                                        {val.teamName}
+                                                    </NavLink>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                        }
+                    </div>
+                </div>
+            ),
+            key: '1'
+        },
+
+        {
+            type: 'divider',
+        },
         {
             label: (
                 <div className={styles.menu_work_content_1_item}>
                     <div onClick={() => teamToggleModal(0, true)} className={styles.menu_work_content_1_item_2_itm}>
 
-                        <NavLink to={'/'}>
+                        <div>
                             <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
                                 <FaPlus />
                             </div>
                             <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
                                 Invite people to Jira
                             </div>
-                        </NavLink>
+                        </div>
 
                     </div>
                     <div onClick={() => teamSecToggleModal(0, true)} className={styles.menu_work_content_1_item_2_itm}>
 
-                        <NavLink to={'/'}>
+                        <div>
                             <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
                                 <FaUserGroup />
                             </div>
                             <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
                                 Create a team
                             </div>
-                        </NavLink>
+                        </div>
 
                     </div>
                 </div>
             ),
-            key: '1',
+            key: '2',
         },
-        {
-            type: 'divider',
-        },
+
         {
             label: (
                 <div className={styles.menu_work_content}>
@@ -67,9 +190,14 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                     </NavLink>
                 </div>
             ),
-            key: '2',
+            key: '3',
         }
     ]
+
+    const addProjectForTeamComp = () => {
+        dispatch(chooseProjectForTeamFunc({ str: teamName, projectName: teamProjectName, id: uuidv4() }))
+    };
+
 
 
     return (
@@ -158,7 +286,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                             Names or emails
                         </div>
                         <div className={styles.main_bar_first_modal_content_2_item_in_2_item}>
-                            <Input placeholder="Basic usage" />
+                            <Input onChange={(e) => changePeopleName(e.target.value)} placeholder="Basic usage" />
                         </div>
                     </div>
                     <div className={styles.main_bar_first_modal_content_2_item}>
@@ -166,10 +294,38 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                             or add from
                         </div>
                         <div className={styles.main_bar_first_modal_content_2_item_in_2_item}>
-                            <Button type="primary">Primary Button</Button>
-                            <Button>Default Button</Button>
-                            <Button type="dashed">Dashed Button</Button>
+                            <Button type="primary">Google</Button>
+                            <Button>Slack</Button>
+                            <Button type="dashed">Microsoft</Button>
                         </div>
+                    </div>
+                    <div>
+                        {
+                            projectPeopleTeamHkArr.length === 0
+                                ?
+                                <div>
+                                    Sorry there isn't active teams to add developer
+                                </div>
+                                :
+                                <Select
+                                    defaultValue="lucy"
+                                    style={{ width: 120 }}
+                                    onChange={(value: string) => setDeveloperTeam(value)}
+                                    options={
+                                        projectPeopleTeamHkArr.map((val) => {
+                                            return {
+                                                value: val.teamName,
+                                                label: (
+                                                    <div>
+                                                        {val.teamName}
+                                                    </div>
+                                                )
+                                            }
+                                        })
+                                    }
+                                />
+                        }
+
                     </div>
                     <div className={styles.main_bar_first_modal_content_3_item}>
                         This site is protected by reCAPTCHA and the Google <NavLink to={'/'}>Privacy Policy</NavLink> and <NavLink to={'/'}>Terms of Service</NavLink> apply.
@@ -179,8 +335,8 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                             <Col span={12}>
                             </Col>
                             <Col span={12} className={styles.main_bar_first_modal_content_4_item_in_container}>
-                                <Button type="primary">Primary Button</Button>
-                                <Button>Default Button</Button>
+                                <Button>Cancel</Button>
+                                <Button onClick={addPeopleCompFunc} type="primary">Add</Button>
                             </Col>
                         </Row>
                     </div>
@@ -233,7 +389,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                             Team name *
                                         </div>
                                         <div className={styles.main_bar_first_modal_content_2_item_in_2_item}>
-                                            <Input placeholder="e.g. HR Team,Redesign Project,Team Mango" />
+                                            <Input onChange={(e) => setTeamName(e.target.value)} placeholder="e.g. HR Team,Redesign Project,Team Mango" />
                                         </div>
                                         <div className={styles.main_bar_first_modal_content_3_item}>
                                             Who can see your team name ? info
@@ -245,13 +401,36 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                     </div>
                                     <div className={styles.main_bar_first_modal_content_2_item}>
                                         <div className={styles.main_bar_first_modal_content_2_item_in_1_item}>
-                                            Invite people to your team *
-                                        </div>
-                                        <div className={styles.main_bar_first_modal_content_2_item_in_2_item}>
-                                            <Input placeholder="Choose people" />
+                                            Please choose your team project *
                                         </div>
                                         <div className={styles.main_bar_first_modal_content_3_item}>
-                                            You can invite up to 50 people at once
+                                            {
+                                                projectTeamHkArr.length === 0
+                                                    ?
+                                                    <div>
+                                                        Please create a project before creating a team
+                                                    </div>
+                                                    :
+                                                    <Select
+                                                        defaultValue="lucy"
+                                                        style={{ width: 120 }}
+                                                        onChange={(value: string) => setteamProjectName(value)}
+                                                        options={
+                                                            projectTeamHkArr.map((val) => {
+                                                                return {
+                                                                    value: val.name,
+                                                                    label: (
+                                                                        <div>
+                                                                            {val.name}
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                            })
+                                                        }
+                                                    />
+
+                                            }
+
                                         </div>
                                     </div>
                                     <div className={styles.main_bar_first_modal_content_2_item}>
@@ -312,8 +491,8 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                             <Col span={12}>
                                             </Col>
                                             <Col span={12} className={styles.main_bar_first_modal_content_4_item_in_container}>
-                                                <Button type="primary">Primary Button</Button>
-                                                <Button>Default Button</Button>
+                                                <Button>Cancel</Button>
+                                                <Button type='primary' onClick={addProjectForTeamComp}>Create a team</Button>
                                             </Col>
                                         </Row>
                                     </div>
