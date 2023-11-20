@@ -25,7 +25,7 @@ import { useSelector } from 'react-redux'
 
 let backlogBoardIssuesArr: Array<IssuesType> = []
 
-const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({currentProject, deleteFlagToBacklogIssueFunc, addFlagToBacklogIssueFunc, addIssueBacklogToBoardFunc, boardArr, backlogSecIssueArr, addIssueToBacklogArr, addingIssueInBacklogFunc, getBoardIssueItem, currentProjectName, backlogIssueArr, setBacklogIssueArr, changeGetBoardIssueItemFunc, deleteIssueFunc, addIssueFlagFunc }) => {
+const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ currentProject, deleteFlagToBacklogIssueFunc, addFlagToBacklogIssueFunc, addIssueBacklogToBoardFunc, boardArr, backlogSecIssueArr, addIssueToBacklogArr, addingIssueInBacklogFunc, getBoardIssueItem, currentProjectName, backlogIssueArr, setBacklogIssueArr, changeGetBoardIssueItemFunc, deleteIssueFunc, addIssueFlagFunc }) => {
 
 
     const userInfo = useSelector((state: AppStateType) => state.user.info)
@@ -492,7 +492,7 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
                             <NavLink to={'/jiraItems/userPage'}>
-                                <img src={`${userInfo.picture}`} />
+                                <img style={{ width: '20%' }} src={`${userInfo.picture}`} />
                             </NavLink>
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
@@ -773,7 +773,7 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         backlogIssueArr: state.project.backlogIssueArr,
         currentProjectName: state.project.projectArr[getCurrentProjectIndexNumber].name,
         backlogSecIssueArr: state.project.projectArr[getCurrentProjectIndexNumber].backlogSecIssueArr,
-        currentProject : state.project.projectArr[getCurrentProjectIndexNumber]
+        currentProject: state.project.projectArr[getCurrentProjectIndexNumber]
     }
 }
 
@@ -800,7 +800,7 @@ type MapStateToPropsType = {
     backlogIssueArr: Array<IssuesType>,
     currentProjectName: string,
     backlogSecIssueArr: Array<IssuesType>,
-    currentProject : ProjectType
+    currentProject: ProjectType
 }
 
 type MapDispatchToPropsType = {

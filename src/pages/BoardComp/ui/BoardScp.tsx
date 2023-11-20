@@ -334,7 +334,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
                             <NavLink to={'/jiraItems/userPage'}>
-                                <img src={`${userInfo.picture}`} />
+                                <img style={{width:'20%'}} src={`${userInfo.picture}`} />
                             </NavLink>
                         </div>
                         {
