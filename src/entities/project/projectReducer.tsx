@@ -214,6 +214,27 @@ export const projectSlice = createSlice({
 
         },
 
+        changeIssueAssigneeFunc(state: InitialStateType, action: PayloadAction<string>) {
+            debugger
+            state.projectArr.map((val) => {
+                if (val.name === state.getBoardIssueItem.issuesProject) {
+
+                    val.board.boardArr.map((val1) => {
+                        if (val1.uniqText === state.getBoardIssueItem.issueStatus) {
+                            val1.boardIssue.map((val2) => {
+                                if (val2.uniqId === state.getBoardIssueItem.uniqId) {
+                                    val2.assignee = action.payload
+                                }
+                            })
+                        }
+                    })
+
+                    state.getBoardIssueItem.assignee = action.payload
+                }
+            })
+            console.log(current(state))
+        },
+
         chooseProjectForTeamFunc(state: InitialStateType, action: PayloadAction<{ str: string, projectName: string, id: string }>) {
 
 
@@ -1015,12 +1036,12 @@ export const projectSlice = createSlice({
 })
 
 
-export const { addDeveloperFunc, chooseProjectForTeamFunc, changeProjectInfoFunc, createProjectFunc, changeGetBoardIssueItemFunc, setAllProjectsIssuesArr, changeAllBoardItems, changeBoardUniqName, setCurrentProject, addingCurrentBoardToProject, changeBoardToProject, addingIssueToCurrentBoard, addingBoardToProject } = projectSlice.actions
+export const { changeIssueAssigneeFunc, addDeveloperFunc, chooseProjectForTeamFunc, changeProjectInfoFunc, createProjectFunc, changeGetBoardIssueItemFunc, setAllProjectsIssuesArr, changeAllBoardItems, changeBoardUniqName, setCurrentProject, addingCurrentBoardToProject, changeBoardToProject, addingIssueToCurrentBoard, addingBoardToProject } = projectSlice.actions
 export default projectSlice.reducer
 
 
 export interface DeveloperInfoType {
-    uniqId : string,
+    uniqId: string,
     id: number,
     name: string,
     picture: string,

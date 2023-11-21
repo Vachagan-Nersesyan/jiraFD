@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './FIlterRightBarThirdInSItemStl.module.css'
 import { Row, type CollapseProps, Col, Button, Dropdown, Space, Collapse, Select } from 'antd'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -7,14 +7,14 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { AppStateType } from '../../../../entities/store/redux-store'
 import { IssuesType } from '../../../../entities/issues/issuesReducer'
-import { BoardArrType, InitialStateBoardOverlayType, changeGetBoardIssueItemFunc, projectSlice } from '../../../../entities/project/projectReducer'
+import { BoardArrType, InitialStateBoardOverlayType, ProjectType, changeGetBoardIssueItemFunc, changeIssueAssigneeFunc, projectSlice } from '../../../../entities/project/projectReducer'
 import { AddDesctiptionIssFuncType, AddIssueFlagFuncArgsType, DeleteIssueFuncArgsType } from '../../../../pages/BoardComp/ui/BoardScp'
 import { FilterRightBarThirdItemComp } from '../../FilterH/ui/FilterRigthBarThirdItemScp'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 
 
-const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ allProjectsIssueArr, currentBoard, changeAllBoardItems, changeBoardIssueProjectFunc, addDesctiptionIssFunc, getBoardIssueItem, boardArr, addIssueFlagFunc, deleteIssueFunc, changeIssueBoardFunc }) => {
+const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ currentProjectCm, allProjectsIssueArr, currentBoard, changeAllBoardItems, changeBoardIssueProjectFunc, addDesctiptionIssFunc, getBoardIssueItem, boardArr, addIssueFlagFunc, deleteIssueFunc, changeIssueBoardFunc }) => {
 
 
     const projectArr = useSelector((state: AppStateType) => state.project.projectArr)
@@ -268,7 +268,7 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
             </div>
 
             <div>
-                <FilterRightBarThirdSecItemComp />
+                <FilterRightBarThirdSecItemComp currentProjectCm={currentProjectCm} getBoardIssueItem={getBoardIssueItem} />
             </div>
 
             <div className={styles.filter_rg_br_rg_prt_forth_content}>
@@ -287,7 +287,16 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
 
 
-export const FilterRightBarThirdSecItemComp: React.FC<{}> = () => {
+export const FilterRightBarThirdSecItemComp: React.FC<FilterRightBarThirdSecItemCompType> = ({ currentProjectCm, getBoardIssueItem }) => {
+
+    const [assigneeBtn, setAssigneeBtn] = useState<boolean>(false)
+
+    const dispatch = useDispatch()
+
+    // useEffect(() => {
+
+    // })
+
 
     const items: CollapseProps['items'] = [
         {
@@ -306,7 +315,7 @@ export const FilterRightBarThirdSecItemComp: React.FC<{}> = () => {
                                         <FaUser />
                                     </div>
                                     <div>
-                                        Vachagan
+                                        {getBoardIssueItem.reporter}
                                     </div>
                                 </div>
                             </Col>
@@ -323,11 +332,42 @@ export const FilterRightBarThirdSecItemComp: React.FC<{}> = () => {
                                         <FaUser />
                                     </div>
                                     <div>
-                                        Unassigned
+                                        {
+                                            assigneeBtn
+                                                ?
+                                                <div>
+                                                    <Select
+                                                        className={styles.main_bar_create_iss_modal_content_3_item_slct}
+
+                                                        showSearch
+                                                        placeholder="Search to Select"
+                                                        optionFilterProp="children"
+                                                        options={
+                                                            currentProjectCm.team?.teamPeaoples.map((val) => {
+                                                                return {
+                                                                    value: val.name,
+                                                                    label: (
+                                                                        <div
+                                                                            onClick={() => {
+                                                                                dispatch(changeIssueAssigneeFunc(val.name))
+                                                                                setAssigneeBtn(false)
+                                                                            }}
+                                                                        >
+                                                                            {val.name}
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                            })
+                                                        }
+                                                    />
+                                                </div>
+                                                :
+                                                <div onClick={() => setAssigneeBtn(true)}>
+                                                    {getBoardIssueItem.assignee}
+                                                </div>
+
+                                        }
                                     </div>
-                                </div>
-                                <div>
-                                    <a href="#">Assign to me</a>
                                 </div>
                             </Col>
                         </Row>
@@ -379,7 +419,8 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         getBoardIssueItem: state.project.getBoardIssueItem,
         boardArr: state.project.projectArr[currentProjectNumberfst].board.boardArr,
         currentBoard: state.project.currentBoard,
-        allProjectsIssueArr: state.project.allProjectsIssueArr
+        allProjectsIssueArr: state.project.allProjectsIssueArr,
+        currentProjectCm: state.project.projectArr[currentProjectNumberfst]
 
     }
 }
@@ -406,7 +447,8 @@ type MapStateToPropsType = {
     getBoardIssueItem: IssuesType,
     boardArr: Array<BoardArrType>,
     currentBoard: InitialStateBoardOverlayType,
-    allProjectsIssueArr: Array<IssuesType>
+    allProjectsIssueArr: Array<IssuesType>,
+    currentProjectCm: ProjectType
 }
 
 type MapDispatchToPropsType = {
@@ -429,4 +471,9 @@ export type ChangeBoardIssueProjectFuncArgsType = {
 export type ChangeIssueBoardFuncArgsType = {
     id: number,
     boardName: string
+}
+
+interface FilterRightBarThirdSecItemCompType {
+    getBoardIssueItem: IssuesType,
+    currentProjectCm: ProjectType
 }

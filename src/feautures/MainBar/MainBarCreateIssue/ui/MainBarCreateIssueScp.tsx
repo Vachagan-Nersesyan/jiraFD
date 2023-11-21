@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './MainBarCreateIssueStl.module.css'
 import { Avatar, Button, Checkbox, Col, Dropdown, Input, List, Modal, Row, Select, Space } from 'antd'
 import { FaAngleDown, FaArrowUpRightFromSquare, FaCircleUser, FaJs, FaRegEye, FaRegSquarePlus, FaUpRightAndDownLeftFromCenter, FaWindowMinimize } from 'react-icons/fa6';
@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import { connect, useSelector } from 'react-redux'
 import { AppStateType } from '../../../../entities/store/redux-store';
 import { IssuesType, issuesSlice } from '../../../../entities/issues/issuesReducer';
-import { ProjectType, projectSlice } from '../../../../entities/project/projectReducer'
+import { DeveloperInfoType, ProjectType, projectSlice } from '../../../../entities/project/projectReducer'
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { BoardArrType } from '../../../../entities/project/projectReducer';
@@ -25,7 +25,7 @@ const SignupSchema = Yup.object().shape({
 
 });
 
-const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ projectArr, boardUniqName, boardsArr, addingIssueToCurrentBoard, issuesArr, addIssueToBoardsFunc }) => {
+const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ projectItem, projectArr, boardUniqName, boardsArr, addingIssueToCurrentBoard, issuesArr, addIssueToBoardsFunc }) => {
 
     // delete this
 
@@ -74,7 +74,7 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
     const mainbarcreatissForthArrData = [
         {
-            title: 'Ant Design Title 1',
+            title: 'Vachagan',
         },
     ]
 
@@ -85,8 +85,27 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
     const [issueSelectStatusesArr, setIssueSelectStatusesArr] = useState<Array<BoardArrType>>([])
 
 
+
     const [projectName, setProjectName] = useState<string>('')
 
+    const [projectTeamCmpArr, setProjectTeamCmpArr] = useState<null | Array<DeveloperInfoType>>(null)
+
+
+
+
+    // useEffect(() => {
+
+    //     debugger
+
+    //     let projectTeamCmpArrFst: Array<DeveloperInfoType> = []
+
+    //     projectItem.team?.teamPeaoples.map((val) => {
+    //         projectTeamCmpArrFst.push(val)
+    //     })
+
+    //     setProjectTeamCmpArr(projectTeamCmpArrFst)
+
+    // }, [projectItem.team])
 
 
     // create issue hooks
@@ -142,12 +161,30 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
     const projectHandleChange = (value: string) => {
 
+        let projectTeamCmpArrFst: Array<DeveloperInfoType> = []
 
+
+        console.log(projectArr)
+
+        projectArr.map((val) => {
+            if (val.name === value) {
+                val.team?.teamPeaoples.map((val) => {
+                    projectTeamCmpArrFst.push(val)
+                })
+
+                setProjectTeamCmpArr(projectTeamCmpArrFst)
+            }
+        })
+
+        // if(value === projectItem.name){
+
+        // }
         // issueObj.issuesProject = value
         setProjectName(value)
 
         if (boardUniqName.includes(value)) {
             setIssueSelectStatusesArr(boardsArr)
+
             return
         }
 
@@ -290,6 +327,7 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
                                 }
 
                                 issueObj.issuesProject = projectName
+                                debugger
                                 createIssueCompFunc(issueObj, issueObj.issueStatus, issueObj.issuesProject)
                                 // addIssuetoProjFunc(issueObj)
                                 issueObj = { ...issueObjClone }
@@ -628,31 +666,23 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
                                                 showSearch
                                                 placeholder="Search to Select"
                                                 optionFilterProp="children"
-                                                options={[
-                                                    {
-                                                        value: '1',
-                                                        label: (
-                                                            <div>
-                                                                <List
-                                                                    itemLayout="horizontal"
-                                                                    dataSource={mainbarcreatissForthArrData}
-                                                                    renderItem={(item, index) => (
-                                                                        <List.Item>
-                                                                            <List.Item.Meta
-                                                                                avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                                                                title={<div onClick={() => {
-                                                                                    issueObj.assignee = item.title
-                                                                                    console.log(issueObj)
-                                                                                }} placeholder="Basic usage">{item.title}</div>}
-                                                                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                                                            />
-                                                                        </List.Item>
-                                                                    )}
-                                                                />
-                                                            </div>
-                                                        ),
-                                                    }
-                                                ]}
+                                                options={
+                                                    projectTeamCmpArr?.map((val) => {
+                                                        return {
+                                                            value: val.name,
+                                                            label: (
+                                                                <div
+                                                                    onClick={() => {
+                                                                        issueObj.assignee = val.name
+                                                                        console.log(issueObj)
+                                                                    }}
+                                                                >
+                                                                    {val.name}
+                                                                </div>
+                                                            )
+                                                        }
+                                                    })
+                                                }
                                             />
                                             <div className={styles.main_bar_create_iss_modal_content_5_item}
                                                 onClick={() => {
@@ -731,7 +761,8 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         issuesArr: state.issues.filteredIssuesArr,
         boardsArr: state.project.projectArr[currentProjectNumberfst].board.boardArr,
         projectArr: state.project.projectArr,
-        boardUniqName: state.project.projectArr[currentProjectNumberfst].boardUniqName
+        boardUniqName: state.project.projectArr[currentProjectNumberfst].boardUniqName,
+        projectItem: state.project.projectArr[currentProjectNumberfst]
     }
 }
 
@@ -751,7 +782,8 @@ type MapStateToPropsType = {
     issuesArr: Array<IssuesType>,
     boardsArr: Array<BoardArrType>,
     projectArr: Array<ProjectType>,
-    boardUniqName: string
+    boardUniqName: string,
+    projectItem: ProjectType
 }
 
 type MapDispatchToPropsType = {
