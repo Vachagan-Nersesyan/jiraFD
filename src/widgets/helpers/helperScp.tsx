@@ -1,5 +1,5 @@
-import { BoardArrType, ProjectType } from "../entities/project/projectReducer"
-import { IssuesType } from "../entities/issues/issuesReducer"
+import { BoardArrType, ProjectType } from "../../entities/project/projectReducer"
+import { IssuesType } from "../../entities/issues/issuesReducer"
 
 export function filterBoardUtFunc(str: string, items: Array<BoardArrType>) {
 
@@ -246,6 +246,8 @@ export function filterBacklogUtFunc(str: string, items: Array<IssuesType>) {
 
 export function filterProjectsUtFunc(str: string, items: Array<ProjectType>) {
 
+    
+
     let itemsClone: Array<ProjectType> = []
     
 
@@ -262,3 +264,25 @@ export function filterProjectsUtFunc(str: string, items: Array<ProjectType>) {
 
 
 }
+
+
+
+// export function mainBarGlbSearch(str: string, items: Array<ProjectType>) {
+
+//     let itemsClone: Array<ProjectType> = []
+    
+
+//     items.filter((val) => {
+//         if (val.name.includes(str)) {
+
+//             itemsClone.push(val)
+//         }
+//     })
+
+//     console.log(itemsClone)
+
+//     return itemsClone
+
+
+// }
+

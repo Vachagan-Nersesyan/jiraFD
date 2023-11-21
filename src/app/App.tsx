@@ -8,7 +8,7 @@ import BoardCompCont from '../pages/BoardComp/ui/BoardScp';
 import LoaderComp from '../pages/LoaderComp/ui/LoaderScp';
 
 
-const MainBarComp = lazy(() => import("../pages/MainBarComp"))
+const MainBarComp = lazy(() => import("../widgets/MainBarComp"))
 
 const FilterComp = lazy(() => import("../pages/FilterComp"))
 

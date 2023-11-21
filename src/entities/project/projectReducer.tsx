@@ -215,7 +215,7 @@ export const projectSlice = createSlice({
         },
 
         changeIssueAssigneeFunc(state: InitialStateType, action: PayloadAction<string>) {
-            debugger
+            // debugger
             state.projectArr.map((val) => {
                 if (val.name === state.getBoardIssueItem.issuesProject) {
 

@@ -11,7 +11,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { AppStateType } from '../../../entities/store/redux-store';
-import { filterBoardByGlobalTypeUtFunc } from '../../../widgets/helperScp';
+import { filterBoardByGlobalTypeUtFunc } from '../../../widgets/helpers/helperScp';
 
 const { Header, Sider, Content } = Layout;
 

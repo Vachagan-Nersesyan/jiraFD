@@ -14,7 +14,7 @@ import { ProjectType, createProjectFunc, setCurrentProject } from "../../../enti
 import { AppStateType } from "../../../entities/store/redux-store";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { filterProjectsUtFunc } from "../../../widgets/helperScp";
+import { filterProjectsUtFunc } from "../../../widgets/helpers/helperScp";
 
 
 const AllProjectsComp: React.FC<OwnProps> = () => {

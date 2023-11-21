@@ -15,7 +15,7 @@ import { BoardArrType, InitialStateBoardOverlayType, projectSlice } from '../../
 import { ProjectType } from '../../../../entities/project/projectReducer';
 import { AddingBoardToProjectArgsType } from '../../../../pages/BoardComp/ui/BoardScp';
 import FilterSecondBarInFirstComp, { FilterObjType } from '../../FilterD/ui/FilterSecondBarInSecondScp';
-import { filterBoardByGlobalTypeUtFunc, filterBoardByProjectUtFunc, filterBoardByStatusUtFunc, filterBoardByTextUtFunc, filterBoardByTypeUtFunc } from '../../../../widgets/helperScp';
+import { filterBoardByGlobalTypeUtFunc, filterBoardByProjectUtFunc, filterBoardByStatusUtFunc, filterBoardByTextUtFunc, filterBoardByTypeUtFunc } from '../../../../widgets/helpers/helperScp';
 
 
 

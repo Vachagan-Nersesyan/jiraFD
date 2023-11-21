@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './MainBarStl.module.css'
 
@@ -25,12 +25,68 @@ import MainBarCreateIssueComp from '../../../feautures/MainBar/MainBarCreateIssu
 import MainBarNotificationsComp from '../../../feautures/MainBar/MainBarNotifications/ui/MainBarNotificationsScp'
 import MainBarSettingsComp from '../../../feautures/MainBar/MainBarSettings/ui/MainBarSettingsScp';
 import MainBarAccountComp from '../../../feautures/MainBar/MainBarAccount/ui/MainBarAccountScp'
+import { useSelector } from 'react-redux';
+import { AppStateType } from '../../../entities/store/redux-store';
+import { ProjectType, changeGetBoardIssueItemFunc, setCurrentProject } from '../../../entities/project/projectReducer';
+import { IssuesType } from '../../../entities/issues/issuesReducer';
+import { useDispatch } from 'react-redux';
+import { filterBacklogUtFunc, filterProjectsUtFunc } from '../../helpers/helperScp';
 
 
 const { Sider } = Layout;
 
+let projectsMainBarArrItemsClone: Array<ProjectType> = []
+let issueMainBarArrItemsClone: Array<IssuesType> = []
+
 
 const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
+
+    const dispatch = useDispatch()
+
+    const projectMainBarArr = useSelector((state: AppStateType) => state.project.projectArr)
+
+    debugger
+
+    const [projectsMainBarArrItems, setProjectsMainBarArrItems] = useState<Array<ProjectType>>(projectsMainBarArrItemsClone)
+    const [issueMainBarArrItems, setIssueMainBarArrItems] = useState<Array<IssuesType>>([])
+
+    const [str, setstr] = useState<string>('')
+
+
+
+    useEffect(() => {
+
+        projectsMainBarArrItemsClone = []
+        issueMainBarArrItemsClone = []
+
+
+
+        projectMainBarArr.map((val) => {
+            projectsMainBarArrItemsClone.push(val)
+
+            val.board.boardArr.map((val1) => {
+                val1.boardIssue.map((val2) => {
+                    issueMainBarArrItemsClone.push(val2)
+                })
+            })
+        })
+
+
+        setProjectsMainBarArrItems(filterProjectsUtFunc(str, projectsMainBarArrItemsClone))
+
+        // setProjectsMainBarArrItems(projectsMainBarArrItemsClone)
+        setIssueMainBarArrItems(filterBacklogUtFunc(str, issueMainBarArrItemsClone))
+
+
+
+    }, [projectMainBarArr])
+
+
+
+    // const [projectsMainBarArrItemsCline, setProjectsMainBarArrItemsClone] = useState<Array<ProjectType>>(projectsMainBarArrItems)
+
+
+
 
     const [collapsed, setCollapsed] = useState(true);
 
@@ -217,12 +273,117 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
     ]
 
 
+    const mainbarRightItemsFilterOnChange = (value: string) => {
+        setProjectsMainBarArrItems(filterProjectsUtFunc(value, projectsMainBarArrItemsClone))
+    }
 
+
+
+    debugger
+
+    const [selectedItems, setSelectedItems] = useState<string>('');
+
+
+    const filteredOptions = projectsMainBarArrItems.filter((val) => val.name.includes(selectedItems));
+
+    console.log(filteredOptions)
+
+    const filterOption = (input: string, option?: { label: any; value: string }) =>
+        (option?.value ?? '').includes(input.toLowerCase());
 
     const mainbarRightItems: MenuProps['items'] = [
         {
             label: (
-                <Input size="large" placeholder="Search" prefix={<FaSistrix />} />
+                // <Select
+                //     showSearch
+                //     placeholder="Select a person"
+                //     optionFilterProp="children"
+                //     className={styles.mainbar_glb_search}
+
+                //     value={selectedItems}
+                //     onSearch={setSelectedItems}
+
+                //     // onSearch={(value :)setProjectsMainBarArrItems(filterProjectsUtFunc(value, projectsMainBarArrItems))
+                //     // }
+                //     // filterOption={filterOption}
+
+
+                //     popupClassName={styles.mainbar_glb_search_pp}
+                //     options={[
+                //         {
+                //             label: 'Projects',
+                //             options: filteredOptions.map((val) => {
+                //                 debugger
+                //                 return {
+                //                     value: val.name,
+                //                     label: (
+                //                         <div>
+                //                             <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                //                                 {/* click anell henc anuni vra */}
+                //                                 {val.name}
+                //                             </NavLink>
+                //                         </div>
+                //                     ),
+                //                 }
+                //             })
+
+                //         },
+                //         // {
+                //         //     label: issueMainBarArrItems.length === 0 ? null : 'Issues',
+                //         //     options: issueMainBarArrItems.map((val) => {
+                //         //         return {
+                //         //             value: val.summary,
+                //         //             label: (
+                //         //                 <div>
+                //         //                     <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                //         //                         {val.summary}
+                //         //                     </NavLink>
+                //         //                 </div>
+                //         //             ),
+                //         //         }
+                //         //     })
+
+                //         // }
+                //     ]
+                //     }
+                // />
+
+                <Select
+                    showSearch
+                    placeholder="Select a person"
+                    optionFilterProp="children"
+                    filterOption={filterOption}
+                    options={[
+                        ...projectsMainBarArrItems.map((val) => {
+                            return {
+                                value: val.name,
+                                label: (
+                                    <div>
+                                        <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                            {/* click anell henc anuni vra */}
+                                            {val.name}
+                                        </NavLink>
+                                    </div>
+                                ),
+                            }
+                        }),
+
+                        ...issueMainBarArrItems.map((val, ind) => {
+                            return {
+                                value: val.summary,
+                                label: (
+                                    <div>
+                                        <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                            {val.summary}
+                                        </NavLink>
+                                    </div>
+                                ),
+                            }
+                        })
+                    ]
+
+                    }
+                />
             ),
             key: '1',
 

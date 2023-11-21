@@ -199,3 +199,11 @@
 .main_sider_menu_in1_item_container_in_item a:hover {
     text-decoration: underline;
 }
+
+.mainbar_glb_search {
+    width: 10em;
+}
+
+.mainbar_glb_search_pp {
+    width: 30em !important;
+}

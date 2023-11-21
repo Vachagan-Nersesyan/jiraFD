@@ -20,7 +20,7 @@ import BoardIssueComp from '../../../feautures/Board/BoardB/ui/BoardIssueScp';
 import BoardCreateIssueComp from '../../../feautures/Board/BoardA/ui/BoardCreateIssueScp'
 import { BoardArrType } from '../../../entities/project/projectReducer';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
-import { filterBoardUtFunc } from '../../../widgets/helperScp';
+import { filterBoardUtFunc } from '../../../widgets/helpers/helperScp';
 import { useDispatch } from 'react-redux';
 
 
