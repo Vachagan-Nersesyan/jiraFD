@@ -9,19 +9,28 @@ import { NavLink, NavigateFunction, Params, useLocation, useNavigate, useNavigat
 import { IssueInCntComp } from '../../IssuesComp/ui/IssuesScp'
 import { BackblogandBoardModal } from '../../BackblogComp/ui/BackblogScp';
 import { compose } from 'redux';
-import { AppStateType } from '../../../entities/store/redux-store';
+import { AppStateType } from 'entities/store/redux-store';
 import { connect, useSelector } from 'react-redux';
 // import { InitialStateBoardOverlayType, boardSlice, changeAllBoardItems } from '../../redux/projectReducer';
-import { InitialStateBoardOverlayType, setCurrentProject } from '../../../entities/project/projectReducer';
+import { setCurrentProject } from 'entities/project/projectReducer';
+import { InitialStateBoardOverlayType } from 'entities/project/projectReducerTs.interface';
 
-import { ProjectType, projectSlice } from '../../../entities/project/projectReducer';
-import { IssuesType, issuesSlice } from '../../../entities/issues/issuesReducer';
-import BoardIssueComp from '../../../feautures/Board/BoardB/ui/BoardIssueScp';
-import BoardCreateIssueComp from '../../../feautures/Board/BoardA/ui/BoardCreateIssueScp'
-import { BoardArrType } from '../../../entities/project/projectReducer';
+
+import { projectSlice } from 'entities/project/projectReducer';
+import { ProjectType } from 'entities/project/projectReducerTs.interface';
+
+
+import { issuesSlice } from 'entities/issues/issuesReducer';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
+
+
+import BoardIssueComp from 'feautures/Board/BoardB/ui/BoardIssueScp';
+import BoardCreateIssueComp from 'feautures/Board/BoardA/ui/BoardCreateIssueScp'
+import { BoardArrType } from 'entities/project/projectReducerTs.interface';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { filterBoardUtFunc } from '../../../widgets/helpers/helperScp';
 import { useDispatch } from 'react-redux';
+import { MapDispatchToPropsType, MapStateToPropsType, OwnProps, PropsWithRouter } from './BoardTs.interface';
 
 
 function withRouter<T extends PropsWithRouter>(Component: React.FC<T>):
@@ -334,7 +343,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
                             <NavLink to={'/jiraItems/userPage'}>
-                                <img style={{width:'20%'}} src={`${userInfo.picture}`} />
+                                <img style={{ width: '20%' }} src={`${userInfo.picture}`} />
                             </NavLink>
                         </div>
                         {
@@ -521,7 +530,7 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
     let currentProjectNumberfst = state.project.currentProjectNumber
 
-    debugger
+
 
     return {
 
@@ -552,89 +561,6 @@ const BoardCompCont = compose<React.ComponentType>(
 
 export default BoardCompCont
 
-type OwnProps = {
-    router: any
-}
 
 
 
-type MapStateToPropsType = {
-    projectsArr: Array<ProjectType>,
-    // issuesArr: Array<IssuesType>,
-    boardArr: Array<BoardArrType>,
-    getBoardIssueItem: IssuesType,
-    // boardAllItem: InitialStateBoardOverlayType
-}
-
-type MapDispatchToPropsType = {
-    addDesctiptionIssFunc: ({ arr, id, boardName }: AddDesctiptionIssFuncType) => void,
-    changeIssNameFunc: ({ str, id, boardName }: ChangeIssNameFuncType) => void,
-    addIssueToBoardsFunc: ({ obj, uniqtext }: IssueToBoardsFuncArgsType) => void,
-    addBoardFunc: (str: string) => void,
-    updateChangedBoardArrFunc: ({ str, arr }: UpdateChangedBoardArrFuncArgsType) => void,
-    addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
-    deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
-    deleteBoardFunc: (str: string) => void,
-    changeBoardLimitFunc: ({ num, boardName }: ChangeBoardLimitFuncArgsType) => void,
-    getBoardIssueFunc: ({ id, boardName }: GetBoardIssueFuncType) => void,
-    addingBoardToProject: ({ projectName, board }: AddingBoardToProjectArgsType) => void
-}
-
-export type AddingBoardToProjectArgsType = {
-    projectName: string,
-    board: InitialStateBoardOverlayType
-}
-
-export type ChangeBoardLimitFuncArgsType = {
-    num: string,
-    boardName: string
-}
-
-export type GetBoardIssueFuncType = {
-    id: number,
-    boardName: string
-}
-
-export type DeleteIssueFuncArgsType = {
-    id: number,
-    boardName: string
-}
-
-export type AddIssueFlagFuncArgsType = {
-    id: number,
-    boardName: string
-}
-
-export type UpdateChangedBoardArrFuncArgsType = {
-    str: string,
-    arr: Array<IssuesType>
-}
-
-
-export type IssueToBoardsFuncArgsType = {
-    obj: IssuesType,
-    uniqtext: string
-}
-
-
-export type AddDesctiptionIssFuncType = {
-    arr: Array<string>,
-    id: number,
-    boardName: string
-}
-
-export type ChangeIssNameFuncType = {
-    str: string,
-    id: number,
-    boardName: string
-}
-
-type Router = {
-    location: Location
-    navigate: NavigateFunction
-    params: Readonly<Params<string>>
-}
-
-type PropsWithRouter = {
-    router: Router
-}

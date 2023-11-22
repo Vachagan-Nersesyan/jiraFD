@@ -4,10 +4,14 @@ import { Button, Checkbox, Col, Dropdown, Input, MenuProps, Modal, Row, Select, 
 import { FaAngleDown, FaJs, FaPlus, FaUserGroup } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../../entities/store/redux-store'
-import { DeveloperInfoType, ProjectType, TeamType, addDeveloperFunc, chooseProjectForTeamFunc } from '../../../../entities/project/projectReducer'
+import { AppStateType } from 'entities/store/redux-store'
+import { addDeveloperFunc, chooseProjectForTeamFunc } from 'entities/project/projectReducer'
+import { DeveloperInfoType, ProjectType, TeamType } from 'entities/project/projectReducerTs.interface'
+
+
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid';
+import { OwnProps } from './MainBarTeamTs.interface'
 
 const MainBarTeamComp: React.FC<OwnProps> = () => {
 
@@ -509,4 +513,3 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
 
 export default MainBarTeamComp
 
-type OwnProps = {}

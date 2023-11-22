@@ -10,8 +10,9 @@ import { Button, Space } from 'antd';
 import { NavLink } from "react-router-dom";
 import { FaAddressBook, FaSistrix } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import { AppStateType } from "../../../entities/store/redux-store";
-import { DeveloperInfoType, TeamType } from "../../../entities/project/projectReducer";
+import { AppStateType } from "entities/store/redux-store";
+import { DeveloperInfoType, TeamType } from "entities/project/projectReducerTs.interface";
+import { OwnProps } from "./SearchPeopleTs.interface";
 
 
 
@@ -45,7 +46,7 @@ const SearchPeopleComp: React.FC<OwnProps> = () => {
         setPrjdvlrprojectpSearchPage(prjdvlrprojectSearchPageClone)
         setPrjdvlrpSearchPage(prjdvlrpSearchPageClone)
 
-    }, [prjdvlrpSearchPage,prjdvlrprojectSearchPage])
+    }, [prjdvlrpSearchPage, prjdvlrprojectSearchPage])
 
 
     return (
@@ -165,4 +166,3 @@ const SearchPeopleComp: React.FC<OwnProps> = () => {
 
 export default SearchPeopleComp
 
-type OwnProps = {}

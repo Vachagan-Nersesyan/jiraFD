@@ -2,25 +2,26 @@ import React, { useState, useEffect } from 'react'
 import styles from './BackblogStl.module.css'
 import secStyles from '../../TimelineComp/ui/TimelineStl.module.css'
 
-import { Breadcrumb, Button, Checkbox, Col, Collapse, Dropdown, Input, InputNumber, Modal, Row, Select, Space } from 'antd'
-import { FaAddressBook, FaAirbnb, FaAlgolia, FaAlignJustify, FaAmazon, FaAnchorCircleXmark, FaChartBar, FaChartLine, FaEllipsis, FaEye, FaLink, FaLockOpen, FaPlus, FaRegThumbsUp, FaShareNodes, FaUser, FaUserLarge, FaUserPlus, FaUsers } from 'react-icons/fa6'
+import { Breadcrumb, Button, Col, Collapse, Dropdown, Input, InputNumber, Modal, Row, Select, Space } from 'antd'
+import { FaAddressBook, FaEllipsis, FaUserPlus, FaUsers } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import Sider from 'antd/es/layout/Sider'
-import { FilterRightBarThirdSecItemComp, FilterRightBarThirdThirdItemComp } from '../../../feautures/Filter/FilterG/ui/FIlterRightBarThirdInSItemScp'
-import { FilterRightBarNavBarForthItemComp } from '../../../feautures/Filter/FilterE/ui/FilterRightBarThirdInFItemSCp'
-import { FilterRightBarThirdItemComp } from '../../../feautures/Filter/FilterH/ui/FilterRigthBarThirdItemScp'
-import FilterRightBarComp from '../../../feautures/Filter/FilterA/ui/FilterRightBarScp'
+
+
 import { IssueInCntComp } from '../../IssuesComp/ui/IssuesScp'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { AppStateType } from '../../../entities/store/redux-store'
-import { BoardArrType, ProjectType, projectSlice } from '../../../entities/project/projectReducer'
-import { IssuesType } from '../../../entities/issues/issuesReducer'
-import { AddIssueFlagFuncArgsType, DeleteIssueFuncArgsType } from '../../BoardComp/ui/BoardScp'
-import { filterBacklogUtFunc, filterBoardUtFunc } from '../../../widgets/helpers/helperScp'
-import BacklogCreateIssueComp from '../../../feautures/Backlog/BacklogA/ui/BacklogCreateIssueScp'
-import BacklogSecCreateIssueComp from '../../../feautures/Backlog/BacklogB/ui/BacklogSecCreateIssueScp'
+import { AppStateType } from 'entities/store/redux-store'
+import { projectSlice } from 'entities/project/projectReducer'
+import { BoardArrType, ProjectType } from 'entities/project/projectReducerTs.interface'
+
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
+import { AddIssueFlagFuncArgsType, DeleteIssueFuncArgsType } from '../../BoardComp/ui/BoardTs.interface'
+import { filterBacklogUtFunc, filterBoardUtFunc } from 'widgets/helpers/helperScp'
+import BacklogCreateIssueComp from 'feautures/Backlog/BacklogA/ui/BacklogCreateIssueScp'
+import BacklogSecCreateIssueComp from 'feautures/Backlog/BacklogB/ui/BacklogSecCreateIssueScp'
 import { useSelector } from 'react-redux'
+import { AddIssueToBacklogArrArgsType, BackblogandBoardFOwnProps, MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './BacklogTs.interface'
 
 
 let backlogBoardIssuesArr: Array<IssuesType> = []
@@ -792,39 +793,8 @@ const BackblogCompCont = compose<React.ComponentType>(
 )(BackblogComp)
 
 
-type OwnProps = {}
-
-type MapStateToPropsType = {
-    boardArr: Array<BoardArrType>,
-    getBoardIssueItem: IssuesType,
-    backlogIssueArr: Array<IssuesType>,
-    currentProjectName: string,
-    backlogSecIssueArr: Array<IssuesType>,
-    currentProject: ProjectType
-}
-
-type MapDispatchToPropsType = {
-    deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
-    addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
-    changeGetBoardIssueItemFunc: (obj: IssuesType) => void,
-    setBacklogIssueArr: (arr: Array<IssuesType>) => void,
-    addingIssueInBacklogFunc: (obj: IssuesType) => void,
-    addIssueToBacklogArr: ({ str, obj }: AddIssueToBacklogArrArgsType) => void,
-    addIssueBacklogToBoardFunc: ({ obj, projectName }: AddIssueBacklogToBoardFuncArgsType) => void,
-    addFlagToBacklogIssueFunc: (str: string) => void,
-    deleteFlagToBacklogIssueFunc: () => void
-}
-
-export type AddIssueBacklogToBoardFuncArgsType = {
-    obj: IssuesType,
-    projectName: string,
-}
 
 
-export type AddIssueToBacklogArrArgsType = {
-    str: string,
-    obj: IssuesType
-}
 
 
 export default BackblogCompCont
@@ -909,5 +879,3 @@ export const BackblogandBoardModal: React.FC<BackblogandBoardFOwnProps> = () => 
 
 
 
-
-type BackblogandBoardFOwnProps = {}

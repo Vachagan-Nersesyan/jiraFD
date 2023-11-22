@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import styles from './FilterItemsIssueCommentStl.module.css'
 import { FaUser } from 'react-icons/fa6'
 import { Button } from 'antd'
-import { IssuesCommentsType, IssuesType } from '../../../../entities/issues/issuesReducer'
-import { ChangeCommentIssueFuncType } from '../../FilterE/ui/FilterRightBarThirdInFItemSCp'
+import { IssuesCommentsType, IssuesType } from 'entities/issues/issuesReducerTs.interface'
+import { ChangeCommentIssueFuncType } from '../../FilterE/ui/FilterRightBarThirdInFItemTs.interface'
+import { IssueCommentCompOwnProps } from './FilterItemsIssueCommentTs.interface'
 
 
 
@@ -77,14 +78,6 @@ const IssueCommentComp: React.FC<IssueCommentCompOwnProps> = ({ issueCommentInfo
     )
 }
 
-type IssueCommentCompOwnProps = {
-    issueCommentInfo: IssuesCommentsType,
-    getBoardIssueItem: IssuesType,
-    changeCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
-    deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void
-
-
-}
 
 
 

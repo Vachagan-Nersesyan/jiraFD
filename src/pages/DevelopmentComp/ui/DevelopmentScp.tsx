@@ -12,6 +12,7 @@ import fivthPic from '../images/5.svg'
 import sixthPic from '../images/6.png'
 import seventhPic from '../images/7.png'
 import eightPic from '../images/8.png'
+import { OwnProps } from './DevelopmentTs.interface'
 
 
 
@@ -219,4 +220,3 @@ const DevelopmentComp: React.FC<OwnProps> = (props) => {
 export default DevelopmentComp
 
 
-type OwnProps = {}

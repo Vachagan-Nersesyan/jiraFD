@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import styles from './TeamPageStyle.module.css'
 import { NavLink, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../entities/store/redux-store'
-import { ProjectType, TeamType } from '../../../entities/project/projectReducer'
+import { AppStateType } from 'entities/store/redux-store'
+import { ProjectType, TeamType } from 'entities/project/projectReducerTs.interface'
+import { OwnProps } from './TeamTs.interface'
 
 const TeamPage: React.FC<OwnProps> = () => {
 
@@ -66,7 +67,3 @@ const TeamPage: React.FC<OwnProps> = () => {
 
 export default TeamPage
 
-
-interface OwnProps {
-
-}

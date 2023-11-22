@@ -9,6 +9,7 @@ import secondPic from '../images/2.svg'
 import thirdPic from '../images/3.svg'
 import fivthPic from '../images/5.svg'
 import sixthPic from '../images/6.svg'
+import { OwnProps } from './MenuFItemTs.interface'
 
 
 
@@ -346,4 +347,3 @@ const MenuFItemComp: React.FC<OwnProps> = (props) => {
 
 export default MenuFItemComp
 
-type OwnProps = {}

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styles from './BoardCreateIssueStl.module.css'
-import { IssuesType } from '../../../../entities/issues/issuesReducer';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { Avatar, Input, List, Select } from 'antd';
-import { ProjectType } from '../../../../entities/project/projectReducer';
+import { ProjectType } from 'entities/project/projectReducerTs.interface';
 
 import { v4 as uuidv4 } from 'uuid';
+import { OwnProps } from './BoardCreateIssueTs.interface';
 
 
 const BoardCreateIssueComp: React.FC<OwnProps> = ({ boardArr, foo, boardIssueArr, currentProject, status }) => {
@@ -164,13 +165,3 @@ const BoardCreateIssueComp: React.FC<OwnProps> = ({ boardArr, foo, boardIssueArr
 
 export default BoardCreateIssueComp
 
-type OwnProps = {
-    currentProject: ProjectType,
-    status: string,
-
-    foo: (obj: IssuesType, uniqtext: string) => void,
-    boardIssueArr: Array<IssuesType>,
-
-    // uxxel
-    boardArr: any
-}

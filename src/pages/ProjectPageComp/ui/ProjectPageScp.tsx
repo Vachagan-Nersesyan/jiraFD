@@ -4,6 +4,7 @@ import secStyles from '../../DevelopmentComp/ui/DevelopmentStl.module.css'
 import { Breadcrumb, Button, Col, Row, Tabs } from 'antd'
 import { FaRegCompass, FaRegFileLines, FaRegRectangleList, FaRoad, FaTurnUp, FaUserGroup } from 'react-icons/fa6'
 import firstPic from '../images/1.svg'
+import { OwnProps } from './ProjectTs.interface'
 
 
 const ProjectPageComp: React.FC<OwnProps> = (props) => {
@@ -145,4 +146,3 @@ const ProjectPageComp: React.FC<OwnProps> = (props) => {
 
 export default ProjectPageComp
 
-type OwnProps = {}

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import { InitialStateType } from './userReducerTs.interface'
 
 const initialState: InitialStateType = {
 
@@ -17,10 +18,7 @@ const initialState: InitialStateType = {
 
 }
 
-interface InitialStateType {
-    info: userInfo
 
-}
 
 enum UserResponse {
     location = 'Your location',
@@ -29,16 +27,7 @@ enum UserResponse {
     organization = 'Your organization'
 }
 
-interface userInfo {
-    picture: string | undefined | null,
-    name: string | undefined | null,
-    email: string | undefined | null,
 
-    itSupportManager: string,
-    department: string,
-    organization: string,
-    location: string,
-}
 
 export const userSlice = createSlice({
     name: 'user',

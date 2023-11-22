@@ -6,16 +6,26 @@ import type { CollapseProps } from 'antd'
 import { NavLink } from 'react-router-dom';
 import FilterRightBarThirdInFItemComp from '../../FilterE/ui/FilterRightBarThirdInFItemSCp';
 import FilterRightBarThirdInSItemComp from '../../FilterG/ui/FIlterRightBarThirdInSItemScp';
-import { InitialStateType, IssuesType, changeActualFilterdIssuesArrFunc, issuesSlice } from '../../../../entities/issues/issuesReducer';
+import { changeActualFilterdIssuesArrFunc, issuesSlice } from 'entities/issues/issuesReducer';
+import { InitialStateType, IssuesType } from 'entities/issues/issuesReducerTs.interface';
+
 import { IssueInCntComp } from '../../../../pages/IssuesComp/ui/IssuesScp';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../../../entities/store/redux-store';
 import { compose } from 'redux';
-import { BoardArrType, InitialStateBoardOverlayType, projectSlice } from '../../../../entities/project/projectReducer';
-import { ProjectType } from '../../../../entities/project/projectReducer';
-import { AddingBoardToProjectArgsType } from '../../../../pages/BoardComp/ui/BoardScp';
-import FilterSecondBarInFirstComp, { FilterObjType } from '../../FilterD/ui/FilterSecondBarInSecondScp';
-import { filterBoardByGlobalTypeUtFunc, filterBoardByProjectUtFunc, filterBoardByStatusUtFunc, filterBoardByTextUtFunc, filterBoardByTypeUtFunc } from '../../../../widgets/helpers/helperScp';
+
+import { projectSlice } from 'entities/project/projectReducer';
+import { BoardArrType, InitialStateBoardOverlayType } from 'entities/project/projectReducerTs.interface';
+
+
+import { ProjectType } from 'entities/project/projectReducerTs.interface';
+import { AddingBoardToProjectArgsType } from 'pages/BoardComp/ui/BoardTs.interface';
+import FilterSecondBarInFirstComp from '../../FilterD/ui/FilterSecondBarInSecondScp';
+import { FilterObjType } from '../../FilterD/ui/FilterSecondBarInSecondTs.interface';
+
+
+import { filterBoardByGlobalTypeUtFunc, filterBoardByProjectUtFunc, filterBoardByStatusUtFunc, filterBoardByTextUtFunc, filterBoardByTypeUtFunc } from 'widgets/helpers/helperScp';
+import { MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './FilterRIghtBarThirdTs.interface';
 
 
 
@@ -269,21 +279,3 @@ const FilterRightBarThirdCompCont = compose<React.ComponentType>(
 
 export default FilterRightBarThirdCompCont
 
-type OwnProps = {
-}
-
-type MapStateToPropsType = {
-    boardArr: Array<BoardArrType>,
-    projectArr: Array<ProjectType>,
-    currentBoard: InitialStateBoardOverlayType,
-    board: InitialStateBoardOverlayType,
-    issueFilterType: InitialStateType,
-    allProjectsIssueArr: Array<IssuesType>
-}
-
-type MapDispatchToPropsType = {
-    changeGetBoardIssueItemFunc: (obj: IssuesType) => void,
-    addingBoardToProject: ({ projectName, board }: AddingBoardToProjectArgsType) => void
-    changeActualFilterdIssuesArrFunc: (arr: Array<IssuesType>) => void,
-    setAllProjectsIssuesArr: (arr: Array<IssuesType>) => void
-}

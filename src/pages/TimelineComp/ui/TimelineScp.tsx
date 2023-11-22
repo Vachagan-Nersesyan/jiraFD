@@ -3,6 +3,7 @@ import styles from './TimelineStl.module.css'
 import { Breadcrumb, Button, Checkbox, Col, Dropdown, Input, Modal, Row, Select, Space } from 'antd'
 import { NavLink } from 'react-router-dom';
 import { FaEllipsis, FaFileExport, FaMicrophone, FaShareNodes, FaUser, FaUserPlus, FaXmark } from 'react-icons/fa6';
+import { OwnProps } from './TimelineTs.interface';
 
 const TimelineComp: React.FC<OwnProps> = () => {
 
@@ -245,7 +246,7 @@ const TimelineComp: React.FC<OwnProps> = () => {
                                                 </div>
                                                 <div className={styles.timeline_modal_item_2_content_2_item}>
                                                     <Select
-                                                    className={styles.timeline_modal_item_2_content_2_item_select}
+                                                        className={styles.timeline_modal_item_2_content_2_item_select}
                                                         showSearch
                                                         placeholder="Select a person"
                                                         optionFilterProp="children"
@@ -332,4 +333,3 @@ const TimelineComp: React.FC<OwnProps> = () => {
 
 export default TimelineComp
 
-type OwnProps = {}

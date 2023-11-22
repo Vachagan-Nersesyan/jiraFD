@@ -3,6 +3,7 @@ import styles from './FilterRightBarInFirstStl.module.css'
 import { Checkbox, Col, Dropdown, Form, Menu, Row, Space } from 'antd'
 import { NavLink } from 'react-router-dom'
 import { FaBarsStaggered, FaFileExcel, FaFileExport, FaFileWord, FaShareFromSquare } from 'react-icons/fa6'
+import { OwnProps, SecOwnProps } from './FIlterRightBarInFirstTs.interface'
 
 
 const FilterRightBarNavBarComp: React.FC<SecOwnProps> = () => {
@@ -97,6 +98,3 @@ const FilterRightBarInFirstComp: React.FC<OwnProps> = () => {
 
 export default FilterRightBarInFirstComp
 
-type OwnProps = {}
-
-type SecOwnProps = {}

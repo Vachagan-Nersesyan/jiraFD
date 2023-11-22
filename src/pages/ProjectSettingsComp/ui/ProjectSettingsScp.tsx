@@ -7,7 +7,8 @@ import { Breadcrumb, Button, Col, Dropdown, Form, Input, Row, Select, Space } fr
 import type { FormItemProps } from 'antd';
 import { FaAffiliatetheme, FaEllipsis } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
-import { changeProjectInfoFunc } from '../../../entities/project/projectReducer';
+import { changeProjectInfoFunc } from 'entities/project/projectReducer';
+import { OwnProps, ProjectSettingsFstObjType } from './ProjectSettingsTs.interface';
 
 const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
 
@@ -182,13 +183,3 @@ const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
 }
 
 export default ProjectSettingsComp
-
-type OwnProps = {}
-
-
-type ProjectSettingsFstObjType = {
-    name: string
-    key: string
-    lead: string
-    defaultAssignee: string
-}

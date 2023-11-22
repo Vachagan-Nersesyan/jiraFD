@@ -1,7 +1,8 @@
 // import { BoardArrType, InitialStateBoardOverlayType, InitialStateBoardType, getBoardIssueItemExample } from "./boardsReducer";
-import { IssuesType } from "../issues/issuesReducer";
+import { IssuesType } from "../issues/issuesReducerTs.interface";
 // import { AppStateType, InferActionsTypes } from "./redux-store";
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import { DeveloperInfoType, InitialStateBoardOverlayType, InitialStateType, TeamType } from "./projectReducerTs.interface";
 
 export const boardExample = {
     // boardItem: {
@@ -177,16 +178,7 @@ const initialState: InitialStateType = {
 
 }
 
-export type InitialStateType = {
-    projectArr: Array<ProjectType>,
-    currentProject: string,
-    currentBoard: InitialStateBoardOverlayType,
-    getBoardIssueItem: IssuesType,
-    currentProjectNumber: number,
-    allProjectsIssueArr: Array<IssuesType>,
-    backlogIssueArr: Array<IssuesType>,
 
-}
 
 
 export const projectSlice = createSlice({
@@ -1038,54 +1030,4 @@ export const projectSlice = createSlice({
 
 export const { changeIssueAssigneeFunc, addDeveloperFunc, chooseProjectForTeamFunc, changeProjectInfoFunc, createProjectFunc, changeGetBoardIssueItemFunc, setAllProjectsIssuesArr, changeAllBoardItems, changeBoardUniqName, setCurrentProject, addingCurrentBoardToProject, changeBoardToProject, addingIssueToCurrentBoard, addingBoardToProject } = projectSlice.actions
 export default projectSlice.reducer
-
-
-export interface DeveloperInfoType {
-    uniqId: string,
-    id: number,
-    name: string,
-    picture: string,
-    teamName?: string
-}
-
-export type ProjectType = {
-    id: number,
-    picture: string,
-    name: string,
-    key: string,
-    projectType: string,
-    lead: string,
-    board: InitialStateBoardOverlayType,
-    defaultAssignee: string,
-    backlogSecIssueArr: Array<IssuesType>,
-    boardUniqName: string,
-    team?: TeamType
-}
-
-export interface TeamType {
-    id: string,
-    teamName: string,
-    teamPeaoples: Array<DeveloperInfoType>
-}
-
-
-
-export type BoardArrType = {
-    id: number,
-    title: string,
-    uniqText: string,
-    boardIssue: Array<IssuesType>,
-    boardLimit: number
-}
-
-export type InitialStateBoardType = {
-    boardItem: InitialStateBoardOverlayType
-
-}
-
-export type InitialStateBoardOverlayType = {
-    boardArr: Array<BoardArrType>,
-    getBoardIssueItem: IssuesType,
-    boardUniqName: string,
-}
 

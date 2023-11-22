@@ -5,9 +5,10 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Button, Checkbox, Col, Dropdown, Input, Menu, Row, Select, Space } from 'antd';
 import { FaArrowDownShortWide } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
-import { AppStateType } from '../../../../entities/store/redux-store';
-import { IssuesType } from '../../../../entities/issues/issuesReducer';
-import { BoardArrType } from '../../../../entities/project/projectReducer';
+import { AppStateType } from 'entities/store/redux-store';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
+import { BoardArrType } from 'entities/project/projectReducerTs.interface';
+import { FilterObjType, FilterRightBarNavBarSecCompType, OwnProps } from './FilterSecondBarInSecondTs.interface';
 
 let filterObj: FilterObjType = {
     projectFilter: [],
@@ -528,12 +529,6 @@ const FilterRightBarNavBarSecComp: React.FC<FilterRightBarNavBarSecCompType> = (
 }
 
 
-type FilterRightBarNavBarSecCompType = {
-    filterIssueByProjectCompFunc: (obj: FilterObjType) => void,
-
-
-}
-
 const FilterSecondBarInFirstComp: React.FC<OwnProps> = ({ filterIssueByProjectCompFunc }) => {
 
 
@@ -547,14 +542,3 @@ const FilterSecondBarInFirstComp: React.FC<OwnProps> = ({ filterIssueByProjectCo
 
 export default FilterSecondBarInFirstComp
 
-type OwnProps = {
-    filterIssueByProjectCompFunc: (obj: FilterObjType) => void,
-}
-
-
-export type FilterObjType = {
-    projectFilter: Array<string>,
-    typeFilter: Array<string>
-    statusFilter: Array<string>
-    textFilter: string
-}

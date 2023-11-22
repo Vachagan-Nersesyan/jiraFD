@@ -20,7 +20,8 @@ import { FaAffiliatetheme, FaAirbnb, FaAlgolia, FaAlignLeft, FaAlipay, FaAmazonP
 import firstPic from '../images/1.svg'
 import secondPic from '../images/2.svg'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../entities/store/redux-store'
+import { AppStateType } from 'entities/store/redux-store'
+import { OwnProps } from './LayoutUnivTs.interface'
 
 
 const { Header, Sider, Content } = Layout;
@@ -469,4 +470,3 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
 
 export default LayoutUnivComp
 
-type OwnProps = {}

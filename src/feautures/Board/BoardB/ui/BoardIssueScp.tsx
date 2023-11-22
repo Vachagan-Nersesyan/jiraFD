@@ -3,17 +3,18 @@ import styles from './BoardIssueStl.module.css'
 import { Avatar, Button, Dropdown, Input, InputNumber, List, Modal, Select, SelectProps, Space } from 'antd';
 import { FaCheck, FaEllipsis, FaPen, FaUser, FaXmark } from 'react-icons/fa6';
 
-import { IssuesType } from '../../../../entities/issues/issuesReducer';
-import { ProjectType } from '../../../../entities/project/projectReducer';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
+import { ProjectType } from 'entities/project/projectReducerTs.interface';
 import { IssueInCntComp } from '../../../../pages/IssuesComp/ui/IssuesScp';
-import { AddDesctiptionIssFuncType, AddIssueFlagFuncArgsType, ChangeIssNameFuncType, DeleteIssueFuncArgsType, GetBoardIssueFuncType } from '../../../../pages/BoardComp/ui/BoardScp';
+import { AddDesctiptionIssFuncType, AddIssueFlagFuncArgsType, ChangeIssNameFuncType, DeleteIssueFuncArgsType, GetBoardIssueFuncType } from 'pages/BoardComp/ui/BoardTs.interface';
 import useSelection from 'antd/es/table/hooks/useSelection';
 import { AppStateType } from '../../../../entities/store/redux-store';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { BoardArrType } from '../../../../entities/project/projectReducer';
+import { BoardArrType } from 'entities/project/projectReducerTs.interface';
 
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { OwnProps } from './BoardIssueTs.interface';
 
 
 const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBoardIssueItem, deleteIssueFunc, addIssueFlagFunc, valueInd, val, addDesctiptionIssFunc, val2, changeIssNameFunc }) => {
@@ -312,26 +313,3 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
 
 
 export default BoardIssueComp
-
-type OwnProps = {
-    addDesctiptionIssFunc: ({ arr, id, boardName }: AddDesctiptionIssFuncType) => void,
-    changeIssNameFunc: ({ str, id }: ChangeIssNameFuncType) => void,
-    val2: IssuesType,
-    currentProject: ProjectType,
-
-    deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
-
-    getBoardIssueFunc: ({ id, boardName }: GetBoardIssueFuncType) => void,
-
-    // poxel
-
-    val: BoardArrType,
-    valueInd: number,
-
-    addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
-    getBoardIssueItem: IssuesType,
-
-    // jnjel
-
-    boardArr: any
-}

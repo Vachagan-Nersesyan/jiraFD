@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styles from './BacklogCreateIssueStl.module.css'
-import { ProjectType } from '../../../../entities/project/projectReducer';
-import { IssuesType } from '../../../../entities/issues/issuesReducer';
+import { ProjectType } from 'entities/project/projectReducerTs.interface';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { Avatar, Input, List, Select } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
+import { OwnProps } from './BacklogCreateIssueTs.interface';
 
 
 const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlogCreateIssueCompFunc }) => {
@@ -51,7 +52,7 @@ const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlo
         flag: false,
         issueLabel: [],
         issuesInnerItems: [],
-        isSubIssue : false
+        isSubIssue: false
 
     }
 
@@ -146,9 +147,6 @@ const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlo
 }
 
 
-type OwnProps = {
-    currentProjectName: string,
-    backlogCreateIssueCompFunc: (obj: IssuesType) => void,
-}
+
 
 export default BacklogCreateIssueComp

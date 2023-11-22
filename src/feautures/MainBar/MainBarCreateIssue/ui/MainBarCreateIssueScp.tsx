@@ -5,14 +5,22 @@ import { FaAngleDown, FaArrowUpRightFromSquare, FaCircleUser, FaJs, FaRegEye, Fa
 import { NavLink } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect, useSelector } from 'react-redux'
-import { AppStateType } from '../../../../entities/store/redux-store';
-import { IssuesType, issuesSlice } from '../../../../entities/issues/issuesReducer';
-import { DeveloperInfoType, ProjectType, projectSlice } from '../../../../entities/project/projectReducer'
+import { AppStateType } from 'entities/store/redux-store';
+
+import { issuesSlice } from 'entities/issues/issuesReducer';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
+
+
+import { projectSlice } from 'entities/project/projectReducer'
+import { DeveloperInfoType, ProjectType } from 'entities/project/projectReducerTs.interface'
+
+
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { BoardArrType } from '../../../../entities/project/projectReducer';
-import { IssueToBoardsFuncArgsType } from '../../../../pages/BoardComp/ui/BoardScp';
+import { BoardArrType } from 'entities/project/projectReducerTs.interface';
+import { IssueToBoardsFuncArgsType } from 'pages/BoardComp/ui/BoardTs.interface';
 import { v4 as uuidv4 } from 'uuid';
+import { IssueValueType, MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './MainBarCreateIssueTs.interface';
 
 
 
@@ -776,29 +784,3 @@ const MainBarCreateIssueCompCont = compose<React.ComponentType>(
 
 export default MainBarCreateIssueCompCont
 
-type OwnProps = {}
-
-type MapStateToPropsType = {
-    issuesArr: Array<IssuesType>,
-    boardsArr: Array<BoardArrType>,
-    projectArr: Array<ProjectType>,
-    boardUniqName: string,
-    projectItem: ProjectType
-}
-
-type MapDispatchToPropsType = {
-    addIssueToBoardsFunc: ({ obj, uniqtext }: IssueToBoardsFuncArgsType) => void,
-    addingIssueToCurrentBoard: ({ obj, str, projectName }: AddingIssueToCurrentBoardArgsType) => void,
-
-}
-
-export type AddingIssueToCurrentBoardArgsType = {
-    obj: IssuesType,
-    str: string,
-    projectName: string
-}
-
-
-type IssueValueType = {
-    issueName: string
-}

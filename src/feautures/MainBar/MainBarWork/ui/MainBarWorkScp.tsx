@@ -5,19 +5,17 @@ import { FaAngleDown, FaJs } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import type { TabsProps } from 'antd';
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../../entities/store/redux-store'
-import { IssuesType } from '../../../../entities/issues/issuesReducer'
+import { AppStateType } from 'entities/store/redux-store'
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { useDispatch } from 'react-redux'
-import { changeGetBoardIssueItemFunc, setCurrentProject } from '../../../../entities/project/projectReducer'
+import { changeGetBoardIssueItemFunc, setCurrentProject } from 'entities/project/projectReducer'
+import { BoardUserIssuesArrType, OwnProps } from './MainBarWorkTs.interface'
 
 let assigneeUserIssuesArr: Array<IssuesType> = []
 let recentUserIssuesArrClone: Array<IssuesType> = []
 let boardUserIssuesArr: Array<BoardUserIssuesArrType> = []
 
-type BoardUserIssuesArrType = {
-    id: number,
-    boardName: string
-}
+
 
 
 const MainBarWorkComp: React.FC<OwnProps> = () => {
@@ -234,4 +232,3 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
 
 export default MainBarWorkComp
 
-type OwnProps = {}

@@ -10,11 +10,13 @@ import { Divider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FaAddressCard, FaEllipsis, FaSistrix } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-import { ProjectType, createProjectFunc, setCurrentProject } from "../../../entities/project/projectReducer";
-import { AppStateType } from "../../../entities/store/redux-store";
+import { createProjectFunc, setCurrentProject } from "entities/project/projectReducer";
+import { ProjectType } from "entities/project/projectReducerTs.interface";
+import { AppStateType } from "entities/store/redux-store";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { filterProjectsUtFunc } from "../../../widgets/helpers/helperScp";
+import { filterProjectsUtFunc } from "widgets/helpers/helperScp";
+import { DataType, OwnProps } from "./AllProjectTs.interface";
 
 
 const AllProjectsComp: React.FC<OwnProps> = () => {
@@ -266,13 +268,3 @@ const AllProjectsComp: React.FC<OwnProps> = () => {
 
 export default AllProjectsComp
 
-type OwnProps = {}
-
-interface DataType {
-    key: React.Key;
-    name: string;
-    secKey: string
-    type: string
-    lead: string;
-    drpdwn: any
-}

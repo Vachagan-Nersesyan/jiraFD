@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styles from './TeamDeveloperStyle.module.css'
 import { useParams } from 'react-router-dom'
-import { AppStateType } from '../../../entities/store/redux-store'
+import { AppStateType } from 'entities/store/redux-store'
 import { useSelector } from 'react-redux'
-import { DeveloperInfoType, ProjectType } from '../../../entities/project/projectReducer'
+import { DeveloperInfoType, ProjectType } from 'entities/project/projectReducerTs.interface'
+import { OwnProps } from './TeamDeveloperTs.interface'
 
 
 const TeamDeveloperPage: React.FC<OwnProps> = () => {
@@ -47,4 +48,3 @@ const TeamDeveloperPage: React.FC<OwnProps> = () => {
 export default TeamDeveloperPage
 
 
-interface OwnProps { }

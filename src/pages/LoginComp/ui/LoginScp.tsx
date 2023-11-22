@@ -10,10 +10,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import SignIn from '../../SignIn';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase';
-import { changeUserOtherInfoFBFunc } from '../../../entities/user/userReducer';
+import { changeUserOtherInfoFBFunc } from 'entities/user/userReducer';
 import { useDispatch } from 'react-redux';
 
 import pic from '../images/1.png'
+import { OwnProps } from './LoginTs.interface';
 
 
 const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
@@ -158,6 +159,3 @@ const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
 export default LoginScp
 
-type OwnProps = {
-    setLocalStorageHook: (type: boolean) => void
-}

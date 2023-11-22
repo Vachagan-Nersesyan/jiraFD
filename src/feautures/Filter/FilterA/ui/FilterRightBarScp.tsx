@@ -14,7 +14,8 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import FilterRightBarInFirstComp from '../../FilterB/ui/FilterRIghtBarInFirstScp'
 import FilterSecondBarInFirstComp from '../../FilterD/ui/FilterSecondBarInSecondScp';
 import FilterRightBarThirdComp from '../../FilterC/ui/FilterRightBarThirdScp';
-import { IssuesType } from '../../../../entities/issues/issuesReducer';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
+import { OwnProps } from './FilterRightBarTs.interface';
 
 
 
@@ -59,4 +60,3 @@ const FilterRightBarComp: React.FC<OwnProps> = () => {
 
 export default FilterRightBarComp
 
-type OwnProps = {}

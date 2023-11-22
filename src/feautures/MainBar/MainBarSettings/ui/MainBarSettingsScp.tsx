@@ -3,6 +3,7 @@ import styles from './MainBarSettingsStl.module.css'
 import { Col, Dropdown, MenuProps, Row, Space } from 'antd'
 import { FaArrowUpRightFromSquare, FaAtlassian, FaBoxTissue, FaCircleNotch, FaCircleUser, FaDesktop, FaFile, FaFingerprint, FaGear, FaGrip, FaRegBuilding, FaRegFolderClosed, FaUsers } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
+import { OwnProps } from './MainBarSettingsTs.interface'
 
 const MainBarSettingsComp: React.FC<OwnProps> = () => {
 
@@ -237,4 +238,3 @@ const MainBarSettingsComp: React.FC<OwnProps> = () => {
 
 export default MainBarSettingsComp
 
-type OwnProps = {}

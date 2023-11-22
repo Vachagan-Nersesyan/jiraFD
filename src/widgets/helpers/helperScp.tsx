@@ -1,5 +1,5 @@
-import { BoardArrType, ProjectType } from "../../entities/project/projectReducer"
-import { IssuesType } from "../../entities/issues/issuesReducer"
+import { BoardArrType, ProjectType } from "entities/project/projectReducerTs.interface"
+import { IssuesType } from "entities/issues/issuesReducerTs.interface"
 
 export function filterBoardUtFunc(str: string, items: Array<BoardArrType>) {
 

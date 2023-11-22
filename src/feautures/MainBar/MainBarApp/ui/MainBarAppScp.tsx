@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 import firstPic from '../images/1.png'
 import secondPic from '../images/2.png'
 import thirdPic from '../images/3.png'
+import { OwnProps } from './MainBarAppTs.interface'
 
 
 const MainBarAppComp: React.FC<OwnProps> = () => {
@@ -128,4 +129,3 @@ const MainBarAppComp: React.FC<OwnProps> = () => {
 
 export default MainBarAppComp
 
-type OwnProps = {}

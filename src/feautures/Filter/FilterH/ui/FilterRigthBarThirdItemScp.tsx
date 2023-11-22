@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import styles from './FilterRigthBarThirdItemStl.module.css'
-import { IssuesType } from '../../../../entities/issues/issuesReducer';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { Col, Collapse, CollapseProps, Row, Select, SelectProps } from 'antd';
 import { useSelector } from 'react-redux';
-import { AppStateType } from '../../../../entities/store/redux-store';
+import { AppStateType } from 'entities/store/redux-store';
 import { useDispatch } from 'react-redux';
-import { projectSlice } from '../../../../entities/project/projectReducer';
-import { AddDesctiptionIssFuncType } from '../../../../pages/BoardComp/ui/BoardScp';
+import { projectSlice } from 'entities/project/projectReducer';
+import { AddDesctiptionIssFuncType } from 'pages/BoardComp/ui/BoardTs.interface';
+import { OwnProps } from './FilterRightBarThirdItemTs.interface';
 
 
 export const FilterRightBarThirdItemComp: React.FC<OwnProps> = ({ }) => {
@@ -147,7 +148,4 @@ export const FilterRightBarThirdItemComp: React.FC<OwnProps> = ({ }) => {
 }
 
 
-
-type OwnProps = {
-}
 

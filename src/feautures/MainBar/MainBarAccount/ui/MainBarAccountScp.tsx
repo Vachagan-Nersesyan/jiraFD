@@ -6,7 +6,8 @@ import { NavLink } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../../../firebase'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../../entities/store/redux-store'
+import { AppStateType } from 'entities/store/redux-store'
+import { OwnProps } from './MainBarAccountTs.interface'
 
 const MainBarAccountComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
@@ -173,7 +174,3 @@ const MainBarAccountComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
 export default MainBarAccountComp
 
-type OwnProps = {
-    setLocalStorageHook: (type: boolean) => void
-
-}

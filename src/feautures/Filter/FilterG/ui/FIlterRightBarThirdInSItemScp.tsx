@@ -5,13 +5,17 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { FaAngleDown, FaAngleUp, FaEllipsis, FaEye, FaFlag, FaGear, FaLockOpen, FaRegThumbsUp, FaShareFromSquare, FaShareNodes, FaUser } from 'react-icons/fa6'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { AppStateType } from '../../../../entities/store/redux-store'
-import { IssuesType } from '../../../../entities/issues/issuesReducer'
-import { BoardArrType, InitialStateBoardOverlayType, ProjectType, changeGetBoardIssueItemFunc, changeIssueAssigneeFunc, projectSlice } from '../../../../entities/project/projectReducer'
-import { AddDesctiptionIssFuncType, AddIssueFlagFuncArgsType, DeleteIssueFuncArgsType } from '../../../../pages/BoardComp/ui/BoardScp'
+import { AppStateType } from 'entities/store/redux-store'
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
+import { changeGetBoardIssueItemFunc, changeIssueAssigneeFunc, projectSlice } from 'entities/project/projectReducer'
+import { BoardArrType, InitialStateBoardOverlayType, ProjectType } from 'entities/project/projectReducerTs.interface'
+
+
+import { AddDesctiptionIssFuncType, AddIssueFlagFuncArgsType, DeleteIssueFuncArgsType } from 'pages/BoardComp/ui/BoardTs.interface'
 import { FilterRightBarThirdItemComp } from '../../FilterH/ui/FilterRigthBarThirdItemScp'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import { FilterRightBarThirdSecItemCompType, MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './FilterRightBarThirdInSItemTs.interface'
 
 
 const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ currentProjectCm, allProjectsIssueArr, currentBoard, changeAllBoardItems, changeBoardIssueProjectFunc, addDesctiptionIssFunc, getBoardIssueItem, boardArr, addIssueFlagFunc, deleteIssueFunc, changeIssueBoardFunc }) => {
@@ -439,41 +443,3 @@ const FilterRightBarThirdInSItemCompCont = compose<React.ComponentType>(
 )(FilterRightBarThirdInSItemComp)
 
 export default FilterRightBarThirdInSItemCompCont
-
-type OwnProps = {}
-
-
-type MapStateToPropsType = {
-    getBoardIssueItem: IssuesType,
-    boardArr: Array<BoardArrType>,
-    currentBoard: InitialStateBoardOverlayType,
-    allProjectsIssueArr: Array<IssuesType>,
-    currentProjectCm: ProjectType
-}
-
-type MapDispatchToPropsType = {
-    changeIssueBoardFunc: ({ id, boardName }: ChangeIssueBoardFuncArgsType) => void,
-    deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
-    addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
-    addDesctiptionIssFunc: ({ arr, id, boardName }: AddDesctiptionIssFuncType) => void,
-    changeBoardIssueProjectFunc: ({ board, status, project, id }: ChangeBoardIssueProjectFuncArgsType) => void,
-    changeAllBoardItems: (board: InitialStateBoardOverlayType) => void
-
-}
-
-export type ChangeBoardIssueProjectFuncArgsType = {
-    board: string,
-    status: string,
-    project: string,
-    id: number
-}
-
-export type ChangeIssueBoardFuncArgsType = {
-    id: number,
-    boardName: string
-}
-
-interface FilterRightBarThirdSecItemCompType {
-    getBoardIssueItem: IssuesType,
-    currentProjectCm: ProjectType
-}

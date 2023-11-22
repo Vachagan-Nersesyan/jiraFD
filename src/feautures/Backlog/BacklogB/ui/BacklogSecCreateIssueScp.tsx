@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styles from './BacklogSecCreateIssueStl.module.css'
 import { Avatar, Input, List, Select } from 'antd';
-import { IssuesType } from '../../../../entities/issues/issuesReducer';
-import { AddIssueToBacklogArrArgsType } from '../../../../pages/BackblogComp/ui/BackblogScp';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
+import { AddIssueToBacklogArrArgsType } from 'pages/BackblogComp/ui/BacklogTs.interface';
 
 import { v4 as uuidv4 } from 'uuid';
+import { OwnProps } from './BacklogSecCreateIssueTs.interface';
 
 
 const BacklogSecCreateIssueComp: React.FC<OwnProps> = ({ backlogSecCreateIssueCompFunc, currentProjectName }) => {
@@ -146,9 +147,3 @@ const BacklogSecCreateIssueComp: React.FC<OwnProps> = ({ backlogSecCreateIssueCo
 
 export default BacklogSecCreateIssueComp
 
-type OwnProps = {
-
-    currentProjectName: string,
-    backlogSecCreateIssueCompFunc: (str: string, obj: IssuesType) => void
-
-}

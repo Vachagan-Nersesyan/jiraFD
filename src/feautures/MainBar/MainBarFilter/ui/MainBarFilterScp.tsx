@@ -3,11 +3,12 @@ import styles from './MainBarFilterStl.module.css'
 import { Dropdown, MenuProps, Space } from 'antd'
 import { FaAngleDown, FaJs } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
-import { filterBoardByGlobalTypeUtFunc } from '../../../../widgets/helpers/helperScp'
+import { filterBoardByGlobalTypeUtFunc } from 'widgets/helpers/helperScp'
 import { useDispatch } from 'react-redux'
-import { changeActualFilterdCloneIssueArrFunc } from '../../../../entities/issues/issuesReducer'
-import { AppStateType } from '../../../../entities/store/redux-store'
+import { changeActualFilterdCloneIssueArrFunc } from 'entities/issues/issuesReducer'
+import { AppStateType } from 'entities/store/redux-store'
 import { useSelector } from 'react-redux'
+import { OwnProps } from './MainBarFilterTs.interface'
 
 const MainBarFilterComp: React.FC<OwnProps> = () => {
 
@@ -117,4 +118,3 @@ const MainBarFilterComp: React.FC<OwnProps> = () => {
 
 export default MainBarFilterComp
 
-type OwnProps = {}

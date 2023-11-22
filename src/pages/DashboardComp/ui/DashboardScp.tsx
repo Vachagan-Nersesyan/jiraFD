@@ -10,6 +10,7 @@ import { Menu } from 'antd';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FaAddressCard, FaEllipsis } from 'react-icons/fa6';
+import { DataType, OwnProps } from './DashboardTs.interface';
 
 
 const DashboardComp: React.FC<OwnProps> = () => {
@@ -286,13 +287,3 @@ const DashboardComp: React.FC<OwnProps> = () => {
 
 export default DashboardComp
 
-type OwnProps = {}
-
-interface DataType {
-    key: React.Key;
-    name: string;
-    age: number;
-    address: string;
-    lead: string;
-    drpdwn: any
-}

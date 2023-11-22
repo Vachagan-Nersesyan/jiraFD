@@ -3,10 +3,12 @@ import styles from './MainBarProjectStl.module.css'
 import { Dropdown, MenuProps, Modal, Space } from 'antd'
 import { FaAngleDown, FaJs } from 'react-icons/fa6'
 import { NavLink, useLocation } from 'react-router-dom'
-import { ProjectType, addingBoardToProject, addingCurrentBoardToProject, changeBoardToProject, changeAllBoardItems, changeBoardUniqName, setCurrentProject, createProjectFunc } from '../../../../entities/project/projectReducer'
-import { AppStateType } from '../../../../entities/store/redux-store'
+import { addingBoardToProject, addingCurrentBoardToProject, changeBoardToProject, changeAllBoardItems, changeBoardUniqName, setCurrentProject, createProjectFunc } from 'entities/project/projectReducer'
+import { ProjectType } from 'entities/project/projectReducerTs.interface'
+import { AppStateType } from 'entities/store/redux-store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import { OwnProps } from './MainBarProjectTs.interface'
 // import { InitialStateBoardOverlayType, InitialStateBoardType, changeAllBoardItems, changeBoardUniqName } from '../../../redux/projectReducer'
 
 
@@ -201,5 +203,5 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
 
 export default MainBarProjectsComp
 
-type OwnProps = {}
+
 

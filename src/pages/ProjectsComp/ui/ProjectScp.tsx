@@ -10,10 +10,11 @@ import type { TabsProps } from 'antd';
 import { NavLink } from "react-router-dom";
 import { FaAlignCenter } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import { AppStateType } from "../../../entities/store/redux-store";
-import { IssuesType } from "../../../entities/issues/issuesReducer";
+import { AppStateType } from "entities/store/redux-store";
+import { IssuesType } from "entities/issues/issuesReducerTs.interface";
 import { useDispatch } from "react-redux";
-import { changeGetBoardIssueItemFunc, setCurrentProject } from "../../../entities/project/projectReducer";
+import { changeGetBoardIssueItemFunc, setCurrentProject } from "entities/project/projectReducer";
+import { OwnProps } from "./ProjectTs.interface";
 
 let allProjectsWorkCompArr: Array<IssuesType> = []
 let allProjectsWorkCompAssigneArr: Array<IssuesType> = []
@@ -174,7 +175,7 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                     {
                         allProjectsWorkCompArr.map((val) => {
                             return (
-                                <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))}  to={`/jiraItems/issues/${val.id}`}>
+                                <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
                                     <div>
                                         <div>
                                             <img src={val.issueTypePic} />
@@ -205,7 +206,7 @@ const ProjectsComp: React.FC<OwnProps> = () => {
 
                 allProjectsWorkCompAssigneArr.map((val) => {
                     return (
-                        <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))}  to={`/jiraItems/issues/${val.id}`}>
+                        <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
                             <div>
                                 <div>
                                     <img src={val.issueTypePic} />
@@ -272,7 +273,7 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                 {
                     allProjectsWorkComp.map((item) => {
                         return (
-                            <div  className={styles.project_content_third_item_content_in_txt_content}>
+                            <div className={styles.project_content_third_item_content_in_txt_content}>
                                 <div className={styles.project_content_third_item_content_in_txt_content_1_item}>
                                     <FaAlignCenter />
                                 </div>
@@ -306,4 +307,3 @@ const ProjectsComp: React.FC<OwnProps> = () => {
 
 export default ProjectsComp
 
-type OwnProps = {}

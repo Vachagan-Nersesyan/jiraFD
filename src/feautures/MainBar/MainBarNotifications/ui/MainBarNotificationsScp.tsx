@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import type { MenuProps, TabsProps } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import pic from '../images/1.png'
+import { OwnProps } from './MainBarNotificationsTs.interface'
 
 
 
@@ -145,4 +146,3 @@ const MainBarNotificationsComp: React.FC<OwnProps> = () => {
 
 export default MainBarNotificationsComp
 
-type OwnProps = {}

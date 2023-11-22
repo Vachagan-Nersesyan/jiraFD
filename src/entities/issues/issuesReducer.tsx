@@ -1,5 +1,6 @@
 // import { InferActionsTypes } from "./redux-store";
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import { InitialStateType, IssuesType } from './issuesReducerTs.interface'
 
 
 const initialState: InitialStateType = {
@@ -13,11 +14,6 @@ const initialState: InitialStateType = {
 }
 
 
-export type InitialStateType = {
-    filteredIssuesInitArr: Array<IssuesType>,
-    filteredIssuesArr: Array<IssuesType>,
-    filterIssueName: string
-}
 
 
 export const issuesSlice = createSlice({
@@ -43,40 +39,3 @@ export const { addIssueFilterNameFunc, changeActualFilterdCloneIssueArrFunc, cha
 export default issuesSlice.reducer
 
 
-export type IssuesType = {
-    id: number,
-    uniqId: string,
-    issuesProject: string,
-    issueTypeName: string,
-    issueTypePic: any,
-    issueStatus: string,
-    summary: string,
-    descriptionText: string,
-    description?: Array<string>,
-    reporter: string,
-    assignee: string,
-    storyPoint: number,
-    issueComments: Array<IssuesCommentsType>,
-    issuesChilds: Array<IssuesType>,
-    flag: boolean,
-    issueLabel: Array<IssuesLabelType>,
-    issueShortName: string,
-    doneRecently: string,
-    currentDate: string,
-
-    isSubIssue: boolean,
-    issuesInnerItems: Array<IssuesType>
-}
-
-export type IssuesCommentsType = {
-    id: number,
-    text: string,
-    name: string,
-    date: string,
-    picture: string
-}
-
-type IssuesLabelType = {
-    id: number,
-    text: string
-}

@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './LoaderStl.module.css'
 
 import loaderGif from '../images/1.gif'
+import { OwnProps } from './LoaderTs.interface'
 
 const LoaderComp: React.FC<OwnProps> = () => {
     return (
@@ -13,4 +14,3 @@ const LoaderComp: React.FC<OwnProps> = () => {
 
 export default LoaderComp
 
-type OwnProps = {}

@@ -14,23 +14,26 @@ import { NavLink } from 'react-router-dom';
 
 // menu left side content
 
-import MenuFItemComp from '../../../feautures/MainBar/MainBarFItem/ui/MenuFItemScp'
-import MainBarWorkComp from '../../../feautures/MainBar/MainBarWork/ui/MainBarWorkScp'
-import MainBarProjectsComp from '../../../feautures/MainBar/MainBarProjects/ui/MainBarProjectsScp'
-import MainBarFilterComp from '../../../feautures/MainBar/MainBarFilter/ui/MainBarFilterScp'
-import DashboardComp from '../../../feautures/MainBar/MainBarDashboard/ui/DashboardScp'
-import MainBarTeamComp from '../../../feautures/MainBar/MainBarTeam/ui/MainBarTeamScp'
-import MainBarAppComp from '../../../feautures/MainBar/MainBarApp/ui/MainBarAppScp'
-import MainBarCreateIssueComp from '../../../feautures/MainBar/MainBarCreateIssue/ui/MainBarCreateIssueScp'
-import MainBarNotificationsComp from '../../../feautures/MainBar/MainBarNotifications/ui/MainBarNotificationsScp'
-import MainBarSettingsComp from '../../../feautures/MainBar/MainBarSettings/ui/MainBarSettingsScp';
-import MainBarAccountComp from '../../../feautures/MainBar/MainBarAccount/ui/MainBarAccountScp'
+import MenuFItemComp from 'feautures/MainBar/MainBarFItem/ui/MenuFItemScp'
+import MainBarWorkComp from 'feautures/MainBar/MainBarWork/ui/MainBarWorkScp'
+import MainBarProjectsComp from 'feautures/MainBar/MainBarProjects/ui/MainBarProjectsScp'
+import MainBarFilterComp from 'feautures/MainBar/MainBarFilter/ui/MainBarFilterScp'
+import DashboardComp from 'feautures/MainBar/MainBarDashboard/ui/DashboardScp'
+import MainBarTeamComp from 'feautures/MainBar/MainBarTeam/ui/MainBarTeamScp'
+import MainBarAppComp from 'feautures/MainBar/MainBarApp/ui/MainBarAppScp'
+import MainBarCreateIssueComp from 'feautures/MainBar/MainBarCreateIssue/ui/MainBarCreateIssueScp'
+import MainBarNotificationsComp from 'feautures/MainBar/MainBarNotifications/ui/MainBarNotificationsScp'
+import MainBarSettingsComp from 'feautures/MainBar/MainBarSettings/ui/MainBarSettingsScp';
+import MainBarAccountComp from 'feautures/MainBar/MainBarAccount/ui/MainBarAccountScp'
 import { useSelector } from 'react-redux';
-import { AppStateType } from '../../../entities/store/redux-store';
-import { ProjectType, changeGetBoardIssueItemFunc, setCurrentProject } from '../../../entities/project/projectReducer';
-import { IssuesType } from '../../../entities/issues/issuesReducer';
+import { AppStateType } from 'entities/store/redux-store';
+import { changeGetBoardIssueItemFunc, setCurrentProject } from 'entities/project/projectReducer';
+import { ProjectType } from 'entities/project/projectReducerTs.interface';
+
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { useDispatch } from 'react-redux';
 import { filterBacklogUtFunc, filterProjectsUtFunc } from '../../helpers/helperScp';
+import { OwnProps } from './MainBarTs.interface';
 
 
 const { Sider } = Layout;
@@ -549,6 +552,3 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
 export default MainBarComp
 
-type OwnProps = {
-    setLocalStorageHook: (type: boolean) => void
-}

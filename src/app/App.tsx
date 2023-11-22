@@ -3,36 +3,37 @@ import './styles/App.css';
 
 import { BrowserRouter, Routes as Switch, Route, Routes } from 'react-router-dom'
 import { Provider } from 'react-redux';
-import store from '../entities/store/redux-store';
-import BoardCompCont from '../pages/BoardComp/ui/BoardScp';
-import LoaderComp from '../pages/LoaderComp/ui/LoaderScp';
+import store from 'entities/store/redux-store';
+import BoardCompCont from 'pages/BoardComp/ui/BoardScp';
+import LoaderComp from 'pages/LoaderComp/ui/LoaderScp';
+import { OwnProps } from './interface/AppTs.interface';
 
 
-const MainBarComp = lazy(() => import("../widgets/MainBarComp"))
+const MainBarComp = lazy(() => import("widgets/MainBarComp"))
 
-const FilterComp = lazy(() => import("../pages/FilterComp"))
+const FilterComp = lazy(() => import("pages/FilterComp"))
 
-const IssuesComp = lazy(() => import("../pages/IssuesComp"))
+const IssuesComp = lazy(() => import("pages/IssuesComp"))
 
-const ProjectsComp = lazy(() => import("../pages/ProjectsComp"))
+const ProjectsComp = lazy(() => import("pages/ProjectsComp"))
 
-const AllProjectsComp = lazy(() => import("../pages/AllProjectsComp"))
-const DashboardComp = lazy(() => import("../pages/DashboardComp"))
+const AllProjectsComp = lazy(() => import("pages/AllProjectsComp"))
+const DashboardComp = lazy(() => import("pages/DashboardComp"))
 
-const SearchPeopleComp = lazy(() => import("../pages/SearchPeopleComp"))
+const SearchPeopleComp = lazy(() => import("pages/SearchPeopleComp"))
 
-const LayoutUnivComp = lazy(() => import("../pages/LayoutUnivComp"))
-const ProjectsItemComp = lazy(() => import("../pages/ProjectsItemComp"))
+const LayoutUnivComp = lazy(() => import("pages/LayoutUnivComp"))
+const ProjectsItemComp = lazy(() => import("pages/ProjectsItemComp"))
 
-const TimelineComp = lazy(() => import(("../pages/TimelineComp")))
+const TimelineComp = lazy(() => import(("pages/TimelineComp")))
 
-const LoginScp = lazy(() => import(("../pages/LoginComp")))
+const LoginScp = lazy(() => import(("pages/LoginComp")))
 
-const UserPageComp = lazy(() => import(("../pages/UserPageComp")))
+const UserPageComp = lazy(() => import(("pages/UserPageComp")))
 
-const TeamPage = lazy(() => import("../pages/TeamComp"))
+const TeamPage = lazy(() => import("pages/TeamComp"))
 
-const TeamDeveloperPage = lazy(() => import("../pages/TeamDeveloperComp"))
+const TeamDeveloperPage = lazy(() => import("pages/TeamDeveloperComp"))
 
 
 
@@ -123,4 +124,3 @@ const App: React.FC<OwnProps> = () => {
 export default App;
 
 
-type OwnProps = {}

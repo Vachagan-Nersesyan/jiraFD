@@ -10,9 +10,10 @@ import { Breadcrumb, Button, Col, Collapse, Dropdown, Input, Menu, Row, Select, 
 import type { CollapseProps } from 'antd'
 import { NavLink } from 'react-router-dom';
 import { FaAngleDown, FaAngleUp, FaChartBar, FaChartLine, FaEllipsis, FaEye, FaFileWord, FaGear, FaLink, FaLockOpen, FaRegThumbsUp, FaShareFromSquare, FaShareNodes, FaUser, FaUserLarge } from 'react-icons/fa6';
-import FilterRightBarThirdInSItemComp from '../../../feautures/Filter/FilterG/ui/FIlterRightBarThirdInSItemScp';
-import FilterRightBarThirdInFItemComp from '../../../feautures/Filter/FilterE/ui/FilterRightBarThirdInFItemSCp';
-import { IssuesType } from '../../../entities/issues/issuesReducer';
+import FilterRightBarThirdInSItemComp from 'feautures/Filter/FilterG/ui/FIlterRightBarThirdInSItemScp';
+import FilterRightBarThirdInFItemComp from 'feautures/Filter/FilterE/ui/FilterRightBarThirdInFItemSCp';
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
+import { OwnProps } from './IssueTs.interface';
 
 
 
@@ -53,5 +54,3 @@ export const IssueInCntComp: React.FC<OwnProps> = ({ }) => {
 
 // export default IssuesComp
 
-type OwnProps = {
-}

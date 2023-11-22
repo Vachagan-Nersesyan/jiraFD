@@ -3,12 +3,13 @@ import styles from './UserPageStyles.module.css'
 import { Button, Col, Input, Row } from 'antd'
 import { FaAddressBook, FaAmazon, FaBagShopping, FaBuilding, FaCheck, FaLocationDot, FaMessage, FaRegSnowflake, FaUser, FaXmark } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
-import { IssuesType } from '../../../entities/issues/issuesReducer'
+import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../entities/store/redux-store'
+import { AppStateType } from 'entities/store/redux-store'
 import { useDispatch } from 'react-redux'
-import { changeUserInfo } from '../../../entities/user/userReducer'
-import { changeGetBoardIssueItemFunc, setCurrentProject } from '../../../entities/project/projectReducer'
+import { changeUserInfo } from 'entities/user/userReducer'
+import { changeGetBoardIssueItemFunc, setCurrentProject } from 'entities/project/projectReducer'
+import { OwnProps } from './UserPageTs.interface'
 
 
 
@@ -269,7 +270,7 @@ const UserPageComp: React.FC<OwnProps> = () => {
 
 export default UserPageComp
 
-type OwnProps = {}
+
 
 
 

@@ -3,6 +3,7 @@ import styles from './DashboardStl.module.css'
 import { Button, Col, Dropdown, Input, MenuProps, Modal, Row, Select, Space } from 'antd'
 import { FaAngleDown, FaCheckDouble } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
+import { OwnProps } from './DashboardTs.interface'
 
 const DashboardComp: React.FC<OwnProps> = () => {
 
@@ -128,7 +129,7 @@ const DashboardComp: React.FC<OwnProps> = () => {
                                 <Col span={12} className={styles.main_bar_dashboard_content_in_4_item_content_first_item}>
                                     <Select
                                         className={styles.main_bar_dashboard_content_in_4_item_content_in_1_item}
-                                        
+
                                         defaultValue={{ value: 'user1', label: 'user2' }}
                                         options={[
                                             {
@@ -255,4 +256,3 @@ const DashboardComp: React.FC<OwnProps> = () => {
 
 export default DashboardComp
 
-type OwnProps = {}

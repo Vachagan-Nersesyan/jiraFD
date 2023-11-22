@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react'
 import styles from './FilterRightBarThirdInFItemStl.module.css'
 import { Breadcrumb, Button, Col, Input, Row, Space } from 'antd'
 import { FaChartBar, FaChartLine, FaCheck, FaClosedCaptioning, FaEllipsis, FaEye, FaFileWord, FaLink, FaPencil, FaUser, FaUserLarge } from 'react-icons/fa6'
-import { IssuesCommentsType, IssuesType } from '../../../../entities/issues/issuesReducer'
+import { IssuesCommentsType, IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { AppStateType } from '../../../../entities/store/redux-store'
 import { connect, useSelector } from 'react-redux'
 
 import { compose } from 'redux'
-import { ChangeIssNameFuncType } from '../../../../pages/BoardComp/ui/BoardScp'
-import { changeGetBoardIssueItemFunc, projectSlice } from '../../../../entities/project/projectReducer'
+import { ChangeIssNameFuncType } from 'pages/BoardComp/ui/BoardTs.interface'
+import { changeGetBoardIssueItemFunc, projectSlice } from 'entities/project/projectReducer'
 import { v4 as uuidv4 } from 'uuid';
 
 
 import IssueCommentComp from '../../FilterF/ui/FilterItemsIssueCommentScp'
 import { useDispatch } from 'react-redux'
+import { MapDispatchToPropsType, MapStateToPropsType, OwnProps, SubIssueOwnPropsType } from './FilterRightBarThirdInFItemTs.interface'
 
 const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ changeIssueInnerIssueSummary, addIssueInnerIssueFunc, issuesInnerItems, getBoardIssueItem, deleteCommentIssueFunc, changeCommentIssueFunc, addCommentIssueFunc, changeIssDescriptionFunc, changeIssNameFunc }) => {
 
@@ -367,42 +368,6 @@ const FilterRightBarThirdInFItemCompCont = compose<React.ComponentType>(
 
 export default FilterRightBarThirdInFItemCompCont
 
-type OwnProps = {
-
-}
-
-type MapStateToPropsType = {
-    getBoardIssueItem: IssuesType,
-    issuesInnerItems: Array<IssuesType>
-}
-
-type MapDispatchToPropsType = {
-    changeIssNameFunc: ({ str, id, boardName }: ChangeIssNameFuncType) => void,
-    changeIssDescriptionFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
-    addCommentIssueFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
-    changeCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
-    deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
-    addIssueInnerIssueFunc: (obj: IssuesType) => void,
-    changeIssueInnerIssueSummary: ({ str, id }: ChangeIssueInnerIssueSummaryArgsType) => void
-}
-
-export type ChangeIssueInnerIssueSummaryArgsType = {
-    str: string,
-    id: string
-}
-
-export type ChangeCommentIssueFuncType = {
-    str: string,
-    id: number,
-    boardName: string,
-    commId: number
-}
-
-export type ChangeIssDescriptionFuncType = {
-    str: string,
-    id: number,
-    boardName: string
-}
 
 
 
@@ -478,8 +443,3 @@ const SubIssueComp: React.FC<SubIssueOwnPropsType> = ({ subIssueInfo, changeIssu
 }
 
 
-type SubIssueOwnPropsType = {
-    subIssueInfo: IssuesType,
-    changeIssueInnerIssueSummary: ({ str, id }: ChangeIssueInnerIssueSummaryArgsType) => void
-
-}

@@ -6,7 +6,8 @@ import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebas
 import styles from './SignIn.module.css'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { changeUserOtherInfoFBFunc } from '../../../entities/user/userReducer'
+import { changeUserOtherInfoFBFunc } from 'entities/user/userReducer'
+import { OwnProps } from './SignTs.interface'
 
 
 const SignIn: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
@@ -59,7 +60,7 @@ const SignIn: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
             localStorage.setItem('user', JSON.stringify(auth));
             setLocalStorageHook(true)
-            
+
 
             dispatch(changeUserOtherInfoFBFunc({
                 name: auth.currentUser?.displayName,
@@ -101,7 +102,3 @@ const SignIn: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
 export default SignIn
 
-type OwnProps = {
-    setLocalStorageHook: (type: boolean) => void
-
-}
