@@ -22,6 +22,13 @@ interface InitialStateType {
 
 }
 
+enum UserResponse {
+    location = 'Your location',
+    manager = 'IT Support Manager',
+    department = 'Your department',
+    organization = 'Your organization'
+}
+
 interface userInfo {
     picture: string | undefined | null,
     name: string | undefined | null,
@@ -41,22 +48,22 @@ export const userSlice = createSlice({
 
             switch (action.payload.str) {
 
-                case 'Your location': {
+                case UserResponse.location: {
                     state.info.location = action.payload.infoName
                     break
                 }
 
-                case 'IT Support Manager': {
+                case UserResponse.manager: {
                     state.info.itSupportManager = action.payload.infoName
                     break
                 }
 
-                case 'Your department': {
+                case UserResponse.department: {
                     state.info.department = action.payload.infoName
                     break
                 }
 
-                case 'Your organization': {
+                case UserResponse.organization: {
                     state.info.organization = action.payload.infoName
                     break
                 }
