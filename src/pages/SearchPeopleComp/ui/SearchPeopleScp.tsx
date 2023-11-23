@@ -8,11 +8,12 @@ import { Input } from 'antd';
 import { Card } from 'antd';
 import { Button, Space } from 'antd';
 import { NavLink } from "react-router-dom";
-import { FaAddressBook, FaSistrix } from "react-icons/fa6";
+import { FaAddressBook, FaPeopleGroup, FaSistrix } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { AppStateType } from "entities/store/redux-store";
 import { DeveloperInfoType, TeamType } from "entities/project/projectReducerTs.interface";
 import { OwnProps } from "./SearchPeopleTs.interface";
+
 
 
 
@@ -46,7 +47,7 @@ const SearchPeopleComp: React.FC<OwnProps> = () => {
         setPrjdvlrprojectpSearchPage(prjdvlrprojectSearchPageClone)
         setPrjdvlrpSearchPage(prjdvlrpSearchPageClone)
 
-    }, [prjdvlrpSearchPage, prjdvlrprojectSearchPage])
+    }, [projectSearchPeopleCompArr])
 
 
     return (
@@ -65,11 +66,16 @@ const SearchPeopleComp: React.FC<OwnProps> = () => {
                         showSearch
                         placeholder="Select a person"
                         optionFilterProp="children"
+                        className={styles.search_people_content_in_2_item_slct}
                         options={
                             prjdvlrpSearchPage?.map((val) => {
                                 return {
                                     value: val.name,
-                                    label: val.name,
+                                    label: (
+                                        <NavLink className={styles.search_people_content_in_2_item_slct_item} to={`/jiraItems/teamDeveloper/${val.uniqId}`}>
+                                            {val.name}
+                                        </NavLink>
+                                    )
                                 }
                             })}
                     />
@@ -77,50 +83,49 @@ const SearchPeopleComp: React.FC<OwnProps> = () => {
                 <div className={styles.search_people_content_in_3_item}>
                     <div className={styles.search_people_content_in_3_item_1_item}>
                         <Row>
-                            <Col span={12} className={styles.search_people_content_in_3_item_title}>
+                            <Col span={24} className={styles.search_people_content_in_3_item_title}>
                                 People
-                            </Col>
-                            <Col span={12} className={styles.search_people_content_in_3_item_sec_col}>
-                                <NavLink to={'/'}>
-                                    More search options with Atlas <FaAddressBook />
-                                </NavLink>
                             </Col>
                         </Row>
                     </div>
                 </div>
-                <div className={styles.search_people_content_in_3_item_2_item_ovrly}>
-                    <div className={styles.search_people_content_in_3_item_2_item}>
-                        {
-                            prjdvlrpSearchPage?.map((val) => {
-                                return (
+                <Row className={styles.search_people_content_in_3_item_2_item_ovrly}>
+                    {/* <div className={styles.search_people_content_in_3_item_2_item}> */}
+                    {
+                        prjdvlrpSearchPage?.map((val) => {
+                            return (
+                                <Col span={6} className={styles.search_people_content_in_3_item_2_item_content}>
                                     <NavLink to={`/jiraItems/teamDeveloper/${val.uniqId}`}>
-                                        <Card
-                                            hoverable
-                                            style={{ width: 240 }}
-                                            cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
-                                        >
-                                            <Meta title="Europe Street beat" description={<div><Button type="primary">Primary Button</Button></div>} />
-                                        </Card>
+                                        <div className={styles.search_people_content_in_3_item_2_item_content_1_item}>
+                                            <img src={val.picture} />
+                                        </div>
+                                        <div className={styles.search_people_content_in_3_item_2_item_content_2_item}>
+                                            {val.name}
+                                        </div>
+                                        <div className={styles.search_people_content_in_3_item_2_item_content_3_item}>
+                                            {val.teamName}
+                                        </div>
                                     </NavLink>
-                                )
-                            })
-                        }
-                    </div>
-                    <div className={styles.search_people_content_in_3_item_2_item}>
+                                </Col>
+                            )
+                        })
+                    }
+                    {/* </div> */}
+                    <Col span={6} className={styles.search_people_content_in_3_item_2_item_content}>
                         <NavLink to={'/jiraItems/userPage'}>
                             {/* userrr  */}
-                            <div>
+                            <div className={styles.search_people_content_in_3_item_2_item_content_1_item}>
                                 <img src={`${userInfo.picture}`} />
                             </div>
-                            <div>
+                            <div className={styles.search_people_content_in_3_item_2_item_content_2_item}>
                                 {userInfo.name}
                             </div>
-                            <div>
+                            <div className={styles.search_people_content_in_3_item_2_item_content_3_item}>
                                 {userInfo.email}
                             </div>
                         </NavLink>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
                 <div className={styles.search_people_content_in_4_item}>
                     <div className={styles.search_people_content_in_3_item_title}>
                         Your teams
@@ -129,31 +134,34 @@ const SearchPeopleComp: React.FC<OwnProps> = () => {
                         {
                             prjdvlrprojectSearchPage?.length === 0
                                 ?
-                                <Result
-                                    status="success"
-                                    title="Share pages or mention teams rather than individual members"
-                                    subTitle={
-                                        <div>
-                                            Create a team now or learn <a href="#">how you can collaborate with teams</a>
-                                        </div>
-                                    }
-                                    extra={[
-                                        <Button type="primary" key="console">
-                                            Create team
-                                        </Button>
-                                    ]}
-                                />
+                                <div className={styles.search_people_content_in_4_item_txt_content_isnt_team}>
+                                    <div className={styles.search_people_content_in_4_item_txt_content_isnt_team_1_item}>
+                                        <FaPeopleGroup />
+                                    </div>
+                                    <div className={styles.search_people_content_in_4_item_txt_content_isnt_team_2_item}>
+                                        Create a team now or learn <NavLink to={'/'}>how you can collaborate with teams</NavLink>
+                                    </div>
+                                    <Button type="primary" key="console">
+                                        Create team
+                                    </Button>
+                                </div>
                                 :
-                                prjdvlrprojectSearchPage?.map((val) => {
-                                    return (
-                                        <div>
-                                            <NavLink to={`/jiraItems/team/${val.id}`}>
-                                                {val.teamName}
-                                            </NavLink>
+                                <Row className={styles.search_people_content_in_4_item_txt_team_content_overlay}>
+                                    {
+                                        prjdvlrprojectSearchPage?.map((val) => {
+                                            return (
+                                                <Col span={6} className={styles.search_people_content_in_4_item_txt_team_content}>
+                                                    <NavLink to={`/jiraItems/team/${val.id}`}>
+                                                        <div className={styles.search_people_content_in_4_item_txt_team_content_in_item}>
+                                                            {val.teamName}
+                                                        </div>
+                                                    </NavLink>
+                                                </Col>
+                                            )
+                                        })
+                                    }
+                                </Row>
 
-                                        </div>
-                                    )
-                                })
 
                         }
 

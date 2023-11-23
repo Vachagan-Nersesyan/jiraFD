@@ -9,9 +9,9 @@ import FilterRightBarThirdInSItemComp from '../../FilterG/ui/FIlterRightBarThird
 import { changeActualFilterdIssuesArrFunc, issuesSlice } from 'entities/issues/issuesReducer';
 import { InitialStateType, IssuesType } from 'entities/issues/issuesReducerTs.interface';
 
-import { IssueInCntComp } from '../../../../pages/IssuesComp/ui/IssuesScp';
+import { IssueInCntComp } from 'pages/IssuesComp/ui/IssuesScp';
 import { connect } from 'react-redux';
-import { AppStateType } from '../../../../entities/store/redux-store';
+import { AppStateType } from 'entities/store/redux-store';
 import { compose } from 'redux';
 
 import { projectSlice } from 'entities/project/projectReducer';
