@@ -188,7 +188,7 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                             <div className={styles.side_bar_layout_itm}>
                                 <Menu
                                     defaultSelectedKeys={['1']}
-                                    defaultOpenKeys={['sub1']}
+                                    defaultOpenKeys={[]}
                                     mode="inline"
                                     items={
                                         [
