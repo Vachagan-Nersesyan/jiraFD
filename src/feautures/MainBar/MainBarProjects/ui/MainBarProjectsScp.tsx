@@ -117,10 +117,11 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
                     <div className={styles.menu_work_content_1_item_2_itm}>
                         {
                             projectArr.map((val) => {
+
                                 return (
                                     <NavLink to={`/jiraItems/board/${val.id}`} key={val.id} onClick={() => changeProjectCompFunc(val.boardUniqName, val.id)}>
-                                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                            <FaJs />
+                                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_pic}>
+                                            <img src={val.picture} />
                                         </div>
                                         <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
                                             <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
@@ -156,9 +157,9 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
             label: (
 
                 <div className={styles.menu_work_content}>
-                    <NavLink to={'/'} onClick={showModal}>
+                    <div onClick={showModal}>
                         Create project
-                    </NavLink>
+                    </div>
                 </div>
             ),
             key: '3',

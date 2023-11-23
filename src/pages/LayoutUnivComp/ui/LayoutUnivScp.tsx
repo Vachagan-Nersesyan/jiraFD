@@ -31,6 +31,9 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
 
     const currentProjectNumberComp = useSelector((state: AppStateType) => state.project.currentProjectNumber)
 
+    const currentProjectLayoutComp = useSelector((state: AppStateType) => state.project.projectArr)
+
+
     // console.log(currentProjectNumberComp,'currentProjectNumberComp')
 
 
@@ -164,14 +167,14 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                         <div className={styles.filter_content}>
                             <div className={styles.side_bar_layout_itm}>
                                 <div className={styles.side_bar_layout_itm_logo}>
-                                    <FaAlgolia />
+                                    <img src={currentProjectLayoutComp[currentProjectNumberComp].picture} />
                                 </div>
                                 <div>
                                     <div className={styles.side_bar_layout_itm_1_item}>
-                                        My Kanban Project
+                                        {currentProjectLayoutComp[currentProjectNumberComp].name}
                                     </div>
                                     <div className={styles.side_bar_layout_itm_2_item}>
-                                        Software project
+                                        {currentProjectLayoutComp[currentProjectNumberComp].projectType}
                                     </div>
                                 </div>
                             </div>

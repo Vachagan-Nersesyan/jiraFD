@@ -9,10 +9,16 @@ import { FaAffiliatetheme, FaEllipsis } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
 import { changeProjectInfoFunc } from 'entities/project/projectReducer';
 import { OwnProps, ProjectSettingsFstObjType } from './ProjectSettingsTs.interface';
+import { useSelector } from 'react-redux';
+import { AppStateType } from 'entities/store/redux-store';
 
-const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
+const ProjectSettingsComp: React.FC<OwnProps> = (props) => {
 
     const dispatch = useDispatch()
+
+    const projectPictureSttngCompNum = useSelector((state: AppStateType) => state.project.currentProjectNumber)
+    const projectPictureSttngComp = useSelector((state: AppStateType) => state.project.projectArr)
+
 
     const MyFormItemContext = React.createContext<(string | number)[]>([]);
 
@@ -114,15 +120,7 @@ const ProjectSettingsComp: React.FC<OwnProps> = (prosp) => {
                 <Form name="form_item_path" layout="vertical" >
                     <MyFormItemGroup prefix={['user']}>
                         <div className={styles.development_page_content_form_content_change_icon}>
-                            <div className={styles.development_page_content_form_content_change_icon}>
-                                {/* <img src=''> */}
-                                <FaAffiliatetheme />
-                            </div>
-                            <div className={styles.development_page_content_form_content_change_icon}>
-                                <Button>
-                                    Change icon
-                                </Button>
-                            </div>
+                            <img src={projectPictureSttngComp[projectPictureSttngCompNum].picture} />
                         </div>
                         <MyFormItemGroup prefix={['name']}>
                             <MyFormItem name="firstName" label="Name">

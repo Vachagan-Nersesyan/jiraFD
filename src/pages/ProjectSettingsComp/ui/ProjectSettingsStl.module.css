@@ -9,4 +9,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 100%;
+}
+
+.development_page_content_form_content_change_icon img{
+    width: 20%;
 }

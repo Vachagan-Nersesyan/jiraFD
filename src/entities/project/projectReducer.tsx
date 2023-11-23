@@ -2,6 +2,11 @@
 import { IssuesType } from "../issues/issuesReducerTs.interface";
 // import { AppStateType, InferActionsTypes } from "./redux-store";
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import { v4 as uuid } from "uuid";
+
+import { createAvatar } from '@dicebear/core';
+import { shapes, avataaars } from '@dicebear/collection';
+
 import { DeveloperInfoType, InitialStateBoardOverlayType, InitialStateType, TeamType } from "./projectReducerTs.interface";
 
 export const boardExample = {
@@ -188,12 +193,19 @@ export const projectSlice = createSlice({
 
         createProjectFunc(state: InitialStateType, action: PayloadAction<{ name: string, key: string }>) {
 
+            const avatarProject = createAvatar(shapes, {
+                seed: uuid(),
+            });
+
+            const dataUri2 = avatarProject.toDataUriSync();
+
             let newProjectClone = { ...projectExample }
             newProjectClone.board = { ...projectExample.board }
 
             newProjectClone.id = state.projectArr.length
             newProjectClone.name = action.payload.name
             newProjectClone.key = action.payload.key
+            newProjectClone.picture = dataUri2
             newProjectClone.board.boardUniqName = `${action.payload.name} board`
             newProjectClone.boardUniqName = `${action.payload.name} board`
 

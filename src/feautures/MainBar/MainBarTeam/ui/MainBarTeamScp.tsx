@@ -8,6 +8,11 @@ import { AppStateType } from 'entities/store/redux-store'
 import { addDeveloperFunc, chooseProjectForTeamFunc } from 'entities/project/projectReducer'
 import { DeveloperInfoType, ProjectType, TeamType } from 'entities/project/projectReducerTs.interface'
 
+import { createAvatar } from '@dicebear/core';
+import { avataaars } from '@dicebear/collection';
+import { v4 as uuid } from "uuid";
+
+
 
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid';
@@ -83,6 +88,12 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
 
     const addPeopleCompFunc = () => {
 
+        const avatarUser = createAvatar(avataaars, {
+            seed: uuid(),
+        });
+
+        const dataUriUser = avatarUser.toDataUriSync();
+
 
         let developerObj: DeveloperInfoType = {
             uniqId: uuidv4(),
@@ -90,8 +101,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
             name: peopleName,
             teamName: developerTeam,
 
-            // change developers picture 
-            picture: ''
+            picture: dataUriUser
 
         }
 
