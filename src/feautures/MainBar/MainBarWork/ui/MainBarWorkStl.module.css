@@ -3,19 +3,28 @@
 }
 
 
-.main_bar_itms_stl_title{
-    color : #44546F
+.main_bar_itms_stl_title {
+    color: #44546F
 }
 
-.main_bar_itms_stl ul li:hover{
+.main_bar_itms_stl ul li:hover {
     background-color: transparent !important;
 }
 
-.menu_work_content_1_item_1_title{
+.menu_work_content_1_item_1_title {
     font-family: 'Oxygen', sans-serif;
     font-weight: 800;
-    color : #44546F;
+    color: #44546F;
     margin-bottom: 1em;
+}
+
+.menu_work_content_1_item_2_itm_overlay {
+    padding: .3em .3em;
+    transition: .3s ease-in-out;
+}
+
+.menu_work_content_1_item_2_itm_overlay:hover {
+    background-color: #F5F5F5;
 }
 
 .menu_work_content_1_item_2_itm a {
@@ -24,7 +33,6 @@
     align-items: center;
     flex-direction: row;
     text-decoration: none;
-    margin-bottom: 3em;
 }
 
 .menu_work_content_1_item_2_itm_in_1_itm svg {
@@ -33,12 +41,12 @@
     margin-right: .7em;
 }
 
-.menu_work_content_border{
+.menu_work_content_border {
     margin-bottom: 1em;
     border-bottom: 2px solid #DCDFE4;
 }
 
-.menu_work_content_1_item_2_itm_in_1_itm_1_itm{
+.menu_work_content_1_item_2_itm_in_1_itm_1_itm {
     font-family: 'Oxygen', sans-serif;
     color: #44546F;
     font-weight: 800;
@@ -46,25 +54,52 @@
     margin-bottom: .5em;
 }
 
-.menu_work_content_1_item_2_itm_in_1_itm_2_itm{
+.menu_work_content_1_item_2_itm_in_1_itm_2_itm {
     font-family: 'Oxygen', sans-serif;
     color: #44546F;
     font-size: .9em;
 }
 
-.menu_work_content_ovrl{
-    padding: .5em 0 .5em 0;
+.menu_work_content_ovrl {
+    padding: .5em;
+    cursor: pointer;
     background-color: transparent;
 }
 
-.menu_work_content_ovrl:hover{
-    background-color: #DCDFE4;
+.menu_work_content_ovrl:hover {
+    background-color: #F5F5F5;
 }
 
-.menu_work_content a{
+.menu_work_content a {
     width: 100%;
     text-decoration: none;
     color: #44546F;
 }
 
+.menu_work_content_1_item_not_issue {
+    font-family: 'Oxygen', sans-serif;
+    color: #44546F;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}
 
+.menu_work_content_1_item_2_itm_in_1_1_itm {
+    margin-right: .5em;
+    width: 10%;
+    height: 10%;
+}
+
+.menu_work_content_1_item_2_itm_in_1_1_itm svg {
+    width: 100%;
+    height: 100%;
+}
+
+.menu_work_content_1_item_2_itm_overlay {
+    margin-bottom: 1em;
+}
+
+.menu_work_content_1_item_2_itm_overlay a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}

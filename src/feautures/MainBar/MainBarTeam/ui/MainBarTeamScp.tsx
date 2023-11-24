@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './MainBarTeamStl.module.css'
 import { Button, Checkbox, Col, Dropdown, Input, MenuProps, Modal, Row, Select, Space, Tooltip } from 'antd'
-import { FaAngleDown, FaJs, FaPlus, FaUserGroup } from 'react-icons/fa6'
+import { FaAngleDown, FaEllipsis, FaJs, FaPlus, FaUserGroup, FaUsersRectangle } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AppStateType } from 'entities/store/redux-store'
@@ -17,6 +17,11 @@ import { v4 as uuid } from "uuid";
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid';
 import { OwnProps } from './MainBarTeamTs.interface'
+
+import firstpic from '../images/1.png'
+import secondpic from '../images/2.png'
+import thirdpic from '../images/3.png'
+
 
 const MainBarTeamComp: React.FC<OwnProps> = () => {
 
@@ -129,7 +134,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
         {
             label: (
                 <div>
-                    <div>
+                    <div className={styles.team_main_bar_fie_content}>
                         TEAMS
                     </div>
                     <div>
@@ -137,17 +142,27 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                         {
                             projectPeopleTeamHkArr.length === 0
                                 ?
-                                <div>
-                                    There isnt any team
+                                <div className={styles.team_main_bar_fie_content_in_title}>
+                                    There is not any team
                                 </div>
                                 :
                                 <div>
                                     {
                                         projectPeopleTeamHkArr.map((val) => {
                                             return (
-                                                <div>
+                                                <div className={styles.team_main_bar_fie_content_in_item}>
                                                     <NavLink to={`/jiraItems/team/${val.id}`}>
-                                                        {val.teamName}
+                                                        <div className={styles.team_main_bar_fie_content_in_item_1_item}>
+                                                            <FaUsersRectangle />
+                                                        </div>
+                                                        <div className={styles.team_main_bar_fie_content_in_item_2_item}>
+                                                            <div className={styles.team_main_bar_fie_content_in_item_2_item_1_item}>
+                                                                {val.teamName}
+                                                            </div>
+                                                            <div className={styles.team_main_bar_fie_content_in_item_2_item_2_item}>
+                                                                {val.teamPeaoples.length} member
+                                                            </div>
+                                                        </div>
                                                     </NavLink>
                                                 </div>
                                             )
@@ -169,26 +184,26 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                 <div className={styles.menu_work_content_1_item}>
                     <div onClick={() => teamToggleModal(0, true)} className={styles.menu_work_content_1_item_2_itm}>
 
-                        <div>
-                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                <FaPlus />
-                            </div>
-                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
-                                Invite people to Jira
-                            </div>
+
+                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
+                            <FaPlus />
                         </div>
+                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
+                            Invite people to Jira
+                        </div>
+
 
                     </div>
                     <div onClick={() => teamSecToggleModal(0, true)} className={styles.menu_work_content_1_item_2_itm}>
 
-                        <div>
-                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                <FaUserGroup />
-                            </div>
-                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
-                                Create a team
-                            </div>
+
+                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
+                            <FaUserGroup />
                         </div>
+                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
+                            Create a team
+                        </div>
+
 
                     </div>
                 </div>
@@ -225,11 +240,11 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                 </div>
             </Dropdown>
             <Modal
-                title="Basic Modal"
                 open={teamIsModalOpen[0]}
                 onOk={() => teamToggleModal(0, false)}
                 onCancel={() => teamToggleModal(0, false)}
                 footer="Footer"
+                closeIcon={false}
                 styles={{
                     header: {
                         borderRadius: 0,
@@ -267,9 +282,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                         {
                                             label: (
                                                 <div>
-                                                    <NavLink to={'/'}>
-                                                        <FaAngleDown /> User management
-                                                    </NavLink>
+                                                    <FaAngleDown /> User management
                                                 </div>
                                             ),
                                             key: '1',
@@ -277,9 +290,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                         {
                                             label: (
                                                 <div>
-                                                    <NavLink to={'/'}>
-                                                        <FaAngleDown /> Site access settings
-                                                    </NavLink>
+                                                    <FaAngleDown /> Site access settings
                                                 </div>
                                             ),
                                             key: '2',
@@ -288,7 +299,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                 }} trigger={['click']}>
                                     <a onClick={(e) => e.preventDefault()}>
                                         <Space>
-                                            ...
+                                            <FaEllipsis className={styles.team_main_bar_fie_content_in_item_2_item_2_item} />
                                         </Space>
                                     </a>
                                 </Dropdown>
@@ -300,7 +311,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                             Names or emails
                         </div>
                         <div className={styles.main_bar_first_modal_content_2_item_in_2_item}>
-                            <Input onChange={(e) => changePeopleName(e.target.value)} placeholder="Basic usage" />
+                            <Input onChange={(e) => changePeopleName(e.target.value)} placeholder="e.g., Maria, maria@company.com" />
                         </div>
                     </div>
                     <div className={styles.main_bar_first_modal_content_2_item}>
@@ -308,36 +319,62 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                             or add from
                         </div>
                         <div className={styles.main_bar_first_modal_content_2_item_in_2_item}>
-                            <Button type="primary">Google</Button>
-                            <Button>Slack</Button>
-                            <Button type="dashed">Microsoft</Button>
+                            <Button className={styles.main_bar_first_modal_content_2_item_in_2_item_btn}>
+                                <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_pic}>
+                                    <img src={firstpic} />
+                                </div>
+                                <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_txt}>
+                                    Google
+                                </div>
+                            </Button>
+                            <Button className={styles.main_bar_first_modal_content_2_item_in_2_item_btn}>
+                                <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_pic}>
+                                    <img src={secondpic} />
+                                </div>
+                                <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_txt}>
+                                    Slack
+                                </div>
+                            </Button>
+                            <Button className={styles.main_bar_first_modal_content_2_item_in_2_item_btn}>
+                                <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_pic}>
+                                    <img src={thirdpic} />
+                                </div>
+                                <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_txt}>
+                                    Microsoft
+                                </div>
+                            </Button>
                         </div>
                     </div>
                     <div>
                         {
                             projectPeopleTeamHkArr.length === 0
                                 ?
-                                <div>
+                                <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_txt}>
                                     Sorry there isn't active teams to add developer
                                 </div>
                                 :
-                                <Select
-                                    defaultValue="lucy"
-                                    style={{ width: 120 }}
-                                    onChange={(value: string) => setDeveloperTeam(value)}
-                                    options={
-                                        projectPeopleTeamHkArr.map((val) => {
-                                            return {
-                                                value: val.teamName,
-                                                label: (
-                                                    <div>
-                                                        {val.teamName}
-                                                    </div>
-                                                )
-                                            }
-                                        })
-                                    }
-                                />
+                                <>
+                                    <div className={styles.main_bar_first_modal_content_2_item_in_2_item_btn_txt}>
+                                        Please choose your team
+                                    </div>
+                                    <Select
+                                        style={{ width: 120 }}
+                                        onChange={(value: string) => setDeveloperTeam(value)}
+                                        className={styles.main_bar_first_modal_content_2_item_in_2_item_select}
+                                        options={
+                                            projectPeopleTeamHkArr.map((val) => {
+                                                return {
+                                                    value: val.teamName,
+                                                    label: (
+                                                        <div>
+                                                            {val.teamName}
+                                                        </div>
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    />
+                                </>
                         }
 
                     </div>
@@ -350,7 +387,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                             </Col>
                             <Col span={12} className={styles.main_bar_first_modal_content_4_item_in_container}>
                                 <Button>Cancel</Button>
-                                <Button onClick={addPeopleCompFunc} type="primary">Add</Button>
+                                <Button onClick={addPeopleCompFunc} type="primary" className={styles.main_bar_first_modal_content_4_item_in_container_btn}>Add</Button>
                             </Col>
                         </Row>
                     </div>
@@ -360,7 +397,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
 
             <Modal
                 className={styles.main_bar_sec_team_modal}
-                title="Basic Modal"
+
                 open={teamIsSecModalOpen[0]}
                 onOk={() => teamSecToggleModal(0, false)}
                 onCancel={() => teamSecToggleModal(0, false)}
@@ -426,8 +463,8 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                                     </div>
                                                     :
                                                     <Select
-                                                        defaultValue="lucy"
-                                                        style={{ width: 120 }}
+                                                        defaultValue="Please choose project"
+                                                        style={{ width: 200 }}
                                                         onChange={(value: string) => setteamProjectName(value)}
                                                         options={
                                                             projectTeamHkArr.map((val) => {
@@ -481,21 +518,17 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                             <Select
                                                 className={styles.main_bar_first_modal_content_4_item_slct}
                                                 showSearch
-                                                placeholder="Select a person"
+                                                placeholder="Select a products"
                                                 optionFilterProp="children"
                                                 options={[
                                                     {
-                                                        value: 'jack',
-                                                        label: 'Jack',
+                                                        value: 'jirasoftware',
+                                                        label: 'Jira Software',
                                                     },
                                                     {
-                                                        value: 'lucy',
-                                                        label: 'Lucy',
-                                                    },
-                                                    {
-                                                        value: 'tom',
-                                                        label: 'Tom',
-                                                    },
+                                                        value: 'jiraworkmanagement',
+                                                        label: 'Jira Work Management',
+                                                    }
                                                 ]}
                                             />
                                         </div>
@@ -505,8 +538,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
                                             <Col span={12}>
                                             </Col>
                                             <Col span={12} className={styles.main_bar_first_modal_content_4_item_in_container}>
-                                                <Button>Cancel</Button>
-                                                <Button type='primary' onClick={addProjectForTeamComp}>Create a team</Button>
+                                                <Button type='primary' onClick={addProjectForTeamComp} className={styles.main_bar_first_modal_content_4_item_in_container_btn}>Create a team</Button>
                                             </Col>
                                         </Row>
                                     </div>

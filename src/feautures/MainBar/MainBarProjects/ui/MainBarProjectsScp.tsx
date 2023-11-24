@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './MainBarProjectStl.module.css'
-import { Dropdown, MenuProps, Modal, Space } from 'antd'
-import { FaAngleDown, FaJs } from 'react-icons/fa6'
+import { Button, Col, Dropdown, MenuProps, Modal, Row, Space } from 'antd'
+import { FaAngleDown, FaJira, FaJs } from 'react-icons/fa6'
 import { NavLink, useLocation } from 'react-router-dom'
 import { addingBoardToProject, addingCurrentBoardToProject, changeBoardToProject, changeAllBoardItems, changeBoardUniqName, setCurrentProject, createProjectFunc } from 'entities/project/projectReducer'
 import { ProjectType } from 'entities/project/projectReducerTs.interface'
@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { OwnProps } from './MainBarProjectTs.interface'
 // import { InitialStateBoardOverlayType, InitialStateBoardType, changeAllBoardItems, changeBoardUniqName } from '../../../redux/projectReducer'
+import firstpic from '../images/1.svg'
+import secondpic from '../images/2.svg'
 
 
 let fg = false
@@ -191,13 +193,100 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
                 </div>
             </Dropdown>
             {/* delete modal hishel ara */}
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <input type="text" onChange={(e) => setProjectNameObj(e.target.value)} />
-                Write key
-                <input type="text" onChange={(e) => setProjectKeyObj(e.target.value)} />
-                <input type='submit' />
+            <Modal
 
-            </Modal>
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                className={styles.modal_create_project}
+            >
+                <Row className={styles.modal_create_project_container}>
+                    <Col span={11} className={styles.modal_create_project_container_first_col}>
+                        <div className={styles.modal_create_project_container_first_col_title}>
+                            Add project details
+                        </div>
+                        <div className={styles.modal_create_project_container_first_col_1_item}>
+                            Explore what's possible when you collaborate with your team. Edit project details anytime in project settings.
+                        </div>
+                        <div className={styles.modal_create_project_container_first_col_1_inp_tilte}>
+                            Name
+                        </div>
+                        <div className={styles.modal_create_project_container_first_col_1_inp}>
+                            <input type='text' placeholder="Try a team name, project goal, milestone..." onChange={(e) => setProjectNameObj(e.target.value)} />
+                        </div>
+                        <div className={styles.modal_create_project_container_first_col_1_item}>
+                            <span>Access</span> Anyone with access to testdff can access and administer this project. Upgrade your plan to customize project permissions.
+                        </div>
+                        <div className={styles.modal_create_project_container_first_col_1_inp_tilte}>
+                            Key
+                        </div>
+                        <div className={styles.modal_create_project_container_first_col_1_sec_inp}>
+                            <input type='text' onChange={(e) => setProjectKeyObj(e.target.value)} />
+                        </div>
+                    </Col>
+                    <Col span={11} className={styles.modal_create_project_container_second_col}>
+                        <div className={styles.modal_create_project_container_second_col_sub_content}>
+                            <div className={styles.modal_create_project_container_second_col_sub_content_1_item}>
+                                <Row>
+                                    <Col span={12} className={styles.modal_create_project_container_second_col_sub_content_1_item_title}>
+                                        Template
+                                    </Col>
+                                    <Col span={12} className={styles.modal_create_project_container_second_col_sub_content_1_item_sec_col}>
+                                        <Button>Change template</Button>
+                                    </Col>
+                                </Row>
+                            </div>
+                            <div className={styles.modal_create_project_container_second_col_sub_content_2_item}>
+                                <Row className={styles.modal_create_project_container_second_col_sub_content_2_item_row}>
+                                    <Col span={7} className={styles.modal_create_project_container_second_col_sub_content_2_item_first_col}>
+                                        <img src={firstpic} />
+                                    </Col>
+                                    <Col span={17} className={styles.modal_create_project_container_second_col_sub_content_2_item_second_col}>
+                                        <div className={styles.modal_create_project_container_second_col_sub_content_2_item_second_col_1_item}>
+                                            Kanban
+                                        </div>
+                                        <div className={styles.modal_create_project_container_second_col_sub_content_2_item_second_col_2_item}>
+                                            <FaJira /> Jira Software
+                                        </div>
+                                        <div className={styles.modal_create_project_container_second_col_sub_content_2_item_second_col_3_item}>
+                                            Visualize and advance your project forward using issues on a powerful board.
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </div>
+
+                        <div className={styles.modal_create_project_container_second_col_sub_content}>
+                            <div className={styles.modal_create_project_container_second_col_sub_content_1_item}>
+                                <Row>
+                                    <Col span={12} className={styles.modal_create_project_container_second_col_sub_content_1_item_title}>
+                                        Type
+                                    </Col>
+                                    <Col span={12} className={styles.modal_create_project_container_second_col_sub_content_1_item_sec_col}>
+                                        <Button>Change type</Button>
+                                    </Col>
+                                </Row>
+                            </div>
+                            <div className={styles.modal_create_project_container_second_col_sub_content_2_item}>
+                                <Row className={styles.modal_create_project_container_second_col_sub_content_2_item_row}>
+                                    <Col span={7} className={styles.modal_create_project_container_second_col_sub_content_2_item_first_col_s}>
+                                        <img src={secondpic} />
+                                    </Col>
+                                    <Col span={17} className={styles.modal_create_project_container_second_col_sub_content_2_item_second_col}>
+                                        <div className={styles.modal_create_project_container_second_col_sub_content_2_item_second_col_1_item}>
+                                            Team-managed
+                                        </div>
+                                        <div className={styles.modal_create_project_container_second_col_sub_content_2_item_second_col_3_item}>
+                                            Control your own working processes and practices in a self-contained space.
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+
+            </Modal >
         </>
     )
 }

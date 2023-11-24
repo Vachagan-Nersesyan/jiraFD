@@ -54,9 +54,9 @@ const DashboardComp: React.FC<OwnProps> = () => {
             label: (
 
                 <div onClick={() => toggleModal(0, true)} className={styles.menu_work_content}>
-                    <NavLink to={'/'} >
-                        Create dashboard
-                    </NavLink>
+
+                    Create dashboard
+
                 </div>
             ),
             key: '3',
@@ -74,7 +74,6 @@ const DashboardComp: React.FC<OwnProps> = () => {
             </Dropdown>
 
             <Modal
-                title="Basic Modal"
                 open={isModalOpen[0]}
                 onOk={() => toggleModal(0, false)}
                 onCancel={() => toggleModal(0, false)}

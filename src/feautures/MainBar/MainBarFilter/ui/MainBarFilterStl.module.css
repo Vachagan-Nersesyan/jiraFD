@@ -28,7 +28,7 @@
 }
 
 .menu_work_content_1_item_2_itm_in_1_itm svg {
-    color: #E5493A;
+    color: #44546F;
     font-size: 2em;
     margin-right: .7em;
 }
@@ -67,11 +67,11 @@
     color: #44546F;
 }
 
-.menu_work_content_1_item_2_itm_flt{
-    padding:.5em 0em
-    
+.menu_work_content_1_item_2_itm_flt {
+    padding: .5em;
+    transition: .3s ease-in-out;
 }
 
-.menu_work_content_1_item_2_itm_flt:hover{
+.menu_work_content_1_item_2_itm_flt:hover {
     background-color: #F1F2F4;
 }

@@ -1,13 +1,19 @@
 .create_issue_modal_first_type {
     position: absolute;
-    top: 70%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 45em !important;
 }
 
 .create_iss_sec_tp_modal {
     overflow: scroll;
     height: 20em;
+}
+
+.main_bar_create_iss_modal_content_1_item_overlay {
+    height: 27em;
+    overflow: scroll;
 }
 
 .create_issue_modal_second_type {
@@ -20,15 +26,17 @@
 }
 
 .modal_third_type_wrp_itm {
-    z-index: 1 !important;
+    z-index: 100 !important;
+    background-color: rgba(0, 0, 0, .4);
 }
 
 
 .create_issue_modal_third_type {
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 2em;
     top: auto;
+    width: 25em !important;
 }
 
 .main_bar_create_iss_modal_content {
@@ -55,15 +63,19 @@
 .main_bar_create_iss_modal_content_1_item_2_item_1_item {
     border: none;
     padding: 0 1em;
+    cursor: pointer !important;
     color: #44546F;
     background-color: transparent;
     transition: .3s;
 }
 
 .main_bar_create_iss_modal_content_1_item_2_item_1_item:hover {
-    background-color: #D5D9DF;
+    color: #44546F !important;
+    cursor: pointer;
+    background-color: #F1F2F4;
     transition: .3s;
 }
+
 
 .main_bar_create_iss_modal_content_1_item_2_item_1_item:hover svg {
     color: #44546F;
@@ -152,6 +164,7 @@
     width: 100%;
 }
 
+
 .main_bar_create_iss_modal_content_3_item_1_slct {
     color: #44546F;
     font-family: 'Oxygen', sans-serif;
@@ -179,7 +192,8 @@
     display: flex;
     justify-content: flex-end;
 }
-.main_bar_create_iss_modal_content_7_item_sec_col input{
+
+.main_bar_create_iss_modal_content_7_item_sec_col input {
     width: auto;
     margin-left: .5em;
 }
@@ -195,7 +209,7 @@
     cursor: pointer;
     background-color: transparent;
     transition: .3s;
-    border: 1px solid #44546F;
+    border: 1px solid #F1F2F4;
 }
 
 .create_issue_modal_third_type_in_content:hover {
@@ -206,7 +220,7 @@
 .create_issue_modal_third_type_in_content svg {
     margin-right: 1em;
     font-size: 2em;
-    color: #0055CC;
+    color: #44546F;
 }
 
 .main_bar_create_iss_modal_content_4_inp_item_sec {
@@ -236,4 +250,31 @@
     padding: .3em;
     border-radius: .5em;
     border: 2px solid #E2483D;
+}
+
+.create_issue_modal_btn_ofe_overlay {
+    padding-right: 3em
+}
+
+.main_bar_create_iss_modal_content_3_item_slct_ovly_sdr_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.menu_work_content_1_item_2_itm_in_1_itm {
+    margin-right: .5em;
+    width: 7%;
+}
+
+.menu_work_content_1_item_2_itm_in_1_itm img {
+    width: 100%;
+}
+
+.main_bar_create_iss_modal_content_3_item_ovlr_feq_cont {
+    margin-bottom: 1em;
+}
+
+.main_bar_create_iss_modal_content_3_item_uniq_slct {
+    width: 20em;
 }

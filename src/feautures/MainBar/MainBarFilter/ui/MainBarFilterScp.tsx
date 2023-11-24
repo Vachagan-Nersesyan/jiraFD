@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './MainBarFilterStl.module.css'
 import { Dropdown, MenuProps, Space } from 'antd'
-import { FaAngleDown, FaJs } from 'react-icons/fa6'
+import { FaAngleDown, FaJs, FaSignal } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { filterBoardByGlobalTypeUtFunc } from 'widgets/helpers/helperScp'
 import { useDispatch } from 'react-redux'
@@ -61,7 +61,7 @@ const MainBarFilterComp: React.FC<OwnProps> = () => {
                                 return (
                                     <NavLink onClick={() => chooseFilterNameCompFunc(val.filterName)} to={`/jiraItems/filter/${val.id}`} className={styles.menu_work_content_1_item_2_itm_flt}>
                                         <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                            <FaJs />
+                                            <FaSignal />
                                         </div>
                                         <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
                                             <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
@@ -82,16 +82,6 @@ const MainBarFilterComp: React.FC<OwnProps> = () => {
         },
         {
             label: (
-                <div className={styles.menu_work_content}>
-                    <NavLink to={'/'}>
-                        View all filters
-                    </NavLink>
-                </div>
-            ),
-            key: '2',
-        },
-        {
-            label: (
 
                 <div className={styles.menu_work_content}>
                     <NavLink to={'/jiraItems/filter/-1'}>
@@ -99,7 +89,7 @@ const MainBarFilterComp: React.FC<OwnProps> = () => {
                     </NavLink>
                 </div>
             ),
-            key: '3',
+            key: '2',
         }
     ]
 

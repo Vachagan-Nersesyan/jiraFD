@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './MainBarWorkStl.module.css'
 import { Dropdown, Space, Tabs, MenuProps } from 'antd'
-import { FaAngleDown, FaJs } from 'react-icons/fa6'
+import { FaAngleDown, FaJs, FaTableList } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import type { TabsProps } from 'antd';
 import { useSelector } from 'react-redux'
@@ -27,7 +27,7 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
     const [assigneeUserIssuesHkArr, setAssigneeUserIssuesHkArr] = useState<Array<IssuesType>>(recentUserIssuesArrClone)
 
     useEffect(() => {
-        debugger
+        // debugger
 
         assigneeUserIssuesArr = []
         recentUserIssuesArrClone = []
@@ -74,8 +74,8 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
                         {
                             assigneeUserIssuesHkArr.length === 0
                                 ?
-                                <div>
-                                    there isnt issue
+                                <div className={styles.menu_work_content_1_item_not_issue}>
+                                    Sorry there is not issue
                                 </div>
                                 :
                                 <div>
@@ -104,10 +104,11 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
 
 
                                     </div>
+                                    <div className={styles.menu_work_content_border}></div>
                                 </div>
                         }
                     </div>
-                    <div className={styles.menu_work_content_border}></div>
+
                     <div className={styles.menu_work_content}>
                         <NavLink to={'/jiraItems/projectsWork'}>
                             <div className={styles.menu_work_content_ovrl}>
@@ -132,19 +133,21 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
                                 recentUserIssuesArr.map((val) => {
 
                                     return (
-                                        <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
-                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                <FaJs />
-                                            </div>
-                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
-                                                    {val.summary}
+                                        <div className={styles.menu_work_content_1_item_2_itm_overlay}>
+                                            <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                                <div className={styles.menu_work_content_1_item_2_itm_in_1_1_itm}>
+                                                    <img src={val.issueTypePic} />
                                                 </div>
-                                                <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_2_itm}>
-                                                    {val.issueShortName} . {val.issuesProject}
+                                                <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
+                                                    <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
+                                                        {val.summary}
+                                                    </div>
+                                                    <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_2_itm}>
+                                                        {val.issueShortName} . {val.issuesProject}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </NavLink>
+                                            </NavLink>
+                                        </div>
                                     )
                                 })
                             }
@@ -175,16 +178,18 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
                                 boardUserIssuesArr.map((val) => {
 
                                     return (
-                                        <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
-                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                <FaJs />
-                                            </div>
-                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
-                                                    {val.boardName}
+                                        <div className={styles.menu_work_content_1_item_2_itm_overlay}>
+                                            <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                                <div className={styles.menu_work_content_1_item_2_itm_in_1_1_itm}>
+                                                    <FaTableList />
                                                 </div>
-                                            </div>
-                                        </NavLink>
+                                                <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
+                                                    <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
+                                                        {val.boardName}
+                                                    </div>
+                                                </div>
+                                            </NavLink>
+                                        </div>
                                     )
                                 })
                             }

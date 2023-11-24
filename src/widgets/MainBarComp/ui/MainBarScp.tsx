@@ -48,7 +48,7 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
     const projectMainBarArr = useSelector((state: AppStateType) => state.project.projectArr)
 
-    debugger
+    // debugger
 
     const [projectsMainBarArrItems, setProjectsMainBarArrItems] = useState<Array<ProjectType>>(projectsMainBarArrItemsClone)
     const [issueMainBarArrItems, setIssueMainBarArrItems] = useState<Array<IssuesType>>([])
@@ -151,12 +151,6 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
                 <MainBarAppComp />
             ),
             key: 'appitm',
-        },
-        {
-            label: (
-                <MainBarCreateIssueComp />
-            ),
-            key: 'alipay',
         },
     ];
 
@@ -282,7 +276,7 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
 
 
-    debugger
+    // debugger
 
     const [selectedItems, setSelectedItems] = useState<string>('');
 
@@ -297,102 +291,6 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
     const mainbarRightItems: MenuProps['items'] = [
         {
             label: (
-                // <Select
-                //     showSearch
-                //     placeholder="Select a person"
-                //     optionFilterProp="children"
-                //     className={styles.mainbar_glb_search}
-
-                //     value={selectedItems}
-                //     onSearch={setSelectedItems}
-
-                //     // onSearch={(value :)setProjectsMainBarArrItems(filterProjectsUtFunc(value, projectsMainBarArrItems))
-                //     // }
-                //     // filterOption={filterOption}
-
-
-                //     popupClassName={styles.mainbar_glb_search_pp}
-                //     options={[
-                //         {
-                //             label: 'Projects',
-                //             options: filteredOptions.map((val) => {
-                //                 debugger
-                //                 return {
-                //                     value: val.name,
-                //                     label: (
-                //                         <div>
-                //                             <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
-                //                                 {/* click anell henc anuni vra */}
-                //                                 {val.name}
-                //                             </NavLink>
-                //                         </div>
-                //                     ),
-                //                 }
-                //             })
-
-                //         },
-                //         // {
-                //         //     label: issueMainBarArrItems.length === 0 ? null : 'Issues',
-                //         //     options: issueMainBarArrItems.map((val) => {
-                //         //         return {
-                //         //             value: val.summary,
-                //         //             label: (
-                //         //                 <div>
-                //         //                     <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
-                //         //                         {val.summary}
-                //         //                     </NavLink>
-                //         //                 </div>
-                //         //             ),
-                //         //         }
-                //         //     })
-
-                //         // }
-                //     ]
-                //     }
-                // />
-
-                <Select
-                    showSearch
-                    placeholder="Select a person"
-                    optionFilterProp="children"
-                    filterOption={filterOption}
-                    options={[
-                        ...projectsMainBarArrItems.map((val) => {
-                            return {
-                                value: val.name,
-                                label: (
-                                    <div>
-                                        <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
-                                            {/* click anell henc anuni vra */}
-                                            {val.name}
-                                        </NavLink>
-                                    </div>
-                                ),
-                            }
-                        }),
-
-                        ...issueMainBarArrItems.map((val, ind) => {
-                            return {
-                                value: val.summary,
-                                label: (
-                                    <div>
-                                        <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
-                                            {val.summary}
-                                        </NavLink>
-                                    </div>
-                                ),
-                            }
-                        })
-                    ]
-
-                    }
-                />
-            ),
-            key: '1',
-
-        },
-        {
-            label: (
                 <MainBarNotificationsComp />
             ),
             key: '2',
@@ -403,7 +301,7 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
                     <Button
                         type="text"
                         onClick={() => setCollapsed(!collapsed)}
-
+                        className={styles.main_bar_sub_right_bar_content_2_itm_icon_btn}
                     >
                         <FaCircleQuestion className={styles.main_bar_sub_right_bar_content_2_itm_icon} />
                     </Button>
@@ -442,11 +340,58 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
         <>
             <div className={styles.main_bar_container_overlay}>
                 <Row className={styles.main_bar_container}>
-                    <Col span={16}>
+                    <Col span={15} className={styles.main_bar_container_first_col}>
                         <Menu selectable={false} rootClassName={styles.menu} mode="horizontal" items={mainbarLeftItems} />
-
+                        <MainBarCreateIssueComp />
                     </Col>
-                    <Col className={styles.main_bar_content} span={8}>
+                    <Col className={styles.main_bar_content} span={9}>
+                        <Select
+                            showSearch
+                            placeholder="Select a person"
+                            optionFilterProp="children"
+                            filterOption={filterOption}
+                            className={styles.main_bar_content_sec_col_srch_item}
+                            options={[
+                                ...projectsMainBarArrItems.map((val) => {
+                                    return {
+                                        value: val.name,
+                                        label: (
+                                            <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl}>
+                                                <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                                    {/* click anell henc anuni vra */}
+                                                    <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl_1_item}>
+                                                        <img src={val.picture} />
+                                                    </div>
+                                                    <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl_2_item}>
+                                                        {val.name}
+                                                    </div>
+                                                </NavLink>
+                                            </div>
+                                        ),
+                                    }
+                                }),
+
+                                ...issueMainBarArrItems.map((val, ind) => {
+                                    return {
+                                        value: val.summary,
+                                        label: (
+                                            <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl}>
+                                                <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                                    <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl_1_item}>
+                                                        <img src={val.issueTypePic} />
+                                                    </div>
+                                                    <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl_2_item}>
+                                                        {val.summary}
+                                                    </div>
+                                                </NavLink>
+                                            </div>
+                                        ),
+                                    }
+                                })
+                            ]
+
+                            }
+                        />
                         <Menu selectable={false} rootClassName={styles.sec_menu} mode="horizontal" items={mainbarRightItems} />
 
                     </Col>

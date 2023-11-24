@@ -98,41 +98,39 @@ const MainBarSettingsComp: React.FC<OwnProps> = () => {
             ),
             key: '1',
         },
-        {
-            label: (
-                <div className={styles.main_bar_sttngs_itm_admin_content}>
-                    {
-                        settingsArr.map((val) => {
-                            return (
-                                <NavLink to={'/'} className={styles.main_bar_sttngs_itm_admin_contentsec_ovrl}>
-                                    <Row className={styles.main_bar_sttngs_itm_admin_contentsec_row}>
-                                        <Col span={16}>
-                                            <Row className={styles.main_bar_sttngs_itm_admin_contentsec_f_col}>
-                                                <Col span={3} className={styles.main_bar_sttngs_itm_admin_contentsec_f_col_title}>
-                                                    {val.icon}
-                                                </Col>
-                                                <Col span={21}>
-                                                    <div className={styles.main_bar_sttngs_itm_admin_content_1_item}>
-                                                        {val.title}
-                                                    </div>
-                                                    <div className={styles.main_bar_sttngs_itm_admin_content_2_item}>
-                                                        {val.text}
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col className={styles.main_bar_sttngs_itm_admin_contentsec_col} span={8}>
-                                            <FaArrowUpRightFromSquare />
-                                        </Col>
-                                    </Row>
-                                </NavLink>
-                            )
-                        })
-                    }
-                </div>
-            ),
-            key: '2',
-        },
+
+
+        ...settingsArr.map((val, ind) => {
+            return {
+                label: (
+                    <div className={styles.main_bar_sttngs_itm_admin_contentsec_ovrl}>
+                        <Row className={styles.main_bar_sttngs_itm_admin_contentsec_row}>
+                            <Col span={16}>
+                                <Row className={styles.main_bar_sttngs_itm_admin_contentsec_f_col}>
+                                    <Col span={3} className={styles.main_bar_sttngs_itm_admin_contentsec_f_col_title}>
+                                        {val.icon}
+                                    </Col>
+                                    <Col span={21}>
+                                        <div className={styles.main_bar_sttngs_itm_admin_content_1_item}>
+                                            {val.title}
+                                        </div>
+                                        <div className={styles.main_bar_sttngs_itm_admin_content_2_item}>
+                                            {val.text}
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className={styles.main_bar_sttngs_itm_admin_contentsec_col} span={8}>
+                                <FaArrowUpRightFromSquare />
+                            </Col>
+                        </Row>
+                    </div>
+                ),
+                key: val.text,
+            }
+        }),
+
+
         {
             label: (
                 <div className={styles.main_bar_sttngs_itm_title}>
@@ -141,41 +139,36 @@ const MainBarSettingsComp: React.FC<OwnProps> = () => {
             ),
             key: '3',
         },
-        {
-            label: (
-                <div className={styles.main_bar_sttngs_itm_admin_content}>
-                    {
-                        settingsSecArr.map((val) => {
-                            return (
-                                <NavLink to={'/'} className={styles.main_bar_sttngs_itm_admin_contentsec_ovrl}>
-                                    <Row className={styles.main_bar_sttngs_itm_admin_contentsec_row}>
-                                        <Col span={16}>
-                                            <Row className={styles.main_bar_sttngs_itm_admin_contentsec_f_col}>
-                                                <Col span={3} className={styles.main_bar_sttngs_itm_admin_contentsec_f_col_title_sec}>
-                                                    {val.icon}
-                                                </Col>
-                                                <Col span={21}>
-                                                    <div className={styles.main_bar_sttngs_itm_admin_content_1_item}>
-                                                        {val.title}
-                                                    </div>
-                                                    <div className={styles.main_bar_sttngs_itm_admin_content_2_item}>
-                                                        {val.text}
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col className={styles.main_bar_sttngs_itm_admin_contentsec_col} span={8}>
-                                            <FaArrowUpRightFromSquare />
-                                        </Col>
-                                    </Row>
-                                </NavLink>
-                            )
-                        })
-                    }
-                </div>
-            ),
-            key: '4',
-        },
+
+        ...settingsSecArr.map((val) => {
+            return {
+                label: (
+                    <div className={styles.main_bar_sttngs_itm_admin_contentsec_ovrl}>
+                        <Row className={styles.main_bar_sttngs_itm_admin_contentsec_row}>
+                            <Col span={16}>
+                                <Row className={styles.main_bar_sttngs_itm_admin_contentsec_f_col}>
+                                    <Col span={3} className={styles.main_bar_sttngs_itm_admin_contentsec_f_col_title_sec}>
+                                        {val.icon}
+                                    </Col>
+                                    <Col span={21}>
+                                        <div className={styles.main_bar_sttngs_itm_admin_content_1_item}>
+                                            {val.title}
+                                        </div>
+                                        <div className={styles.main_bar_sttngs_itm_admin_content_2_item}>
+                                            {val.text}
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className={styles.main_bar_sttngs_itm_admin_contentsec_col} span={8}>
+                                <FaArrowUpRightFromSquare />
+                            </Col>
+                        </Row>
+                    </div>
+                ),
+                key: val.title
+            }
+        }),
         {
             label: (
                 <div className={styles.main_bar_sttngs_itm_title}>
@@ -184,41 +177,36 @@ const MainBarSettingsComp: React.FC<OwnProps> = () => {
             ),
             key: '5',
         },
-        {
-            label: (
-                <div className={styles.main_bar_sttngs_itm_admin_content}>
-                    {
-                        settingsprsnlArr.map((val) => {
-                            return (
-                                <NavLink to={'/'} className={styles.main_bar_sttngs_itm_admin_contentsec_ovrl}>
-                                    <Row className={styles.main_bar_sttngs_itm_admin_contentsec_row}>
-                                        <Col span={16}>
-                                            <Row className={styles.main_bar_sttngs_itm_admin_contentsec_f_col}>
-                                                <Col span={3} className={styles.main_bar_sttngs_itm_admin_contentsec_f_col_title_sec}>
-                                                    {val.icon}
-                                                </Col>
-                                                <Col span={21}>
-                                                    <div className={styles.main_bar_sttngs_itm_admin_content_1_item}>
-                                                        {val.title}
-                                                    </div>
-                                                    <div className={styles.main_bar_sttngs_itm_admin_content_2_item}>
-                                                        {val.text}
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col className={styles.main_bar_sttngs_itm_admin_contentsec_col} span={8}>
-                                            <FaArrowUpRightFromSquare />
-                                        </Col>
-                                    </Row>
-                                </NavLink>
-                            )
-                        })
-                    }
-                </div>
-            ),
-            key: '6',
-        },
+        ...settingsprsnlArr.map((val) => {
+            return {
+                label: (
+                    <div className={styles.main_bar_sttngs_itm_admin_contentsec_ovrl}>
+                        <Row className={styles.main_bar_sttngs_itm_admin_contentsec_row}>
+                            <Col span={16}>
+                                <Row className={styles.main_bar_sttngs_itm_admin_contentsec_f_col}>
+                                    <Col span={3} className={styles.main_bar_sttngs_itm_admin_contentsec_f_col_title_sec}>
+                                        {val.icon}
+                                    </Col>
+                                    <Col span={21}>
+                                        <div className={styles.main_bar_sttngs_itm_admin_content_1_item}>
+                                            {val.title}
+                                        </div>
+                                        <div className={styles.main_bar_sttngs_itm_admin_content_2_item}>
+                                            {val.text}
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className={styles.main_bar_sttngs_itm_admin_contentsec_col} span={8}>
+                                <FaArrowUpRightFromSquare />
+                            </Col>
+                        </Row>
+                    </div>
+                ),
+                key: val.title
+            }
+        })
+
     ]
 
 

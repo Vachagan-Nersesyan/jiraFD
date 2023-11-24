@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './MainBarNorificationsStl.module.css'
 import { Col, Dropdown, Row, Space, Switch, Tabs } from 'antd'
-import { FaArrowUpRightFromSquare, FaCheckDouble, FaExclamation, FaFingerprint, FaGrip, FaGripVertical } from 'react-icons/fa6'
+import { FaArrowUpRightFromSquare, FaCheckDouble, FaExclamation, FaFingerprint, FaGrip, FaGripVertical, FaRegBell } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import type { MenuProps, TabsProps } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
@@ -136,7 +136,7 @@ const MainBarNotificationsComp: React.FC<OwnProps> = () => {
             overlayClassName={styles.main_bar_sub_right_bar_content_2_itm} menu={{ items: notificitems }} trigger={['click']}>
             <NavLink to={'/'} onClick={(e) => e.preventDefault()}>
                 <Space >
-                    <FaExclamation className={styles.main_bar_sub_right_bar_content_2_itm_icon} />
+                    <FaRegBell className={styles.main_bar_sub_right_bar_content_2_itm_icon} />
                 </Space>
             </NavLink>
         </Dropdown>

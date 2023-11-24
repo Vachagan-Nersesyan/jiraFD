@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './MainBarCreateIssueStl.module.css'
 import { Avatar, Button, Checkbox, Col, Dropdown, Input, List, Modal, Row, Select, Space } from 'antd'
-import { FaAngleDown, FaArrowUpRightFromSquare, FaCircleUser, FaJs, FaRegEye, FaRegSquarePlus, FaUpRightAndDownLeftFromCenter, FaWindowMinimize } from 'react-icons/fa6';
+import { FaAngleDown, FaArrowRightArrowLeft, FaArrowUpRightFromSquare, FaArrowsUpDownLeftRight, FaCircleUser, FaEllipsis, FaExpand, FaJs, FaMaximize, FaMinimize, FaRegEye, FaRegSquarePlus, FaUpRightAndDownLeftFromCenter, FaWindowMinimize, FaXmark } from 'react-icons/fa6';
 import { NavLink } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect, useSelector } from 'react-redux'
@@ -67,21 +67,33 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
     const mainbarcreatissThrdArrData = [
         {
+            id: 0,
             title: 'Story',
+            images: '/pictures/issueImages/3.svg'
         },
         {
+            id: 1,
             title: 'Bug',
+            images: '/pictures/issueImages/1.svg'
+
         },
         {
+            id: 2,
             title: 'Task',
+            images: '/pictures/issueImages/4.svg'
+
         },
         {
+            id: 3,
             title: 'Epic',
+            images: '/pictures/issueImages/2.svg'
+
         },
     ]
 
     const mainbarcreatissForthArrData = [
         {
+            id: 0,
             title: 'Vachagan',
         },
     ]
@@ -206,11 +218,9 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
     };
 
 
-
-
     return (
         <>
-            <div>
+            <div className={styles.create_issue_modal_btn_ofe_overlay}>
                 <Button onClick={() => createIssToggleModal(0, true)} type="primary">Create</Button>
 
             </div>
@@ -250,13 +260,15 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
                         }}
                     >
                         <div onClick={() => setCrIssModalStlItm('2')} className={styles.create_issue_modal_third_type_in_content}>
-                            <FaCircleUser /> task 3
+                            <FaExpand /> CONTINUE CREATING TASK
                         </div>
                     </Modal>
                     :
                     <Modal
 
                         wrapClassName={styles.modal_third_type_wrp_itm}
+
+                        closeIcon={false}
 
                         className={crIssModalStlItm === '1' ?
                             styles.create_issue_modal_first_type
@@ -366,377 +378,322 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
                                                             crIssModalStlItm === '1' ?
                                                                 setCrIssModalStlItm('2') :
                                                                 setCrIssModalStlItm('1')
-                                                        }><FaUpRightAndDownLeftFromCenter /></Button>
-                                                    <Button className={styles.main_bar_create_iss_modal_content_1_item_2_item_1_item} onClick={() => createIssToggleModal(0, false)}><FaRegSquarePlus /></Button>
+                                                        }>{crIssModalStlItm === '1' ? <FaMinimize /> : <FaMaximize />}</Button>
+                                                    <Button className={styles.main_bar_create_iss_modal_content_1_item_2_item_1_item} onClick={() => createIssToggleModal(0, false)}><FaXmark /> </Button>
                                                 </Col>
                                             </Row>
                                         </div>
-                                        <div className={styles.main_bar_create_iss_modal_content_2_item}>
-                                            <Row className={styles.main_bar_create_iss_modal_content_2_item_container}>
-                                                <Col className={styles.main_bar_create_iss_modal_content_2_item_container_first_col} span={12}>
-                                                    Required fields are marked with an asterisk *
-                                                </Col >
-                                                <Col className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col} span={12}>
-                                                    <Dropdown menu={{
-                                                        items: [
-                                                            {
-                                                                label: (
-                                                                    <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item}>
-                                                                        <Row className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item_1_item}>
-                                                                            <Col span={16} className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item_1_item_in_1_item}>
-                                                                                <FaRegEye /> Stop watching
-                                                                            </Col>
-                                                                            <Col span={8} className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item_1_item_in_2_item}>
-                                                                                W
-                                                                            </Col>
-                                                                        </Row>
-                                                                    </div>
-                                                                ),
-                                                                key: '1',
-                                                            },
-                                                            {
-                                                                type: 'divider',
-                                                            },
-                                                            {
-                                                                label: (
-                                                                    <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_title}>
-                                                                        WATCHING THIS ISSUE
-                                                                    </div>
-                                                                ),
-                                                                key: '2',
-                                                            },
-                                                            {
-                                                                label: (
-                                                                    <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_2_item}>
-                                                                        <FaAngleDown />
-                                                                        Vachagan
-                                                                    </div>
-                                                                ),
-                                                                key: '3',
-                                                            },
-                                                            {
-                                                                type: 'divider',
-                                                            },
-                                                            {
-                                                                label: (
-                                                                    <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_3_item}>
-                                                                        <Row className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_3_item_container}>
-                                                                            <Col span={8}>
-                                                                                +
-                                                                            </Col>
-                                                                            <Col span={16} className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_3_item_sec_col}>
-                                                                                Add watchers
-                                                                            </Col>
-                                                                        </Row>
-                                                                    </div>
-                                                                ),
-                                                                key: '4',
-                                                            },
-                                                        ]
-                                                    }} trigger={['click']}
-                                                        className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_1_item}
-                                                    >
-                                                        <a onClick={(e) => e.preventDefault()}>
-                                                            <Space>
-                                                                <FaRegEye /> 0
-                                                            </Space>
-                                                        </a>
-                                                    </Dropdown>
-                                                    <Button
-                                                        className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_2_item}
-                                                    >Import issues</Button>
-                                                    <Dropdown menu={{
-                                                        items: [
-                                                            {
-                                                                label: (
-                                                                    <div>
-                                                                        Show fields
-                                                                    </div>
-                                                                ),
-                                                                key: '1'
-                                                            }
-                                                        ]
-                                                    }} trigger={['click']}
-                                                        className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_3_item}
-                                                    >
-                                                        <a onClick={(e) => e.preventDefault()}>
-                                                            <Space>
-                                                                ...
-                                                            </Space>
-                                                        </a>
-                                                    </Dropdown>
-                                                </Col>
-                                            </Row>
-                                        </div>
-                                        <div className={styles.main_bar_create_iss_modal_content_3_item}>
-                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
-                                                Project *
-                                            </div>
-                                            <Select
-                                                showSearch
-                                                placeholder="Search to Select"
-                                                optionFilterProp="children"
-                                                className={styles.main_bar_create_iss_modal_content_3_item_slct}
-                                                options={[
-                                                    {
-                                                        value: '1',
-                                                        label: (
-                                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
-                                                                RECENT PROJECTS
-                                                            </div>
-                                                        ),
-                                                    },
-                                                    {
-                                                        value: '2',
-                                                        label:
-                                                            projectArr.map((val) => {
-                                                                return (
-                                                                    <div key={val.id}
-                                                                        onClick={() => {
-                                                                            projectHandleChange(val.name)
-                                                                        }}
-                                                                    >
-                                                                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                                            <FaJs />
-                                                                        </div>
-                                                                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
-                                                                                {val.name} ({val.key})
-                                                                            </div>
-                                                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_2_itm}>
-                                                                                {val.projectType}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })
-                                                    },
-                                                    {
-                                                        value: '3',
-                                                        label: (
-                                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
-                                                                ALL PROJECTS
-                                                            </div>
-                                                        ),
-                                                    },
-                                                    {
-                                                        value: '4',
-                                                        label:
-                                                            projectArr.map((val) => {
-                                                                return (
-                                                                    <div key={val.id}
-                                                                        onClick={() => {
-                                                                            // issueObj.issuesProject = val.name
-                                                                            projectHandleChange(val.name)
-                                                                        }}
-                                                                    >
-                                                                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                                            <FaJs />
-                                                                        </div>
-                                                                        <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
-                                                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_1_itm}>
-                                                                                {val.name} ({val.key})
-                                                                            </div>
-                                                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm_2_itm}>
-                                                                                {val.projectType}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            }),
-                                                    }
-                                                ]}
-                                            />
-                                        </div>
-                                        <div className={crIssModalStlItm === '1' ? styles.main_bar_create_iss_modal_content_3_item : styles.main_bar_create_iss_modal_content_3_item_sec}>
-                                            <Row>
-                                                <Col span={crIssModalStlItm === '1' ? 24 : 12}>
-                                                    <div>
-                                                        <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
-                                                            Issue type *
-                                                        </div>
-                                                        <Select
-                                                            className={styles.main_bar_create_iss_modal_content_3_item_slct}
-                                                            showSearch
-                                                            placeholder="Search to Select"
-                                                            optionFilterProp="children"
-                                                            options={[
-                                                                {
-                                                                    value: '1',
-                                                                    label: 'Issue type *',
-                                                                },
-                                                                {
-                                                                    value: '2',
-                                                                    label: (
-                                                                        <div>
-                                                                            <List
-                                                                                itemLayout="horizontal"
-                                                                                dataSource={mainbarcreatissThrdArrData}
-                                                                                renderItem={(item, index) => (
-                                                                                    <List.Item>
-                                                                                        <List.Item.Meta
-                                                                                            avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                                                                            title={<div onClick={() => {
-                                                                                                issueObj.issueTypeName = item.title
 
-                                                                                            }}>{item.title}</div>}
-                                                                                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                                                                        />
-                                                                                    </List.Item>
-                                                                                )}
-                                                                            />
+                                        <div className={styles.main_bar_create_iss_modal_content_1_item_overlay}>
+                                            <div className={styles.main_bar_create_iss_modal_content_2_item}>
+                                                <Row className={styles.main_bar_create_iss_modal_content_2_item_container}>
+                                                    <Col className={styles.main_bar_create_iss_modal_content_2_item_container_first_col} span={12}>
+                                                        Required fields are marked with an asterisk *
+                                                    </Col >
+                                                    <Col className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col} span={12}>
+                                                        <Dropdown menu={{
+                                                            items: [
+                                                                {
+                                                                    label: (
+                                                                        <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item}>
+                                                                            <Row className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item_1_item}>
+                                                                                <Col span={16} className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item_1_item_in_1_item}>
+                                                                                    <FaRegEye /> Stop watching
+                                                                                </Col>
+                                                                                <Col span={8} className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_1item_1_item_in_2_item}>
+                                                                                    W
+                                                                                </Col>
+                                                                            </Row>
                                                                         </div>
                                                                     ),
+                                                                    key: '1',
+                                                                },
+                                                                {
+                                                                    type: 'divider',
+                                                                },
+                                                                {
+                                                                    label: (
+                                                                        <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_title}>
+                                                                            WATCHING THIS ISSUE
+                                                                        </div>
+                                                                    ),
+                                                                    key: '2',
+                                                                },
+                                                                {
+                                                                    label: (
+                                                                        <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_2_item}>
+                                                                            <FaAngleDown />
+                                                                            Vachagan
+                                                                        </div>
+                                                                    ),
+                                                                    key: '3',
+                                                                },
+                                                                {
+                                                                    type: 'divider',
+                                                                },
+                                                                {
+                                                                    label: (
+                                                                        <div className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_3_item}>
+                                                                            <Row className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_3_item_container}>
+                                                                                <Col span={8}>
+                                                                                    +
+                                                                                </Col>
+                                                                                <Col span={16} className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_in_3_item_sec_col}>
+                                                                                    Add watchers
+                                                                                </Col>
+                                                                            </Row>
+                                                                        </div>
+                                                                    ),
+                                                                    key: '4',
+                                                                },
+                                                            ]
+                                                        }} trigger={['click']}
+                                                            className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_1_item}
+                                                        >
+                                                            <a onClick={(e) => e.preventDefault()}>
+                                                                <Space>
+                                                                    <FaRegEye /> 1
+                                                                </Space>
+                                                            </a>
+                                                        </Dropdown>
+                                                        <Button
+                                                            className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_2_item}
+                                                        >Import issues</Button>
+                                                        <Dropdown menu={{
+                                                            items: [
+                                                                {
+                                                                    label: (
+                                                                        <div>
+                                                                            Show fields
+                                                                        </div>
+                                                                    ),
+                                                                    key: '1'
                                                                 }
-                                                            ]}
-                                                        />
-                                                        <div>
-                                                            <NavLink to={'/'}>
-                                                                Learn about issues types
-                                                            </NavLink>
-                                                        </div>
-                                                    </div>
-                                                </Col>
-                                                <Col span={crIssModalStlItm === '1' ? 24 : 12}>
-                                                    <div>
-                                                        <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
-                                                            Status <FaArrowUpRightFromSquare />
-                                                        </div>
-                                                        <Select
-                                                            showSearch
-                                                            className={styles.main_bar_create_iss_modal_content_3_item_uniq_slct}
-                                                            placeholder="Select a person"
-                                                            optionFilterProp="children"
-                                                            options={
-                                                                issueSelectStatusesArr.map((val) => {
-                                                                    return (
-                                                                        {
-                                                                            value: val.uniqText,
-                                                                            label: (
-                                                                                <div onClick={() => {
-                                                                                    issueObj.issueStatus = val.uniqText
-                                                                                    console.log(issueObj)
-                                                                                }}>
-                                                                                    {val.title}
-                                                                                </div>
-                                                                            ),
-                                                                        }
-                                                                    )
-                                                                })
-                                                            }
-                                                        />
-                                                        <div className={styles.main_bar_create_iss_modal_content_3_item_1_slct}>
-                                                            This is the issue's initial status upon creation
-                                                        </div>
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                        </div>
-
-
-
-
-                                        <div className={styles.main_bar_create_iss_modal_content_4_item}>
-                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title} >
-                                                Summary <FaCircleUser />
+                                                            ]
+                                                        }} trigger={['click']}
+                                                            className={styles.main_bar_create_iss_modal_content_2_item_container_sec_col_3_item}
+                                                        >
+                                                            <a onClick={(e) => e.preventDefault()}>
+                                                                <Space>
+                                                                    <FaEllipsis />
+                                                                </Space>
+                                                            </a>
+                                                        </Dropdown>
+                                                    </Col>
+                                                </Row>
                                             </div>
-                                            <div>
-                                                <Field className={errors.issueName && touched.issueName ? styles.main_bar_create_iss_modal_content_4_inp_item_err_inp : styles.main_bar_create_iss_modal_content_4_inp_item_sec} name='issueName' />
-                                                <div className={styles.main_bar_create_iss_modal_content_4_inp_item_err}>
-                                                    <ErrorMessage name='issueName' />
+                                            <div className={styles.main_bar_create_iss_modal_content_3_item}>
+                                                <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
+                                                    Project *
+                                                </div>
+                                                <Select
+                                                    showSearch
+                                                    placeholder="Search to Select"
+                                                    optionFilterProp="children"
+
+                                                    className={styles.main_bar_create_iss_modal_content_3_item_slct}
+                                                    options={[
+                                                        {
+                                                            label: 'RECENT PROJECTS',
+                                                            options: projectArr.map((val, ind) => {
+                                                                return {
+                                                                    value: val.name,
+                                                                    label: (
+                                                                        <div key={val.id}
+                                                                            onClick={() => {
+                                                                                projectHandleChange(val.name)
+                                                                            }}
+                                                                            className={styles.main_bar_create_iss_modal_content_3_item_slct_ovly_sdr_item}
+                                                                        >
+                                                                            <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
+                                                                                <img src={val.picture} />
+                                                                            </div>
+                                                                            <div className={styles.menu_work_content_1_item_2_itm_in_2_itm}>
+                                                                                {val.name} ({val.projectType})
+                                                                            </div>
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                            })
+                                                        },
+
+                                                    ]}
+                                                />
+                                            </div>
+                                            <div className={crIssModalStlItm === '1' ? styles.main_bar_create_iss_modal_content_3_item : styles.main_bar_create_iss_modal_content_3_item_sec}>
+                                                <Row>
+                                                    <Col span={crIssModalStlItm === '1' ? 24 : 12}>
+                                                        <div className={styles.main_bar_create_iss_modal_content_3_item_ovlr_feq_cont}>
+                                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
+                                                                Issue type *
+                                                            </div>
+                                                            <Select
+                                                                className={styles.main_bar_create_iss_modal_content_3_item_slct}
+                                                                showSearch
+                                                                placeholder="Search to Select"
+                                                                optionFilterProp="children"
+                                                                options={[
+                                                                    ...mainbarcreatissThrdArrData.map((val) => {
+                                                                        return {
+                                                                            value: val.title,
+                                                                            label: (
+                                                                                <div key={val.id}
+                                                                                    onClick={() => {
+                                                                                        issueObj.issueTypeName = val.title
+                                                                                    }}
+                                                                                    className={styles.main_bar_create_iss_modal_content_3_item_slct_ovly_sdr_item}
+                                                                                >
+                                                                                    <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
+                                                                                        <img src={`${val.images}`} />
+                                                                                    </div>
+                                                                                    <div className={styles.menu_work_content_1_item_2_itm_in_2_itm}>
+                                                                                        {val.title}
+                                                                                    </div>
+                                                                                </div>
+                                                                            )
+                                                                        }
+                                                                    })
+                                                                ]}
+                                                            />
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={crIssModalStlItm === '1' ? 24 : 12}>
+                                                        <div className={styles.main_bar_create_iss_modal_content_3_item_content_overlay}>
+                                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
+                                                                Status <FaArrowUpRightFromSquare />
+                                                            </div>
+                                                            <Select
+                                                                showSearch
+                                                                className={styles.main_bar_create_iss_modal_content_3_item_uniq_slct}
+                                                                placeholder="Select a status"
+                                                                optionFilterProp="children"
+                                                                options={
+                                                                    issueSelectStatusesArr.map((val) => {
+                                                                        return (
+                                                                            {
+                                                                                value: val.uniqText,
+                                                                                label: (
+                                                                                    <div onClick={() => {
+                                                                                        issueObj.issueStatus = val.uniqText
+                                                                                        console.log(issueObj)
+                                                                                    }}>
+                                                                                        {val.title}
+                                                                                    </div>
+                                                                                ),
+                                                                            }
+                                                                        )
+                                                                    })
+                                                                }
+                                                            />
+                                                            <div className={styles.main_bar_create_iss_modal_content_3_item_1_slct}>
+                                                                This is the issue's initial status upon creation
+                                                            </div>
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+
+
+
+
+                                            <div className={styles.main_bar_create_iss_modal_content_4_item}>
+                                                <div className={styles.main_bar_create_iss_modal_content_3_item_title} >
+                                                    Summary <FaCircleUser />
+                                                </div>
+                                                <div>
+                                                    <Field className={errors.issueName && touched.issueName ? styles.main_bar_create_iss_modal_content_4_inp_item_err_inp : styles.main_bar_create_iss_modal_content_4_inp_item_sec} name='issueName' />
+                                                    <div className={styles.main_bar_create_iss_modal_content_4_inp_item_err}>
+                                                        <ErrorMessage name='issueName' />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div className={styles.main_bar_create_iss_modal_content_4_item}>
-                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
-                                                Desctription
+                                            <div className={styles.main_bar_create_iss_modal_content_4_item}>
+                                                <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
+                                                    Desctription
+                                                </div>
+                                                <div className={styles.main_bar_create_iss_modal_content_4_inp_item}>
+                                                    <Input
+                                                        onChange={(e) => {
+                                                            issueObj.issueStatus = e.target.value
+
+                                                        }}
+                                                        placeholder="Pleas write issues's description" />
+                                                </div>
                                             </div>
-                                            <div className={styles.main_bar_create_iss_modal_content_4_inp_item}>
-                                                <Input
-                                                    onChange={(e) => {
-                                                        issueObj.issueStatus = e.target.value
-
-                                                    }}
-                                                    placeholder="Basic usage" />
-                                            </div>
-                                        </div>
 
 
-                                        <div className={styles.main_bar_create_iss_modal_content_3_item}>
+                                            <div className={styles.main_bar_create_iss_modal_content_3_item}>
 
-                                            <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
-                                                Assignee
-                                            </div>
-                                            <Select
-                                                className={styles.main_bar_create_iss_modal_content_3_item_slct}
+                                                <div className={styles.main_bar_create_iss_modal_content_3_item_title}>
+                                                    Assignee
+                                                </div>
+                                                <Select
+                                                    className={styles.main_bar_create_iss_modal_content_3_item_slct}
 
-                                                showSearch
-                                                placeholder="Search to Select"
-                                                optionFilterProp="children"
-                                                options={
-                                                    projectTeamCmpArr?.map((val) => {
-                                                        return {
-                                                            value: val.name,
-                                                            label: (
-                                                                <div
-                                                                    onClick={() => {
-                                                                        issueObj.assignee = val.name
-                                                                        console.log(issueObj)
-                                                                    }}
-                                                                >
-                                                                    {val.name}
-                                                                </div>
-                                                            )
-                                                        }
-                                                    })
-                                                }
-                                            />
-                                            <div className={styles.main_bar_create_iss_modal_content_5_item}
-                                                onClick={() => {
-                                                    issueObj.assignee = 'Vachagan'
-                                                }}
-                                            >
-                                                Assign to me
-                                            </div>
-                                        </div>
-
-                                        <div className={styles.main_bar_create_iss_modal_content_3_item}>
-                                            <div>
-                                                Reporter *
-                                            </div>
-                                            <Select
-
-                                                className={styles.main_bar_create_iss_modal_content_3_item_slct}
-                                                showSearch
-                                                placeholder="Search to Select"
-                                                optionFilterProp="children"
-                                                options={[
-                                                    {
-                                                        value: '1',
-                                                        label: (
-                                                            <div>
-                                                                <List
-                                                                    itemLayout="horizontal"
-                                                                    dataSource={mainbarcreatissForthArrData}
-                                                                    renderItem={(item, index) => (
-                                                                        <List.Item>
-                                                                            <List.Item.Meta
-                                                                                avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`} />}
-                                                                                title={<div onClick={() => {
-                                                                                    issueObj.reporter = item.title
-                                                                                }}>{item.title}</div>}
-                                                                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                                                            />
-                                                                        </List.Item>
-                                                                    )}
-                                                                />
-                                                            </div>
-                                                        ),
+                                                    showSearch
+                                                    optionFilterProp="children"
+                                                    options={
+                                                        projectTeamCmpArr?.map((val) => {
+                                                            return {
+                                                                value: val.name,
+                                                                label: (
+                                                                    <div
+                                                                        onClick={() => {
+                                                                            issueObj.assignee = val.name
+                                                                            console.log(issueObj)
+                                                                        }}
+                                                                    >
+                                                                        {val.name}
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        })
                                                     }
-                                                ]}
-                                            />
+                                                />
+                                                <div className={styles.main_bar_create_iss_modal_content_5_item}
+                                                    onClick={() => {
+                                                        issueObj.assignee = 'Vachagan'
+                                                    }}
+                                                >
+                                                    Assign to me
+                                                </div>
+                                            </div>
+
+                                            <div className={styles.main_bar_create_iss_modal_content_3_item}>
+                                                <div>
+                                                    Reporter *
+                                                </div>
+                                                <Select
+
+                                                    className={styles.main_bar_create_iss_modal_content_3_item_slct}
+                                                    showSearch
+                                                    placeholder="Search to Select"
+                                                    optionFilterProp="children"
+                                                    options={[
+
+                                                        ...mainbarcreatissForthArrData.map((val) => {
+                                                            return {
+                                                                value: val.title,
+                                                                label: (
+                                                                    <div key={val.id}
+                                                                        onClick={() => {
+                                                                            issueObj.reporter = val.title
+                                                                        }}
+                                                                        className={styles.main_bar_create_iss_modal_content_3_item_slct_ovly_sdr_item}
+                                                                    >
+                                                                        <div className={styles.menu_work_content_1_item_2_itm_in_2_itm}>
+                                                                            {val.title}
+                                                                        </div>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        })
+                                                    ]}
+                                                />
+                                            </div>
                                         </div>
+
 
                                         <div className={styles.main_bar_create_iss_modal_content_7_item}>
                                             <Row>
@@ -744,7 +701,7 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
                                                     <Checkbox>Create another issue</Checkbox>
                                                 </Col>
                                                 <Col span={12} className={styles.main_bar_create_iss_modal_content_7_item_sec_col}>
-                                                    <Button type="primary">Cancel</Button>
+                                                    <Button type="primary" onClick={() => createIssToggleModal(0, false)}>Cancel</Button>
                                                     <Input type='submit' disabled={isSubmitting} value='Create' />
                                                 </Col>
                                             </Row>
