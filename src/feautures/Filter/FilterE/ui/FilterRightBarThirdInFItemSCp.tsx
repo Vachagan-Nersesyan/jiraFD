@@ -323,9 +323,7 @@ export const FilterRightBarNavBarForthItemComp: React.FC<{}> = () => {
                 <Row>
                     <Col span={18} className={styles.filter_rght_br_col_content}>
                         <div className={styles.filter_rght_br_col_cnt}>Show : </div>
-                        <Button>All</Button>
                         <Button>Comments</Button>
-                        <Button>History</Button>
                     </Col>
                     <Col span={6} className={styles.filter_rght_br_sec_col_content}>
                         <Button className={styles.filter_rght_br_sec_col_content_item}>Newest first</Button>

@@ -280,17 +280,8 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                 <Breadcrumb
                     items={[
                         {
-                            title: 'Home',
-                        },
-                        {
-                            title: <a href="">Application Center</a>,
-                        },
-                        {
-                            title: <a href="">Application List</a>,
-                        },
-                        {
-                            title: 'An Application',
-                        },
+                            title: <NavLink to={'/jiraItems/allProjects'}>Projects</NavLink>,
+                        }
                     ]}
                 />
             </div>
@@ -339,7 +330,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                             <Input onChange={(e) => {
                                 filterBoardCompSrcvlFunc(e.target.value, initialBoardInfo)
                                 setFilterVal(e.target.value)
-                            }} placeholder="Basic usage" />
+                            }} placeholder="Search issue" />
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
                             <NavLink to={'/jiraItems/userPage'}>
@@ -351,16 +342,13 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                                 ?
                                 null
                                 :
-                                <NavLink to={`/jiraItems/team/${currentProject.team?.id}`}>
-                                    <div>
-                                        <div>
-                                            Team work
-                                        </div>
-                                        <div>
-                                            {currentProject.team?.teamName}
-                                        </div>
-                                        <div>
+                                <NavLink to={`/jiraItems/team/${currentProject.team?.id}`} className={styles.timeline_content_in_third_section_in_2_item_team_content_overlay}>
+                                    <div className={styles.timeline_content_in_third_section_in_2_item_team_content}>
+                                        <div className={styles.timeline_content_in_third_section_in_2_item_team_content_1_item}>
                                             <FaUsers />
+                                        </div>
+                                        <div className={styles.timeline_content_in_third_section_in_2_item_team_content_2_item}>
+                                            {currentProject.team?.teamName}
                                         </div>
                                     </div>
                                 </NavLink>
@@ -397,9 +385,6 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                                 </a>
                             </Dropdown>
                         </Button>
-                        <Button>
-                            <FaAddressBook /> Insights
-                        </Button>
                     </Col>
                 </Row>
             </div>
@@ -418,8 +403,17 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                                             <div ref={provided.innerRef} {...provided.droppableProps}>
                                                 <Card className={styles.timeline_content_in_forth_card_section_in_card}
                                                     title={
-                                                        <div style={{ color: val.boardIssue.length > val.boardLimit ? 'red' : 'blue' }}>
+                                                        <div className={styles.timeline_content_in_forth_card_section_in_card_title} style={{ color: val.boardIssue.length > val.boardLimit ? '#C9372C' : '#626F86' }}>
                                                             {val.title}
+
+                                                            {
+                                                                val.boardIssue.length > val.boardLimit
+                                                                    ?
+                                                                    <span>MAX {val.boardIssue.length - val.boardLimit}</span>
+                                                                    :
+                                                                    null
+                                                            }
+
 
 
                                                         </div>
@@ -457,12 +451,29 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                                                                     </Space>
                                                                 </a>
                                                             </Dropdown>
-                                                            <Modal title="Basic Modal" open={isColumnLimitModalOpen} onOk={() => {
+                                                            <Modal
+                                                                title="Set column limit"
+                                                                className={styles.timeline_content_in_forth_card_section_in_item_2_item_column_limit}
+                                                                open={isColumnLimitModalOpen} onOk={() => {
 
-                                                                setIsColumnLimitModalOpen(false)
-                                                                inputColumnLimitFunc(limit, columnLimitBoardName)
-                                                            }} onCancel={() => setIsColumnLimitModalOpen(false)}>
-                                                                <input type='number' min={1} max={10} onChange={(e) => setLimit(e.target.value)} />
+                                                                    setIsColumnLimitModalOpen(false)
+                                                                    inputColumnLimitFunc(limit, columnLimitBoardName)
+                                                                }} onCancel={() => setIsColumnLimitModalOpen(false)}>
+                                                                <div className={styles.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content}>
+                                                                    <div className={styles.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content_1_item}>
+                                                                        Column limit
+                                                                    </div>
+                                                                    <div className={styles.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content_2_item}>
+                                                                        We'll highlight this column if the number of issues in it passes this limit.
+                                                                    </div>
+                                                                    <div className={styles.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content_3_item}>
+                                                                        Maximum issues
+                                                                    </div>
+                                                                    <div className={styles.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content_4_item}>
+                                                                        <input type='number' min={1} max={50} onChange={(e) => setLimit(e.target.value)} />
+
+                                                                    </div>
+                                                                </div>
                                                             </Modal>
                                                         </div>
                                                     }

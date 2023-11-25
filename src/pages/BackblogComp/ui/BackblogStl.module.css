@@ -41,24 +41,24 @@
 }
 
 .timeline_content_in_third_section_in_1_item {
+    font-family: 'Oxygen', sans-serif;
     background-color: #E9EBEE;
     color: black;
-    padding: .5em 1em;
-    border-radius: 50%;
+    padding: .3em .6em;
 }
 
 .timeline_content_in_third_section_in_2_item {
-    padding: .5em 1em;
-    border-radius: 50%;
+    padding: .3em .6em;
     margin-left: .5em;
     color: white;
+    font-family: 'Oxygen', sans-serif;
     background-color: #0C66E4;
 }
 
 .timeline_content_in_third_section_in_3_item {
-    padding: .5em 1em;
-    border-radius: 50%;
+    padding: .3em .6em;
     margin-left: .5em;
+    font-family: 'Oxygen', sans-serif;
     color: white;
     background-color: #1F845A;
 }
@@ -74,11 +74,13 @@
 .timeline_content_in_third_section_in_first_collapse_in_item_in_2_item {
     font-family: 'Oxygen', sans-serif;
     color: #172B4D;
+    font-weight: 700;
 }
 
 .timeline_content_in_third_section_in_first_collapse_in_item_sec_col {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .timeline_content_in_third_section_in_first_collapse_in_item_sec_col button {
@@ -90,9 +92,9 @@
     margin-left: 1em;
 }
 
-.timeline_content_in_third_section_in_first_collapse_in_item_row {
+/* .timeline_content_in_third_section_in_first_collapse_in_item_row {
     margin-bottom: 1em;
-}
+} */
 
 .timeline_content_in_third_section_in_first_collapse_in_item_crt_iss_item button {
     display: flex;
@@ -174,4 +176,31 @@
     font-family: 'Oxygen', sans-serif;
     color: #172B4D;
     font-weight: 800;
+}
+
+
+.timeline_content_in_third_section_in_first_collapse_in_item_bcklg_item {
+    padding: .5em;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+.timeline_content_in_third_section_in_first_collapse_in_item_bcklg_item:hover {
+    background-color: #FFF7D6;
+}
+
+.timeline_content_in_third_section_in_first_collapse_in_item_row_first_col {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.timeline_content_in_third_section_in_first_collapse_in_item_in_1_item {
+    margin-right: .5em;
+}
+
+.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_stts_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-weight: 700;
 }

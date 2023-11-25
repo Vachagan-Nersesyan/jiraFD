@@ -6,6 +6,7 @@ import { ProjectType } from 'entities/project/projectReducerTs.interface';
 
 import { v4 as uuidv4 } from 'uuid';
 import { OwnProps } from './BoardCreateIssueTs.interface';
+import { FaCheck, FaXmark } from 'react-icons/fa6';
 
 
 const BoardCreateIssueComp: React.FC<OwnProps> = ({ boardArr, foo, boardIssueArr, currentProject, status }) => {
@@ -23,20 +24,27 @@ const BoardCreateIssueComp: React.FC<OwnProps> = ({ boardArr, foo, boardIssueArr
     const [addIssueName, setAddIssueName] = useState<string>('');
 
 
-
-
     const mainbarcreatissThrdArrData = [
         {
+
+            id: 0,
             title: 'Story',
+            picture: '/pictures/issueImages/3.svg'
         },
         {
+            id: 1,
             title: 'Bug',
+            picture: '/pictures/issueImages/1.svg'
         },
         {
+            id: 2,
             title: 'Task',
+            picture: '/pictures/issueImages/4.svg'
         },
         {
+            id: 3,
             title: 'Epic',
+            picture: '/pictures/issueImages/2.svg'
         },
     ]
 
@@ -105,36 +113,37 @@ const BoardCreateIssueComp: React.FC<OwnProps> = ({ boardArr, foo, boardIssueArr
 
 
     return (
-        <div>
+        <div className={styles.board_create_issue_feoq_content}>
             {
                 createIssueCompTp
                     ?
-                    <div>
-                        <div>
-                            <Input placeholder="Basic usage" onChange={(e) => setAddIssueName(e.target.value)} />
+                    <div className={styles.board_create_issue_feoq_content_issue_content}>
+                        <div className={styles.board_create_issue_feoq_content_issue_content_1_item}>
+                            <Input placeholder="Please write issue's name" onChange={(e) => setAddIssueName(e.target.value)} />
                         </div>
-                        <div>
-                            <div>
+                        <div className={styles.board_create_issue_feoq_content_issue_content_2_item}>
+                            <div className={styles.board_create_issue_feoq_content_issue_content_2_item_2_1s_item}>
                                 <Select
                                     showSearch
                                     placeholder="Select a person"
                                     optionFilterProp="children"
+                                    className={styles.board_create_issue_feoq_content_issue_content_2_item_2_1s_item_slct}
                                     options={
                                         mainbarcreatissThrdArrData.map((val) => {
                                             return (
                                                 {
                                                     value: val.title,
                                                     label: (
-                                                        <List.Item>
-                                                            <List.Item.Meta
-                                                                avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=0`} />}
-                                                                title={<div onClick={() => {
-                                                                    issueObj.issueTypeName = val.title
+                                                        <div
+                                                            onClick={() => {
+                                                                issueObj.issueTypeName = val.title
 
-                                                                }}>{val.title}</div>}
-                                                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                                            />
-                                                        </List.Item>
+                                                            }}
+                                                            className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item_stts_item_txt}
+                                                        >
+                                                            <img src={val.picture} className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item_stts_item_pic} />
+                                                            {val.title}
+                                                        </div>
                                                     ),
                                                 }
                                             )
@@ -142,18 +151,20 @@ const BoardCreateIssueComp: React.FC<OwnProps> = ({ boardArr, foo, boardIssueArr
                                     }
                                 />
                             </div>
-                            <div onClick={createIssueInBoardComp}>
-                                done
-                            </div>
-                            <div onClick={() => setCreateIssueCompTp(false)}>
-                                X
+                            <div className={styles.board_create_issue_feoq_content_issue_content_2_item_ovrl}>
+                                <div onClick={createIssueInBoardComp} className={styles.board_create_issue_feoq_content_issue_content_2_item_ovrl_1_item}>
+                                    <FaCheck />
+                                </div>
+                                <div onClick={() => setCreateIssueCompTp(false)} className={styles.board_create_issue_feoq_content_issue_content_2_item_ovrl_2_item}>
+                                    <FaXmark />
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     :
-                    <div onClick={() => setCreateIssueCompTp(true)}>
-                        Create issue +
+                    <div onClick={() => setCreateIssueCompTp(true)} className={styles.board_create_issue_feoq_content_btn_item}>
+                        + Create issue
                     </div>
 
             }

@@ -419,13 +419,14 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                     }
                 </div>
 
-                <Layout>
+                <Layout >
                     <Content
                         style={{
                             margin: '24px 16px',
                             padding: 24,
-                            minHeight: 280,
+                            minHeight: '90vh',
                             background: colorBgContainer,
+
                         }}
                     >
                         {

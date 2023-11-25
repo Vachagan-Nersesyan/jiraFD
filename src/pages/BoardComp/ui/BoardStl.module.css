@@ -29,5 +29,88 @@
     margin-right: 1em;
     background-color: #F7F8F9;
     /* background-color: red; */
+}
 
+.timeline_content_in_third_section_in_2_item_team_content_overlay {
+    text-decoration: none;
+}
+
+.timeline_content_in_third_section_in_2_item_team_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D3CBF6;
+    padding: .7em;
+    color: #4F4195;
+    transition: .3s ease-in-out;
+}
+
+.timeline_content_in_third_section_in_2_item_team_content:hover {
+    background-color: #4F4195;
+    color: #D3CBF6;
+}
+
+.timeline_content_in_third_section_in_2_item_team_content_1_item {
+    margin-right: .5em;
+}
+
+.timeline_content_in_third_section_in_2_item_team_content_1_item svg {
+    font-size: 1.5em;
+}
+
+.timeline_content_in_forth_card_section_in_card_title {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: .7em;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_title_elps {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_column_limit {
+    width: 25% !important;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content_1_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+    font-size: 1.5em;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content input {
+    border: 2px solid #172B4D;
+    padding: .2em;
+    width: 50%;
+    font-family: 'Oxygen', sans-serif;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content_2_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+    font-size: 1em;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_column_limit_in_content_3_item {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+    font-weight: 700;
+    font-size: .7em;
+}
+
+.timeline_content_in_forth_card_section_in_card_title span {
+    background-color: #C9372C;
+    color: white;
+    padding: 2em;
+    margin-left: 1em;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './UserPageStyles.module.css'
 import { Button, Col, Input, Row } from 'antd'
-import { FaAddressBook, FaAmazon, FaBagShopping, FaBuilding, FaCheck, FaLocationDot, FaMessage, FaRegSnowflake, FaUser, FaXmark } from 'react-icons/fa6'
+import { FaAddressBook, FaAmazon, FaBagShopping, FaBuilding, FaCheck, FaJira, FaLocationDot, FaMessage, FaRegSnowflake, FaUser, FaXmark } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { useSelector } from 'react-redux'
@@ -236,11 +236,14 @@ const UserPageComp: React.FC<OwnProps> = () => {
                                             return (
                                                 <div className={styles.userpage_content_container_second_col_content_project_items_in_content}>
                                                     <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                                        <div className={styles.userpage_content_container_second_col_content_project_items_in_content_title}>
+                                                            <FaJira /> Jira
+                                                        </div>
                                                         <div className={styles.userpage_content_container_second_col_content_project_items_in_content_in_item}>
                                                             <div className={styles.userpage_content_container_second_col_content_project_items_in_content_in_item_1_item}>
                                                                 <img src={val.picture} />
                                                             </div>
-                                                            <div className={styles.userpage_content_container_second_col_content_project_items_in_content_in_item_2_item}>
+                                                            <div className={styles.userpage_content_container_second_col_content_project_items_in_content_title}>
                                                                 {val.name}
                                                             </div>
                                                         </div>

@@ -1,0 +1,78 @@
+
+.board_create_issue_feoq_content_btn_item {
+    padding: .5em;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+.board_create_issue_feoq_content_btn_item:hover {
+    background-color: #E9EBEE;
+}
+
+.board_create_issue_feoq_content_issue_content {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    background-color: white;
+    padding: .7em;
+    border-radius: .2em;
+    border: 2px solid #388BFF;
+}
+
+.board_create_issue_feoq_content_issue_content_1_item input {
+    margin-bottom: 1em;
+    border: none;
+}
+
+.board_create_issue_feoq_content_issue_content_2_item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.board_create_issue_feoq_content_issue_content_2_item_2_1s_item_slct {
+    border: none;
+}
+
+
+.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item_stts_item_txt {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+}
+
+.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item_stts_item_pic {
+    margin-right: .5em;
+}
+
+.board_create_issue_feoq_content_issue_content_2_item_ovrl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board_create_issue_feoq_content_issue_content_2_item_ovrl_1_item {
+    cursor: pointer;
+    padding: .3em .6em;
+    color: #2d6a4f;
+    background-color: #d8f3dc;
+    transition: .3s ease-in-out;
+}
+
+.board_create_issue_feoq_content_issue_content_2_item_ovrl_1_item:hover {
+    color: #d8f3dc;
+    background-color: #2d6a4f;
+}
+
+.board_create_issue_feoq_content_issue_content_2_item_ovrl_2_item {
+    padding: .3em .6em;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    background-color: #FFECEB;
+    color: #C9372C;
+}
+
+.board_create_issue_feoq_content_issue_content_2_item_ovrl_2_item:hover {
+    color: #FFECEB;
+    background-color: #C9372C;
+}

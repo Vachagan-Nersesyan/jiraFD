@@ -49,14 +49,14 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
 
 
 
-    const sprintArr = [
-        {
-            id: 0,
-            sprintTitle: 'P2 Sprint fff',
-            sprintIssueCount: 1,
-            sprintDate: '12 Oct - 9 Nov'
-        }
-    ]
+    // const sprintArr = [
+    //     {
+    //         id: 0,
+    //         sprintTitle: 'P2 Sprint fff',
+    //         sprintIssueCount: 1,
+    //         sprintDate: '12 Oct - 9 Nov'
+    //     }
+    // ]
 
     const colapseIssueItems = [
         {
@@ -259,7 +259,7 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
             )
         },
         {
-            key: '1',
+            key: '2',
             label: (
                 <div onClick={() => deleteFlagToBacklogIssueFunc()}>
                     Delete Issue
@@ -343,83 +343,49 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                 </div>
             ),
             children: (
-                <div>
+                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item}>
                     {
+                        initialSecBacklogBoardInfo.length === 0
+                            ?
+                            <div className={styles.filter_right_bar_nav_bar_third_item_content_3_item}>
+                                Sorry there is not issue
+                            </div>
+                            :
+                            initialSecBacklogBoardInfo.map((val) => {
+                                return (
+                                    <div onClick={() => changeGetBoardIssueItemFunc(val)} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_bcklg_item}>
+                                        <Row className={styles.timeline_content_in_third_section_in_first_collapse_in_item_row}>
+                                            <Col span={17} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_row_first_col} onClick={() => setCollapsedbackblog(!collapsedbackblog)}>
+                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_1_item}>
+                                                    <img src={val.issueTypePic} />
+                                                </div>
+                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_2_item}>
+                                                    {val.summary}
+                                                </div>
+                                            </Col>
+                                            <Col span={7} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col}>
 
-                        initialSecBacklogBoardInfo.map((val) => {
-                            return (
-                                <div onClick={() => changeGetBoardIssueItemFunc(val)}>
-                                    <Row className={styles.timeline_content_in_third_section_in_first_collapse_in_item_row}>
-                                        <Col span={12} onClick={() => setCollapsedbackblog(!collapsedbackblog)}>
-                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_1_item}>
-                                                <img src={val.issueTypePic} />
-                                            </div>
-                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_2_item}>
-                                                {val.summary}
-                                            </div>
-                                        </Col>
-                                        <Col span={12} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col}>
-
-                                            <Button type='primary' onClick={() => addIssueBacklogToBoardCompFunc(val, currentProjectName)}>
-                                                Add to board
-                                            </Button>
-
-                                            <Button>
-                                                <Dropdown menu={{
-                                                    items: backblogEpicArr.map((val, ind) => {
-                                                        return (
-                                                            {
-                                                                label: (
-                                                                    <div>
-                                                                        {val.epicName}
-                                                                    </div>
-                                                                ),
-                                                                key: `${ind}`,
-                                                            }
-                                                        )
-                                                    })
-                                                }} trigger={['click']}>
-                                                    <a onClick={(e) => e.preventDefault()}>
-                                                        <Space>
-                                                            Epic
-                                                        </Space>
-                                                    </a>
-                                                </Dropdown>
-                                            </Button>
-
-                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
-                                                {/* <FaAlgolia /> */}
-                                                <InputNumber min={1} max={10} defaultValue={3} />
-                                            </div>
-                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
-                                                <Select
-                                                    defaultValue="lucy"
-                                                    style={{ width: 120 }}
-                                                    options={[
-                                                        { value: 'jack', label: 'Jack' },
-                                                        { value: 'lucy', label: 'Lucy' },
-                                                        { value: 'Yiminghe', label: 'yiminghe' },
-                                                        { value: 'disabled', label: 'Disabled', disabled: true },
-                                                    ]}
-                                                />
-                                            </div>
-                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
-                                                <Button>
-                                                    <Dropdown menu={{ items: backblogSettingsSecItmArr }}>
-                                                        <a onClick={(e) => e.preventDefault()}>
-                                                            <Space>
-                                                                <FaEllipsis />
-                                                            </Space>
-                                                        </a>
-                                                    </Dropdown>
+                                                <Button type='primary' onClick={() => addIssueBacklogToBoardCompFunc(val, currentProjectName)}>
+                                                    Add to board
                                                 </Button>
-                                            </div>
 
-                                        </Col>
-                                    </Row>
-                                </div>
-                            )
-                        })
+                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
+                                                    <Button>
+                                                        <Dropdown menu={{ items: backblogSettingsSecItmArr }}>
+                                                            <a onClick={(e) => e.preventDefault()}>
+                                                                <Space>
+                                                                    <FaEllipsis />
+                                                                </Space>
+                                                            </a>
+                                                        </Dropdown>
+                                                    </Button>
+                                                </div>
+
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                )
+                            })
 
                     }
 
@@ -437,16 +403,10 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                 <Breadcrumb
                     items={[
                         {
-                            title: 'Home',
+                            title: <NavLink to={'/jiraItems/allProjects'}>Home</NavLink>,
                         },
                         {
-                            title: <a href="">Application Center</a>,
-                        },
-                        {
-                            title: <a href="">Application List</a>,
-                        },
-                        {
-                            title: 'An Application',
+                            title: <NavLink to={`/jiraItems/board/${currentProject.id}`}>{currentProject.name}</NavLink>,
                         },
                     ]}
                 />
@@ -489,7 +449,7 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                                 filterBacklogCompSrcvlFunc(e.target.value, backlogSecIssueArr, 'secondboard')
 
                                 setFilterVal(e.target.value)
-                            }} placeholder="Basic usage" />
+                            }} placeholder="Search issue" />
                         </div>
                         <div className={secStyles.timeline_content_in_third_section_in_2_item}>
                             <NavLink to={'/jiraItems/userPage'}>
@@ -533,118 +493,90 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
                 <div style={{ width: '100%' }}>
                     <div className={secStyles.timeline_content_in_third_section}>
                         {
-                            sprintArr.map((val) => {
-                                return (
-                                    <Collapse
-                                        items={[
-                                            {
-                                                key: '1',
-                                                label: (
-                                                    <div className={styles.timeline_content_in_third_section_in_first_collapse}>
-                                                        <Row>
-                                                            <Col span={12} className={styles.timeline_content_in_third_section_in_first_collapse_1_col}>
-                                                                <span>{val.sprintTitle}</span> {val.sprintDate} {val.sprintIssueCount}
-                                                            </Col>
-                                                            <Col span={12} className={styles.timeline_content_in_third_section_in_first_collapse_2_col}>
-                                                                <div className={styles.timeline_content_in_third_section_in_1_item}>
-                                                                    {
-                                                                        backlogIssueArr.filter((val) => val.issueStatus === 'todo').length
-                                                                    }
-                                                                </div>
-                                                                <div className={styles.timeline_content_in_third_section_in_2_item}>
-                                                                    {
-                                                                        backlogIssueArr.filter((val) => val.issueStatus === 'inprogress').length
-                                                                    }
-                                                                </div>
-                                                                <div className={styles.timeline_content_in_third_section_in_3_item}>
-                                                                    {
-                                                                        backlogIssueArr.filter((val) => val.issueStatus === 'done').length
-                                                                    }
-                                                                </div>
-                                                            </Col>
-                                                        </Row>
-                                                    </div>
-                                                ),
-                                                children: (
-                                                    <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item}>
-                                                        {
-                                                            initialBoardInfo.map((val) => {
-                                                                return (
-                                                                    <div style={{ backgroundColor: 'grey' }} onClick={() => changeGetBoardIssueItemFunc(val)}>
-                                                                        <Row className={styles.timeline_content_in_third_section_in_first_collapse_in_item_row}>
-                                                                            <Col span={15} onClick={() => setCollapsedbackblog(!collapsedbackblog)}>
-                                                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_1_item}>
-                                                                                    <img src={val.issueTypePic} />
-                                                                                </div>
-                                                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_2_item}>
-                                                                                    {val.summary}
-                                                                                </div>
-                                                                            </Col>
-                                                                            <Col span={9} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col}>
+
+                            <Collapse
+
+                                items={[
+                                    {
+                                        key: '1',
+                                        label: (
+                                            <div className={styles.timeline_content_in_third_section_in_first_collapse}>
+                                                <Row>
+                                                    <Col span={12} className={styles.timeline_content_in_third_section_in_first_collapse_1_col}>
+                                                        <span>{currentProject.name}</span> ( {currentProject.lead} )
+                                                    </Col>
+                                                    <Col span={12} className={styles.timeline_content_in_third_section_in_first_collapse_2_col}>
+                                                        <div className={styles.timeline_content_in_third_section_in_1_item}>
+                                                            {
+                                                                backlogIssueArr.filter((val) => val.issueStatus === 'todo').length
+                                                            }
+                                                        </div>
+                                                        <div className={styles.timeline_content_in_third_section_in_2_item}>
+                                                            {
+                                                                backlogIssueArr.filter((val) => val.issueStatus === 'inprogress').length
+                                                            }
+                                                        </div>
+                                                        <div className={styles.timeline_content_in_third_section_in_3_item}>
+                                                            {
+                                                                backlogIssueArr.filter((val) => val.issueStatus === 'done').length
+                                                            }
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        ),
+                                        children: (
+                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item}>
+                                                {
+                                                    initialBoardInfo.length === 0
+                                                        ?
+                                                        <div className={styles.filter_right_bar_nav_bar_third_item_content_3_item}>
+                                                            Sorry there is not issue
+                                                        </div>
+                                                        :
+                                                        initialBoardInfo.map((val) => {
+                                                            return (
+                                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_bcklg_item} onClick={() => changeGetBoardIssueItemFunc(val)}>
+                                                                    <Row className={styles.timeline_content_in_third_section_in_first_collapse_in_item_row}>
+                                                                        <Col span={20} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_row_first_col} onClick={() => setCollapsedbackblog(!collapsedbackblog)}>
+                                                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_1_item}>
+                                                                                <img src={val.issueTypePic} />
+                                                                            </div>
+                                                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_in_2_item}>
+                                                                                {val.summary}
+                                                                            </div>
+                                                                        </Col>
+                                                                        <Col span={4} className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col}>
+
+                                                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_stts_item}>
+                                                                                {val.issueStatus}
+                                                                            </div>
+                                                                            <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
                                                                                 <Button>
-                                                                                    <Dropdown menu={{
-                                                                                        items: backblogEpicArr.map((val, ind) => {
-                                                                                            return (
-                                                                                                {
-                                                                                                    label: (
-                                                                                                        <div>
-                                                                                                            {val.epicName}
-                                                                                                        </div>
-                                                                                                    ),
-                                                                                                    key: `${ind}`,
-                                                                                                }
-                                                                                            )
-                                                                                        })
-                                                                                    }} trigger={['click']}>
+                                                                                    <Dropdown menu={{ items: backblogSettingsItmArr }}>
                                                                                         <a onClick={(e) => e.preventDefault()}>
                                                                                             <Space>
-                                                                                                Epic
+                                                                                                <FaEllipsis />
                                                                                             </Space>
                                                                                         </a>
                                                                                     </Dropdown>
                                                                                 </Button>
-                                                                                <div>
-                                                                                    {val.issueStatus}
-                                                                                </div>
-                                                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
-                                                                                    <Select
-                                                                                        defaultValue={val.assignee}
-                                                                                        style={{ width: 120 }}
-                                                                                        options={[
-                                                                                            { value: 'jack', label: 'Jack' },
-                                                                                            { value: 'lucy', label: 'Lucy' },
-                                                                                            { value: 'Yiminghe', label: 'yiminghe' },
-                                                                                            { value: 'disabled', label: 'Disabled', disabled: true },
-                                                                                        ]}
-                                                                                    />
-                                                                                </div>
-                                                                                <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_sec_col_in_item}>
-                                                                                    <Button>
-                                                                                        <Dropdown menu={{ items: backblogSettingsItmArr }}>
-                                                                                            <a onClick={(e) => e.preventDefault()}>
-                                                                                                <Space>
-                                                                                                    <FaEllipsis />
-                                                                                                </Space>
-                                                                                            </a>
-                                                                                        </Dropdown>
-                                                                                    </Button>
-                                                                                </div>
+                                                                            </div>
 
-                                                                            </Col>
-                                                                        </Row>
+                                                                        </Col>
+                                                                    </Row>
 
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
-                                                ),
-                                            }
-                                        ]}
-                                        defaultActiveKey={['1']}
-                                    />
-                                )
-                            })
+                                                                </div>
+                                                            )
+                                                        })
+                                                }
+                                            </div>
+                                        ),
+                                    }
+                                ]}
+                                defaultActiveKey={['1']}
+                            />
+
                         }
                         <div className={styles.timeline_content_in_third_section_in_first_collapse_in_item_crt_iss_item}>
                             <BacklogCreateIssueComp backlogCreateIssueCompFunc={backlogCreateIssueCompFunc} currentProjectName={currentProjectName} />
@@ -661,7 +593,7 @@ const BackblogComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToProps
 
                 <Sider
                     collapsedWidth='0'
-                    width={600}
+                    width={1000}
                     trigger={null}
                     collapsible
                     collapsed={collapsedbackblog}

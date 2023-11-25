@@ -218,6 +218,7 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
     };
 
 
+
     return (
         <>
             <div className={styles.create_issue_modal_btn_ofe_overlay}>

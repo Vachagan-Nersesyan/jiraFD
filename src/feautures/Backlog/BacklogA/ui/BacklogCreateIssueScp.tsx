@@ -5,6 +5,7 @@ import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { Avatar, Input, List, Select } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import { OwnProps } from './BacklogCreateIssueTs.interface';
+import { FaCheck, FaXmark } from 'react-icons/fa6';
 
 
 const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlogCreateIssueCompFunc }) => {
@@ -14,22 +15,31 @@ const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlo
     const [addIssueName, setAddIssueName] = useState<string>('');
 
 
-
-
     const mainbarcreatissThrdArrData = [
         {
+
+            id: 0,
             title: 'Story',
+            picture: '/pictures/issueImages/3.svg'
         },
         {
+            id: 1,
             title: 'Bug',
+            picture: '/pictures/issueImages/1.svg'
         },
         {
+            id: 2,
             title: 'Task',
+            picture: '/pictures/issueImages/4.svg'
         },
         {
+            id: 3,
             title: 'Epic',
+            picture: '/pictures/issueImages/2.svg'
         },
     ]
+
+
 
     let issueObj: IssuesType = {
         id: 9999,
@@ -93,32 +103,30 @@ const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlo
             {
                 createIssueCompTp
                     ?
-                    <div>
-                        <div>
-                            <Input placeholder="Basic usage" onChange={(e) => setAddIssueName(e.target.value)} />
-                        </div>
-                        <div>
-                            <div>
+                    <div className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content}>
+                        <div className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content__item}>
+                            <div className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item}>
                                 <Select
                                     showSearch
-                                    placeholder="Select a person"
+                                    placeholder="Select a status"
                                     optionFilterProp="children"
+                                    className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item_stts_item}
                                     options={
                                         mainbarcreatissThrdArrData.map((val) => {
                                             return (
                                                 {
                                                     value: val.title,
                                                     label: (
-                                                        <List.Item>
-                                                            <List.Item.Meta
-                                                                avatar={<Avatar src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=0`} />}
-                                                                title={<div onClick={() => {
-                                                                    issueObj.issueTypeName = val.title
+                                                        <div
+                                                            onClick={() => {
+                                                                issueObj.issueTypeName = val.title
 
-                                                                }}>{val.title}</div>}
-                                                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                                            />
-                                                        </List.Item>
+                                                            }}
+                                                            className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item_stts_item_txt}
+                                                        >
+                                                            <img src={val.picture} className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_1_item_stts_item_pic} />
+                                                            {val.title}
+                                                        </div>
                                                     ),
                                                 }
                                             )
@@ -126,17 +134,22 @@ const BacklogCreateIssueComp: React.FC<OwnProps> = ({ currentProjectName, backlo
                                     }
                                 />
                             </div>
-                            <div onClick={createIssueInBoardComp}>
-                                done
+                            <div className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item}>
+                                <Input placeholder="Please write issues's name" onChange={(e) => setAddIssueName(e.target.value)} />
                             </div>
-                            <div onClick={() => setCreateIssueCompTp(false)}>
-                                X
+                        </div>
+                        <div className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_thr_item}>
+                            <div onClick={createIssueInBoardComp} className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_2_item}>
+                                <FaCheck />
+                            </div>
+                            <div onClick={() => setCreateIssueCompTp(false)} className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_sec_content_1_item_3_item}>
+                                <FaXmark />
                             </div>
                         </div>
                     </div>
 
                     :
-                    <div onClick={() => setCreateIssueCompTp(true)}>
+                    <div onClick={() => setCreateIssueCompTp(true)} className={styles.ftrs_backlog_crt_iss_sc_first_fts_a_item_content}>
                         Create issue +
                     </div>
 

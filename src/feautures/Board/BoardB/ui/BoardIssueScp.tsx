@@ -207,14 +207,14 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                                                     <Input placeholder="Basic usage" onChange={(e) => setChangeIssueName(e.target.value)} />
                                                 </div>
                                                 <div className={styles.timeline_content_in_forth_card_section_in_item_1change_name_in_2_item}>
-                                                    <div onClick={() => setChangeIssNameOpen(false)} className={styles.timeline_content_in_forth_card_section_in_item_1change_name_in_2_in_item}>
+                                                    <div onClick={() => setChangeIssNameOpen(false)} className={styles.board_create_issue_feoq_content_issue_content_2_item_ovrl_2_item}>
                                                         <FaXmark />
                                                     </div>
                                                     <div onClick={() => {
                                                         console.log(valueInd, 'valueIndvalueIndvalueInd')
                                                         changeIssueNameFunc(changeIssueName, valueInd, val.uniqText)
                                                         setChangeIssNameOpen(false)
-                                                    }} className={styles.timeline_content_in_forth_card_section_in_item_1change_name_in_2_in_item}>
+                                                    }} className={styles.board_create_issue_feoq_content_issue_content_2_item_ovrl_1_item}>
                                                         <FaCheck />
                                                     </div>
                                                 </div>
