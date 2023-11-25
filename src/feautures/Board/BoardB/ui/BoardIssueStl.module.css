@@ -1,14 +1,15 @@
 .timeline_content_in_forth_card_section_in_item_1_item_other_itm {
-    height: 10em;
-    /* background-color: #FFFFFF; */
+    /* height: 10em; */
+    background-color: transparent;
     overflow: hidden;
     padding: 1em;
     cursor: pointer;
+    box-shadow: 0px 0px 9px 3px #FFECEB;
     transition: .3s;
 }
 
 .timeline_content_in_forth_card_section_in_item_1_item_other_itm:hover {
-    background-color: red
+    background-color: #E9EBEE !important
 }
 
 
@@ -81,6 +82,11 @@
     width: 3em;
 }
 
+.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item {
+    display: flex;
+    align-items: center;
+}
+
 .timeline_content_in_forth_card_section_in_item_2_item_in_sec_item button {
     margin-left: .5em;
 }
@@ -119,4 +125,54 @@
 .board_create_issue_feoq_content_issue_content_2_item_ovrl_2_item:hover {
     color: #FFECEB;
     background-color: #C9372C;
+}
+
+.label_modal_veqd_content_item_1 {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    margin-bottom: 1em;
+}
+
+.label_modal_veqd_content_item_2 {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: .9em;
+    font-weight: 700;
+    margin-bottom: 3em;
+}
+
+.board_issue_description_items_content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row wrap;
+    margin-bottom: 1em;
+}
+
+.board_issue_description_items_content_in_item {
+    padding: .5em;
+    background-color: #F1F2F4;
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: .7em;
+    border-radius: .5em;
+    font-weight: 700;
+    margin: 0 .5em .5em 0;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item_in_itvd_item {
+    background-color: #DFD8FD;
+    padding: .5em .7em;
+    color: #4F4195;
+    transition: .3s ease-in-out;
+    margin-left: .5em;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item_in_itvd_item:hover {
+    background-color: #4F4195;
+    color: #DFD8FD;
+}
+
+.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item_flag {
+    color: #C9372C;
 }

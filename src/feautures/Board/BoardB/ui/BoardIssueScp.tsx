@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './BoardIssueStl.module.css'
 import { Avatar, Button, Dropdown, Input, InputNumber, List, Modal, Select, SelectProps, Space } from 'antd';
-import { FaCheck, FaEllipsis, FaPen, FaUser, FaXmark } from 'react-icons/fa6';
+import { FaCheck, FaEllipsis, FaExpand, FaFlag, FaPen, FaUser, FaXmark } from 'react-icons/fa6';
 
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { ProjectType } from 'entities/project/projectReducerTs.interface';
@@ -116,7 +116,7 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                 (provided) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                         <div>
-                            <div key={val2.id} style={{ backgroundColor: !val2.flag ? '#FFFFFF' : 'red' }} className={styles.timeline_content_in_forth_card_section_in_item_1_item_other_itm}>
+                            <div key={val2.id} style={{ backgroundColor: !val2.flag ? '#FFFFFF' : '#F8E6A0' }} className={styles.timeline_content_in_forth_card_section_in_item_1_item_other_itm}>
                                 <div className={styles.timeline_content_in_forth_card_section_in_item_1_item}>
                                     {
                                         !changeIssNameOpen ?
@@ -204,7 +204,7 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                                             :
                                             <div className={styles.timeline_content_in_forth_card_section_in_item_1change_name}>
                                                 <div className={styles.timeline_content_in_forth_card_section_in_item_1change_name_in_1_item}>
-                                                    <Input placeholder="Basic usage" onChange={(e) => setChangeIssueName(e.target.value)} />
+                                                    <Input placeholder="Please write issue's name" onChange={(e) => setChangeIssueName(e.target.value)} />
                                                 </div>
                                                 <div className={styles.timeline_content_in_forth_card_section_in_item_1change_name_in_2_item}>
                                                     <div onClick={() => setChangeIssNameOpen(false)} className={styles.board_create_issue_feoq_content_issue_content_2_item_ovrl_2_item}>
@@ -223,11 +223,11 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                                 </div>
 
                                 {/* set styles */}
-                                <div>
+                                <div className={styles.board_issue_description_items_content}>
                                     {
                                         val2.description?.map((val) => {
                                             return (
-                                                <div>
+                                                <div className={styles.board_issue_description_items_content_in_item}>
                                                     {val}
                                                 </div>
                                             )
@@ -239,22 +239,21 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                                         <img src={val2.issueTypePic} /> {val2.issueShortName}
                                     </div>
                                     <div className={styles.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item}>
-                                        <InputNumber
-                                            value={val2.storyPoint}
-                                            className={styles.timeline_content_in_forth_card_section_in_item_2_item_inp_nm}
-                                            min={1}
-                                            max={10}
-                                        />
-                                        <Button type="primary" onClick={() => {
+                                        <div className={styles.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item_flag}>
+                                            {val2.flag ? <FaFlag /> : null}
+                                        </div>
+                                        <div onClick={() => {
                                             showIssueModal()
                                             getBoardIssueCompFunc(val2.id, val.uniqText)
                                         }
+
                                         }
+                                            className={styles.timeline_content_in_forth_card_section_in_item_2_item_in_sec_item_in_itvd_item}
                                         >
                                             {
-                                                !val2.assignee ? <FaUser /> : null
+                                                !val2.assignee ? <FaExpand /> : null
                                             }
-                                        </Button>
+                                        </div>
                                     </div>
                                     <Modal
                                         className={styles.board_issue_modal_itm}
@@ -267,11 +266,18 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                                     </Modal>
                                 </div>
                             </div>
-                            <Modal title="Basic Modal" open={isModalOpen} onOk={() => setIsModalOpen(false)} onCancel={() => setIsModalOpen(false)}>
+                            <Modal open={isModalOpen} onOk={() => setIsModalOpen(false)} onCancel={() => setIsModalOpen(false)}>
+
+                                <div className={styles.label_modal_veqd_content_item_1}>
+                                    Add labels to {val2.summary}
+                                </div>
+                                <div className={styles.label_modal_veqd_content_item_2}>
+                                    Begin typing to find and create labels
+                                </div>
                                 <Select
                                     mode="tags"
-
-                                    placeholder="Please select"
+                                    className={styles.label_modal_veqd_content_item_3}
+                                    placeholder="Labels"
                                     style={{ width: '100%' }}
                                     options={
                                         val2.description?.map((val) => {
