@@ -15,7 +15,7 @@ import styles from './LayoutUnivStl.module.css'
 import { Layout, Menu, Button, theme, Modal, List, Avatar, Form, Input } from 'antd';
 import { NavLink, Route, Routes as Switch, useLocation } from 'react-router-dom';
 import type { MenuProps } from 'antd';
-import { FaAffiliatetheme, FaAirbnb, FaAlgolia, FaAlignLeft, FaAlipay, FaAmazonPay, FaAnchor, FaAngleLeft, FaAngleRight, FaBarsStaggered, FaChartBar, FaClipboard, FaCode, FaList } from 'react-icons/fa6';
+import { FaAffiliatetheme, FaAirbnb, FaAlgolia, FaAlignCenter, FaAlignLeft, FaAlipay, FaAmazonPay, FaAnchor, FaAngleLeft, FaAngleRight, FaBarsStaggered, FaChartBar, FaClipboard, FaCode, FaFileCirclePlus, FaLinesLeaning, FaList, FaRegFileLines, FaRegNoteSticky, FaRegSun } from 'react-icons/fa6';
 
 import firstPic from '../images/1.svg'
 import secondPic from '../images/2.svg'
@@ -123,7 +123,7 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
             <Layout>
                 <div className={styles.filter_content_overl}>
                     <Sider
-                        width={300}
+                        width={250}
                         className={styles.layout_univ_siders}
 
                         onMouseOver={() => {
@@ -192,6 +192,7 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                                 <Menu
                                     defaultSelectedKeys={['1']}
                                     defaultOpenKeys={[]}
+                                    className={styles.side_bar_layout_itm_in_fevh_menu}
                                     mode="inline"
                                     items={
                                         [
@@ -203,7 +204,7 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                                                 )
                                                 , 'sub1', '', [
                                                 getItem((
-                                                    <NavLink to={`/jiraItems/timeline/${currentProjectNumberComp}`}>
+                                                    <NavLink to={`/jiraItems/timeline/${currentProjectNumberComp}`} className={styles.layout_sider_inner_menu_content_link}>
 
                                                         <div className={styles.layout_sider_inner_menu_content}>
                                                             <div className={styles.layout_sider_inner_menu_content_1_item}>
@@ -216,10 +217,10 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                                                     </NavLink>
                                                 ), '1'),
                                                 getItem((
-                                                    <NavLink to={`/jiraItems/backblog/${currentProjectNumberComp}`}>
+                                                    <NavLink to={`/jiraItems/backblog/${currentProjectNumberComp}`} className={styles.layout_sider_inner_menu_content_link}>
                                                         <div className={styles.layout_sider_inner_menu_content}>
                                                             <div className={styles.layout_sider_inner_menu_content_1_item}>
-                                                                <FaChartBar />
+                                                                <FaAlignCenter />
                                                             </div>
                                                             <div className={styles.layout_sider_inner_menu_content_2_item}>
                                                                 Backlog
@@ -229,11 +230,11 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
 
                                                 ), '2'),
                                                 getItem((
-                                                    <NavLink to={`/jiraItems/board/${currentProjectNumberComp}`}>
+                                                    <NavLink to={`/jiraItems/board/${currentProjectNumberComp}`} className={styles.layout_sider_inner_menu_content_link}>
 
                                                         <div className={styles.layout_sider_inner_menu_content}>
                                                             <div className={styles.layout_sider_inner_menu_content_1_item}>
-                                                                <FaClipboard />
+                                                                <FaLinesLeaning />
                                                             </div>
                                                             <div className={styles.layout_sider_inner_menu_content_2_item}>
                                                                 Board
@@ -250,7 +251,7 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                                                     </div>
                                                 ), 'sub2', '', [
                                                 getItem((
-                                                    <NavLink to={`/jiraItems/development/${currentProjectNumberComp}`}>
+                                                    <NavLink to={`/jiraItems/development/${currentProjectNumberComp}`} className={styles.layout_sider_inner_menu_content_link}>
 
                                                         <div className={styles.layout_sider_inner_menu_content}>
                                                             <div className={styles.layout_sider_inner_menu_content_1_item}>
@@ -264,129 +265,129 @@ const LayoutUnivComp: React.FC<OwnProps> = () => {
                                                 ), '4')
                                             ]),
 
-                                            { type: 'divider' },
 
                                         ]
 
                                     }
                                 />
                             </div>
+                            <div className={styles.side_bar_layout_itm_oth_border}>
+
+                            </div>
                             <div className={styles.side_bar_layout_itm_oth}>
                                 <div className={styles.side_bar_layout_other_item}>
                                     <NavLink to={`/jiraItems/projectPage/${currentProjectNumberComp}`}>
-                                        <FaAffiliatetheme /> Project pages
+                                        <FaRegFileLines /> Documents
                                     </NavLink>
                                 </div>
                             </div>
                             <div className={styles.side_bar_layout_itm_oth}>
-                                <div className={styles.side_bar_layout_other_item}>
-                                    <div onClick={showModal} className={styles.side_bar_layout_other_item}>
-                                        <FaAnchor /> Add shortcut
-                                    </div>
-                                    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                                        <div>
-                                            <div className={styles.layout_first_modal}>
-                                                Add an item to this project
-                                            </div>
-                                            <List
-                                                itemLayout="horizontal"
-                                                dataSource={[
-                                                    {
-                                                        id: 0,
-                                                        title: 'Ant Design Title 1',
-                                                        pic: firstPic,
-                                                    },
-                                                    {
-                                                        id: 1,
-                                                        title: 'Ant Design Title 2',
-                                                        pic: secondPic,
-
-                                                    }
-                                                ]}
-                                                renderItem={(item, index) => (
-                                                    <List.Item>
-                                                        <List.Item.Meta
-                                                            avatar={<Avatar src={item.pic} />}
-                                                            title={<a href="https://ant.design">{item.title}</a>}
-                                                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                                        />
-
-                                                        <div
-                                                            className={styles.side_bar_layout_itm_oth_f_modal_btn}
-                                                            onClick={
-                                                                item.id === 0 ? isShortcutModalOpen : isRepositoryModalOpen
-                                                            }>Add</div>
-                                                    </List.Item>
-                                                )}
-                                            />
-                                        </div>
-                                    </Modal>
-                                    <Modal title="Basic Modal" open={isShortcutModalItmOpen} onOk={handleShortcutOk} onCancel={handleShortcutCancel} >
-                                        <div className={styles.layout_first_modal}>
-                                            Add shortcut
-                                        </div>
-
-                                        <Form name="validateOnly" layout="vertical" autoComplete="off">
-                                            <Form.Item name="name" label={
-                                                <div className={styles.layout_first_modal_inp_txt}>
-                                                    Web address *
-                                                </div>
-                                            } rules={[{ required: true }]}>
-                                                <Input />
-                                            </Form.Item>
-                                            <Form.Item name="age" label={
-                                                <div className={styles.layout_first_modal_inp_txt}>
-                                                    Name *
-                                                </div>
-                                            } rules={[{ required: true }]}>
-                                                <Input />
-                                            </Form.Item>
-                                        </Form>
-                                        <div>
-                                            😎Pro tip: Start your shortcut’s name with an emoji to customize its icon.
-                                        </div>
-
-                                    </Modal>
-                                    <Modal title="Basic Modal" open={isRepositoryModalItmOpen} onOk={handleRepositoryOk} onCancel={handleRepositoryCancel} >
-                                        <div className={styles.layout_first_modal}>
-                                            Connect a repository
-                                        </div>
-                                        <div className={styles.layout_first_modal_third_mdl_item}>
-                                            Linking a repository will show information about your branches, commits and pull requests in Jira issues.
-                                        </div>
-                                        <div className={styles.layout_first_modal_third_mdl_item}>
-                                            Required fields are marked with an asterisk
-                                        </div>
-
-                                        <Form name="validateOnly" layout="vertical" autoComplete="off">
-                                            <Form.Item name="name" label={
-                                                <div className={styles.layout_first_modal_inp_txt}>
-                                                    Web address *
-                                                </div>
-                                            } rules={[{ required: true }]}>
-                                                <Input />
-                                            </Form.Item>
-                                            <div className={styles.layout_first_modal_inp_txt_label_item}>
-                                                Eg. https://bitbucket.org/org/projectrepository
-                                            </div>
-                                            <Form.Item name="age" label={
-                                                <div className={styles.layout_first_modal_inp_txt}>
-                                                    Web address *
-                                                </div>
-                                            } rules={[{ required: true }]}>
-                                                <Input />
-                                            </Form.Item>
-                                            <div className={styles.layout_first_modal_inp_txt_label_item}>
-                                                Eg. Project repository
-                                            </div>
-                                        </Form>
-                                    </Modal>
+                                <div onClick={showModal} className={styles.side_bar_layout_other_item}>
+                                    <FaRegNoteSticky /> Add shortcut
                                 </div>
+                                <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                    <div>
+                                        <div className={styles.layout_first_modal}>
+                                            Add an item to this project
+                                        </div>
+                                        <List
+                                            itemLayout="horizontal"
+                                            dataSource={[
+                                                {
+                                                    id: 0,
+                                                    title: 'Ant Design Title 1',
+                                                    pic: firstPic,
+                                                },
+                                                {
+                                                    id: 1,
+                                                    title: 'Ant Design Title 2',
+                                                    pic: secondPic,
+
+                                                }
+                                            ]}
+                                            renderItem={(item, index) => (
+                                                <List.Item>
+                                                    <List.Item.Meta
+                                                        avatar={<Avatar src={item.pic} />}
+                                                        title={<a href="https://ant.design">{item.title}</a>}
+                                                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                                    />
+
+                                                    <div
+                                                        className={styles.side_bar_layout_itm_oth_f_modal_btn}
+                                                        onClick={
+                                                            item.id === 0 ? isShortcutModalOpen : isRepositoryModalOpen
+                                                        }>Add</div>
+                                                </List.Item>
+                                            )}
+                                        />
+                                    </div>
+                                </Modal>
+                                <Modal open={isShortcutModalItmOpen} onOk={handleShortcutOk} onCancel={handleShortcutCancel} >
+                                    <div className={styles.layout_first_modal}>
+                                        Add shortcut
+                                    </div>
+
+                                    <Form name="validateOnly" layout="vertical" autoComplete="off">
+                                        <Form.Item name="name" label={
+                                            <div className={styles.layout_first_modal_inp_txt}>
+                                                Web address *
+                                            </div>
+                                        } rules={[{ required: true }]}>
+                                            <Input />
+                                        </Form.Item>
+                                        <Form.Item name="age" label={
+                                            <div className={styles.layout_first_modal_inp_txt}>
+                                                Name *
+                                            </div>
+                                        } rules={[{ required: true }]}>
+                                            <Input />
+                                        </Form.Item>
+                                    </Form>
+                                    <div>
+                                        😎Pro tip: Start your shortcut’s name with an emoji to customize its icon.
+                                    </div>
+
+                                </Modal>
+                                <Modal open={isRepositoryModalItmOpen} onOk={handleRepositoryOk} onCancel={handleRepositoryCancel} >
+                                    <div className={styles.layout_first_modal}>
+                                        Connect a repository
+                                    </div>
+                                    <div className={styles.layout_first_modal_third_mdl_item}>
+                                        Linking a repository will show information about your branches, commits and pull requests in Jira issues.
+                                    </div>
+                                    <div className={styles.layout_first_modal_third_mdl_item}>
+                                        Required fields are marked with an asterisk
+                                    </div>
+
+                                    <Form name="validateOnly" layout="vertical" autoComplete="off">
+                                        <Form.Item name="name" label={
+                                            <div className={styles.layout_first_modal_inp_txt}>
+                                                Web address *
+                                            </div>
+                                        } rules={[{ required: true }]}>
+                                            <Input />
+                                        </Form.Item>
+                                        <div className={styles.layout_first_modal_inp_txt_label_item}>
+                                            Eg. https://bitbucket.org/org/projectrepository
+                                        </div>
+                                        <Form.Item name="age" label={
+                                            <div className={styles.layout_first_modal_inp_txt}>
+                                                Web address *
+                                            </div>
+                                        } rules={[{ required: true }]}>
+                                            <Input />
+                                        </Form.Item>
+                                        <div className={styles.layout_first_modal_inp_txt_label_item}>
+                                            Eg. Project repository
+                                        </div>
+                                    </Form>
+                                </Modal>
                             </div>
                             <div className={styles.side_bar_layout_itm_oth}>
                                 <div className={styles.side_bar_layout_other_item}>
                                     <NavLink to={`/jiraItems/projectSettings/${currentProjectNumberComp}`}>
-                                        <FaAmazonPay /> Project settings
+                                        <FaRegSun /> Project settings
                                     </NavLink>
                                 </div>
                             </div>

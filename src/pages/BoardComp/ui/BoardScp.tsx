@@ -505,23 +505,31 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                     }
                 </DragDropContext>
 
-                <div>
+                <div className={styles.timeline_content_in_fivth_add_card_section}>
                     {/* onClick={() => addBoardFunc()} */}
                     {
                         addBoardBtn
                             ?
-                            <Button type="primary" onClick={() => setAddBoardBtn(false)} >
+                            <div onClick={() => setAddBoardBtn(false)} className={styles.timeline_content_in_fivth_add_card_section_1_item}>
                                 <FaPlus />
-                            </Button>
+                            </div>
                             :
-                            <div>
-                                <Input placeholder="Basic usage" onChange={(e) => setBoardName(e.target.value)} />
-                                <Button type="primary" onClick={() => setAddBoardBtn(true)}>
-                                    x
-                                </Button>
-                                <Button type="primary" onClick={() => addBoardFunc(boardName)}>
-                                    check
-                                </Button>
+                            <div className={styles.timeline_content_in_fivth_add_card_section_2_item}>
+                                <div className={styles.timeline_content_in_fivth_add_card_section_2_item_1_item}>
+                                    <input placeholder="Board name" onChange={(e) => setBoardName(e.target.value)} />
+
+                                </div>
+                                <div className={styles.timeline_content_in_fivth_add_card_section_2_item_2_item}>
+                                    <div onClick={() => setAddBoardBtn(true)} className={styles.timeline_content_in_fivth_add_card_section_2_item_2_item_1_item}>
+                                        <FaXmark />
+                                    </div>
+                                    <div onClick={() => {
+                                        addBoardFunc(boardName)
+                                        setAddBoardBtn(true)
+                                    }} className={styles.timeline_content_in_fivth_add_card_section_2_item_2_item_1_item}>
+                                        <FaCheck />
+                                    </div>
+                                </div>
                             </div>
                     }
 
