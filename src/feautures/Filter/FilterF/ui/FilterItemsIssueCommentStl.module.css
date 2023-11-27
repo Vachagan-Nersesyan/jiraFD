@@ -1,0 +1,51 @@
+.filter_items_sub_issue_comments {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    margin-bottom: .5em;
+}
+
+.filter_items_sub_issue_comments_1_item {
+    font-size: 1.2em;
+    margin-right: .5em;
+}
+
+.filter_items_sub_issue_comments_2_item_1_item {
+    margin-bottom: .5em;
+}
+
+.filter_items_sub_issue_comments_2_item_1_item span {
+    margin-right: .5em;
+}
+
+.filter_items_sub_issue_comments_2_item_2_item {
+    font-weight: 100;
+    margin-bottom: .5em;
+}
+
+.filter_items_sub_issue_comments_2_item_2_item_2_item input {
+    border: 2px solid #D5D9DF;
+    padding: .2em;
+
+}
+
+.filter_items_sub_issue_comments_2_item_3_item {
+    display: flex;
+    flex-direction: row;
+}
+
+.filter_items_sub_issue_comments_2_item_3_item_1_item {
+    background-color: transparent;
+    margin-right: .2em;
+    padding: .3em;
+    border: 2px solid #D5D9DF;
+    cursor: pointer;
+    color: #172B4D;
+    transition: .3s ease-in-out;
+}
+
+.filter_items_sub_issue_comments_2_item_3_item_1_item:hover {
+    background-color: #D5D9DF;
+    color: #172B4D;
+}

@@ -27,6 +27,7 @@ import { FilterObjType } from '../../FilterD/ui/FilterSecondBarInSecondTs.interf
 import { filterBoardByGlobalTypeUtFunc, filterBoardByProjectUtFunc, filterBoardByStatusUtFunc, filterBoardByTextUtFunc, filterBoardByTypeUtFunc } from 'widgets/helpers/helperScp';
 import { MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './FilterRIghtBarThirdTs.interface';
 
+import pic from '../images/1.png'
 
 
 
@@ -165,7 +166,7 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
                 <Col span={6} className={styles.filter_first_col}>
                     <div className={styles.filter_first_col_title}>
                         <div className={styles.filter_first_col_title_1_item}>
-                            Order by Created <FaShareFromSquare />
+                            Order by Created
                         </div>
                         <div className={styles.filter_first_col_title_2_item}>
                             <FaAngleDown />
@@ -176,8 +177,8 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
                         {
                             boardsAllIssuefFilter.length === 0
                                 ?
-                                <div>
-                                    There isnt issue
+                                <div className={styles.filter_first_col_title_3_item}>
+                                    Sorry There is not issue
                                 </div>
 
                                 :
@@ -223,8 +224,13 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
                     {
                         boardsAllIssuefFilter.length === 0
                             ?
-                            <div>
-                                There isnt issueeee
+                            <div className={styles.filter_first_col_title_3_item_sec}>
+                                <div className={styles.filter_first_col_title_3_item_sec_1_item}>
+                                    <img src={pic} />
+                                </div>
+                                <div className={styles.filter_first_col_title_3_item_sec_2_item}>
+                                    Sorry there is not issue
+                                </div>
                             </div>
                             :
                             <IssueInCntComp />

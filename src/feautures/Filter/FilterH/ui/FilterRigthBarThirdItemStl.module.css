@@ -1,0 +1,27 @@
+.filt_rig_s_itm_content {
+    font-family: 'Oxygen', sans-serif;
+    color: #172B4D;
+    font-size: 1em;
+}
+
+.filt_rig_s_itm_content_ovrl {
+    margin-bottom: 1em;
+}
+
+.filt_rig_s_itm_content_sc_tp_lbl_item {
+    display: flex;
+    flex-direction: row;
+}
+
+.filt_rig_s_itm_content_sc_tp {
+    padding: .2em;
+    background-color: transparent;
+    margin-right: .3em;
+    color: #172B4D;
+    border: 2px solid #DCDFE4;
+    transition: .3s ease-in-out;
+}
+
+.filt_rig_s_itm_content_sc_tp:hover {
+    background-color: #172B4D;
+}

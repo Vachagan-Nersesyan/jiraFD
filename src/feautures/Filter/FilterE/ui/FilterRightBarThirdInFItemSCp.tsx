@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './FilterRightBarThirdInFItemStl.module.css'
 import { Breadcrumb, Button, Col, Input, Row, Space } from 'antd'
-import { FaChartBar, FaChartLine, FaCheck, FaClosedCaptioning, FaEllipsis, FaEye, FaFileWord, FaLink, FaPencil, FaUser, FaUserLarge } from 'react-icons/fa6'
+import { FaChartBar, FaChartLine, FaCheck, FaClosedCaptioning, FaEllipsis, FaEye, FaFileWord, FaLink, FaPencil, FaRegUser, FaSitemap, FaUser, FaUserLarge, FaXmark } from 'react-icons/fa6'
 import { IssuesCommentsType, IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { AppStateType } from '../../../../entities/store/redux-store'
 import { connect, useSelector } from 'react-redux'
@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import IssueCommentComp from '../../FilterF/ui/FilterItemsIssueCommentScp'
 import { useDispatch } from 'react-redux'
 import { MapDispatchToPropsType, MapStateToPropsType, OwnProps, SubIssueOwnPropsType } from './FilterRightBarThirdInFItemTs.interface'
+import { NavLink } from 'react-router-dom'
 
 const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ changeIssueInnerIssueSummary, addIssueInnerIssueFunc, issuesInnerItems, getBoardIssueItem, deleteCommentIssueFunc, changeCommentIssueFunc, addCommentIssueFunc, changeIssDescriptionFunc, changeIssNameFunc }) => {
 
@@ -121,16 +122,7 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
                 <Breadcrumb
                     items={[
                         {
-                            title: 'Home',
-                        },
-                        {
-                            title: <a href="">Application Center</a>,
-                        },
-                        {
-                            title: <a href="">Application List</a>,
-                        },
-                        {
-                            title: 'An Application',
+                            title: <NavLink to={'/jiraItems/allProjects'}>Home</NavLink>,
                         },
                     ]}
                 />
@@ -139,66 +131,87 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
                 {
                     !issueNameTp
                         ?
-                        <div onClick={() => setIssueNameTp(true)}>
+                        <div onClick={() => setIssueNameTp(true)} className={styles.filter_right_bar_third_in_1_item_content_2_item_1_item}>
                             {getBoardIssueItem.summary}
                         </div>
                         :
-                        <div>
-                            <input onChange={(e) => setChangeIssueName(e.target.value)} />
-                            <div onClick={() => setIssueNameTp(false)}>
-                                x
+                        <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item}>
+                            <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_1_item}>
+                                <input value={getBoardIssueItem.summary} onChange={(e) => setChangeIssueName(e.target.value)} />
+
                             </div>
-                            <div onClick={() => {
-                                setIssueNameTp(false)
-                                saveChangedIssueName(changeIssueName, getBoardIssueItem.id, getBoardIssueItem.issueStatus)
-                            }
-                            }
-                            >
-                                save
+                            <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item}>
+                                <div onClick={() => setIssueNameTp(false)} className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}>
+                                    <FaXmark />
+                                </div>
+                                <div onClick={() => {
+                                    setIssueNameTp(false)
+                                    saveChangedIssueName(changeIssueName, getBoardIssueItem.id, getBoardIssueItem.issueStatus)
+                                }
+                                }
+                                    className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}
+                                >
+                                    <FaCheck />
+                                </div>
                             </div>
+
                         </div>
                 }
             </div>
             <div className={styles.filter_right_bar_third_in_1_item_content_3_item}>
-                <Space className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content}>
-                    <Button ><FaLink /></Button>
-                    <Button><FaChartBar /></Button>
-                    <Button ><FaChartLine /></Button>
-                    <Button><FaEllipsis /></Button>
+                <Space className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_ovrl}>
+
                     {
                         !getBoardIssueItem.isSubIssue
                             ?
-                            <Button onClick={() => setAddChildItems(true)}>Add child</Button>
+                            <div onClick={() => setAddChildItems(true)} className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content}><FaSitemap /> Add a child issue</div>
                             :
                             null
                     }
                 </Space>
             </div>
             <div className={styles.filter_right_bar_third_in_1_item_content_4_item}>
-                <div>
+                <div onClick={() => setIssueDescriptionTp(true)} className={styles.filter_right_bar_third_in_1_item_content_4_item_1_item}>
                     Description
                 </div>
 
                 {
                     !issueDescriptionTp
                         ?
-                        <div onClick={() => setIssueDescriptionTp(true)}>
-                            {getBoardIssueItem.descriptionText}
+                        <div onClick={() => setIssueDescriptionTp(true)} className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_2_item}>
+                            {
+                                getBoardIssueItem.descriptionText === ''
+                                    ?
+                                    <span>
+                                        Ther is not description...
+                                    </span>
+                                    :
+                                    <span>
+                                        {getBoardIssueItem.descriptionText}
+                                    </span>
+                            }
                         </div>
                         :
-                        <div>
-                            <input onChange={(e) => setIssueDescription(e.target.value)} />
-                            <div onClick={() => setIssueDescriptionTp(false)}>
-                                x
+                        <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item}>
+                            <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_1_item_sec}>
+                                <input onChange={(e) => setIssueDescription(e.target.value)} />
+
                             </div>
-                            <div onClick={() => {
-                                setIssueDescriptionTp(false)
-                                saveChangedIssueDescription(changeIssueDescription, getBoardIssueItem.id, getBoardIssueItem.issueStatus)
-                            }
-                            }
-                            >
-                                save
+                            <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item}>
+                                <div onClick={() => setIssueDescriptionTp(false)} className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}>
+                                    <FaXmark />
+                                </div>
+                                <div onClick={() => {
+                                    setIssueDescriptionTp(false)
+                                    saveChangedIssueDescription(changeIssueDescription, getBoardIssueItem.id, getBoardIssueItem.issueStatus)
+                                }
+                                }
+                                    className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}
+                                >
+                                    <FaCheck />
+                                </div>
                             </div>
+
                         </div>
                 }
 
@@ -208,103 +221,125 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
             </div>
 
-            {
-                !getBoardIssueItem.isSubIssue
-                    ?
-                    <div>
-                        {
-                            !addChildItems
-                                ?
-                                null
-                                :
-                                <div>
-                                    <div>
-                                        Create inner issues
+            <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont}>
+
+                {
+                    !getBoardIssueItem.isSubIssue
+                        ?
+                        <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl}>
+                            {
+                                !addChildItems
+                                    ?
+                                    null
+                                    :
+                                    <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_1}>
+                                        <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_1_in_1item}>
+                                            Create child issues
+                                        </div>
+                                        <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_1_in_2item}>
+                                            <input onChange={(e) => setInnerIssueSummary(e.target.value)} placeholder='What needs to be done?' />
+                                        </div>
+                                        <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_1_in_3item}>
+                                            <div onClick={() => addIssueInnerIssueCompFunc()} className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_1_in_3item_1_item}>Create</div>
+                                            <div onClick={() => setAddChildItems(false)} className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_1_in_3item_2_item}>Cancel</div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <Input onChange={(e) => setInnerIssueSummary(e.target.value)} placeholder='What needs to be done?' />
+                            }
+
+                            {
+                                issuesInnerItems.length === 0
+                                    ?
+                                    null
+                                    :
+                                    <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2}>
+                                        <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_1_in_1item}>
+                                            Child Issues
+                                        </div>
+                                        {
+                                            issuesInnerItems.map((val) => {
+                                                return (
+                                                    <SubIssueComp changeIssueInnerIssueSummary={changeIssueInnerIssueSummary} subIssueInfo={val} />
+                                                )
+                                            })
+                                        }
                                     </div>
-                                    <div>
-                                        <Button type='primary' onClick={() => addIssueInnerIssueCompFunc()}>Create</Button>
-                                        <Button onClick={() => setAddChildItems(false)}>Cancel</Button>
-                                    </div>
-                                </div>
-                        }
+                            }
+                        </div>
+                        :
+                        null
 
-                        {
-                            issuesInnerItems.length === 0
-                                ?
-                                null
-                                :
-                                <div>
-                                    Issue Inner Issues
-                                    {
-                                        issuesInnerItems.map((val) => {
-                                            return (
-                                                <SubIssueComp changeIssueInnerIssueSummary={changeIssueInnerIssueSummary} subIssueInfo={val} />
-                                            )
-                                        })
-                                    }
-                                </div>
-                        }
-                    </div>
-                    :
-                    null
-
-            }
-
-
-
-
-
-            <div>
-                <FilterRightBarNavBarForthItemComp />
+                }
             </div>
-            <div>
+
+
+
+
+            {/* <div>
+                <FilterRightBarNavBarForthItemComp />
+            </div> */}
+
+            <div className={styles.filter_right_bar_third_in_1_item_content_4_item}>
+
+                <div className={styles.filter_right_bar_third_in_1_item_content_4_item_1_item}>
+                    Add comment
+                </div>
+
                 <div className={styles.filter_right_bar_nav_bar_third_item_content}>
                     <div className={styles.filter_right_bar_nav_bar_third_item_content_1_item}>
-                        <FaUserLarge />
+                        <FaRegUser />
                     </div>
-                    <div className={styles.filter_right_bar_nav_bar_third_item_content_2_item}>
-                        <Input value={issueComment} placeholder="large size" onChange={(e) => setIssueComment(e.target.value)} onClick={() => setIssueCommentTp(true)} />
+                    <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item}>
+                        <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_1_item}>
+                            <input value={issueComment} onChange={(e) => setIssueComment(e.target.value)} onClick={() => setIssueCommentTp(true)} />
+                        </div>
+
+                        {
+                            issueCommentTp
+                                ?
+
+
+                                <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item}>
+                                    <div onClick={() => setIssueCommentTp(false)} className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}>
+                                        <FaXmark />
+                                    </div>
+                                    <div onClick={() => {
+                                        setIssueCommentTp(false)
+                                        saveChangedIssueComment(issueComment, getBoardIssueItem.id, getBoardIssueItem.issueStatus)
+                                    }
+                                    }
+                                        className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}
+                                    >
+                                        <FaCheck />
+                                    </div>
+                                </div>
+
+
+                                :
+                                null
+                        }
                     </div>
 
+
+                </div>
+
+                <div className={styles.filter_right_bar_third_in_1_item_content_4_item_1_item}>
+                    Comments
+                </div>
+                <div>
                     {
-                        issueCommentTp
+                        getBoardIssueItem.issueComments.length === 0
                             ?
-                            <div>
-                                <Button type='primary' onClick={() => {
-                                    setIssueCommentTp(false)
-                                    saveChangedIssueComment(issueComment, getBoardIssueItem.id, getBoardIssueItem.issueStatus)
-                                }
-                                }
-                                >
-                                    Save
-                                </Button>
-                                <Button type='primary' onClick={() => {
-                                    setIssueCommentTp(false)
-                                }
-                                }>Cancel</Button>
+                            <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_2_item}>
+                                <span>There is not a comment</span>
                             </div>
                             :
-                            null
+                            getBoardIssueItem.issueComments.map((val) => {
+                                return (
+                                    <IssueCommentComp deleteCommentIssueFunc={deleteCommentIssueFunc} changeCommentIssueFunc={changeCommentIssueFunc} issueCommentInfo={val} getBoardIssueItem={getBoardIssueItem} />
+                                )
+                            })
                     }
-
                 </div>
-
-
-                <div className={styles.filter_right_bar_nav_bar_third_item_content_3_item}>
-                    Pro tip: press M to comment
-                </div>
-            </div>
-            <div>
-                {
-                    getBoardIssueItem.issueComments.map((val) => {
-                        return (
-                            <IssueCommentComp deleteCommentIssueFunc={deleteCommentIssueFunc} changeCommentIssueFunc={changeCommentIssueFunc} issueCommentInfo={val} getBoardIssueItem={getBoardIssueItem} />
-                        )
-                    })
-                }
             </div>
         </div >
     )
@@ -313,27 +348,13 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
 
 
-export const FilterRightBarNavBarForthItemComp: React.FC<{}> = () => {
-    return (
-        <div>
-            <div className={styles.filter_right_bar_third_in_1_item_content_4_item}>
-                Activity
-            </div>
-            <div className={styles.filter_right_bar_third_in_1_item_content_4_item_content}>
-                <Row>
-                    <Col span={18} className={styles.filter_rght_br_col_content}>
-                        <div className={styles.filter_rght_br_col_cnt}>Show : </div>
-                        <Button>Comments</Button>
-                    </Col>
-                    <Col span={6} className={styles.filter_rght_br_sec_col_content}>
-                        <Button className={styles.filter_rght_br_sec_col_content_item}>Newest first</Button>
-                    </Col>
-                </Row>
-            </div>
-
-        </div>
-    )
-}
+// export const FilterRightBarNavBarForthItemComp: React.FC<{}> = () => {
+//     return (
+//         <div className={styles.filter_right_bar_third_in_1_item_content_4_item}>
+//             Activity
+//         </div>
+//     )
+// }
 
 
 
@@ -386,56 +407,77 @@ const SubIssueComp: React.FC<SubIssueOwnPropsType> = ({ subIssueInfo, changeIssu
 
 
     return (
-        <div>
-            <div>
-                <img src={subIssueInfo.issueTypePic} alt="" />
+        <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container}>
+            <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_1_item}>
+                <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_1_item}>
+                    <img src={subIssueInfo.issueTypePic} alt="" />
+                </div>
+                <div onClick={() => {
+                    setInnerIssueChangeNameCont(true)
+                }}
+                    className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_1_item_1_item}
+                >
+                    <FaPencil />
+                </div>
+
+                <div onClick={() => dispatch(changeGetBoardIssueItemFunc(subIssueInfo))} className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_1_item_1_item}>
+                    <FaEye />
+                </div>
+
+                <div>
+                    {
+                        !innerIssueChangeNameCont
+                            ?
+                            <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_2_item}>
+                                {
+                                    subIssueInfo.summary
+                                }
+                            </div>
+                            :
+                            <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item}>
+                                <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_1_item_sec}>
+                                    <input onChange={(e) => setInnerIssueChangeName(e.target.value)} />
+
+                                </div>
+                                <div className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item}>
+                                    <div onClick={() => setInnerIssueChangeNameCont(false)} className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}>
+                                        <FaXmark />
+                                    </div>
+                                    <div onClick={() => {
+                                        setInnerIssueChangeNameCont(false)
+                                        changeIssueInnerIssueSummartCompFunc(innerIssueChangeName, subIssueInfo.uniqId)
+                                    }
+                                    }
+                                        className={styles.filter_right_bar_third_in_1_item_content_2_item_2_item_2_item_1_item}
+                                    >
+                                        <FaCheck />
+                                    </div>
+                                </div>
+
+                            </div>
+                    }
+                </div>
+
             </div>
-            {
-                !innerIssueChangeNameCont
-                    ?
-                    <div>
-                        {
-                            subIssueInfo.summary
-                        }
-                    </div>
-                    :
-                    <div>
-                        <Input onChange={(e) => setInnerIssueChangeName(e.target.value)} />
-                        <div onClick={() => {
-                            setInnerIssueChangeNameCont(false)
-                            changeIssueInnerIssueSummartCompFunc(innerIssueChangeName, subIssueInfo.uniqId)
-                        }
-                        }>
-                            <FaCheck />
-                        </div>
-                        <div onClick={() => setInnerIssueChangeNameCont(false)}>
-                            <FaClosedCaptioning />
-                        </div>
-
-                    </div>
-            }
-
-            <div onClick={() => {
-                setInnerIssueChangeNameCont(true)
-            }}>
-                <FaPencil />
-            </div>
-
-            <div onClick={() => dispatch(changeGetBoardIssueItemFunc(subIssueInfo))}>
-                <FaEye />
-                Watch
-            </div>
-
-            <div>
+            <div className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_2_item}>
                 {
-                    subIssueInfo.assignee
+                    subIssueInfo.assignee === ''
+                        ?
+                        <span>
+                            Unassigned
+                        </span>
+                        :
+                        <span>
+                            {subIssueInfo.assignee}
+                        </span>
                 }
+                <span>
+                    {
+                        subIssueInfo.issueStatus
+                    }
+                </span>
             </div>
-            <div>
-                {
-                    subIssueInfo.issueStatus
-                }
-            </div>
+
         </div>
     )
 }

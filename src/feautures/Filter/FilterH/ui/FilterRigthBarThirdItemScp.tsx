@@ -80,17 +80,19 @@ export const FilterRightBarThirdItemComp: React.FC<OwnProps> = ({ }) => {
                                         ?
                                         <div onClick={() => {
                                             setFilterRightBartiLabels(true)
-                                        }}>
+                                        }}
+                                            className={styles.filt_rig_s_itm_content_sc_tp_lbl_item}
+                                        >
                                             {
                                                 getBoardIssueCompItem.description?.length === 0
                                                     ?
-                                                    <div>
+                                                    <div className={styles.filt_rig_s_itm_content}>
                                                         None
                                                     </div>
                                                     :
                                                     getBoardIssueCompItem.description?.map((val) => {
                                                         return (
-                                                            <div>
+                                                            <div className={styles.filt_rig_s_itm_content_sc_tp}>
                                                                 {val}
                                                             </div>
                                                         )
@@ -114,25 +116,13 @@ export const FilterRightBarThirdItemComp: React.FC<OwnProps> = ({ }) => {
                                 Sprint
                             </Col>
                             <Col span={12}>
-                                <div>
+                                <div className={styles.filt_rig_s_itm_content}>
                                     {getBoardIssueCompItem.issuesProject}
                                 </div>
                             </Col>
                         </Row>
                     </div>
 
-                    <div className={styles.filt_rig_s_itm_content_ovrl}>
-                        <Row>
-                            <Col span={12} className={styles.filt_rig_s_itm_content}>
-                                Story point estimate
-                            </Col>
-                            <Col span={12}>
-                                <div>
-                                    {getBoardIssueCompItem.storyPoint}
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
                 </div >
             )
         }

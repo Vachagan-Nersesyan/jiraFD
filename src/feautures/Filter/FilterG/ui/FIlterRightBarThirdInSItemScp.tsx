@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './FIlterRightBarThirdInSItemStl.module.css'
 import { Row, type CollapseProps, Col, Button, Dropdown, Space, Collapse, Select } from 'antd'
 import { NavLink, useLocation } from 'react-router-dom'
-import { FaAngleDown, FaAngleUp, FaEllipsis, FaEye, FaFlag, FaGear, FaLockOpen, FaRegThumbsUp, FaShareFromSquare, FaShareNodes, FaUser } from 'react-icons/fa6'
+import { FaAngleDown, FaAngleUp, FaEllipsis, FaEye, FaFlag, FaGear, FaLockOpen, FaRegShareFromSquare, FaRegSun, FaRegThumbsUp, FaRegUser, FaShareFromSquare, FaShareNodes, FaUser, FaUserAstronaut } from 'react-icons/fa6'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { AppStateType } from 'entities/store/redux-store'
@@ -156,6 +156,7 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
                         </div>
                     )
                 }}
+                className={styles.filter_rg_br_rg_prt_sec_content_insclt_3efb_item}
                 style={{ width: 120 }}
                 onChange={handleChange}
                 options={
@@ -174,30 +175,16 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
     return (
         <div className={styles.filter_rg_br_rg_prt_content_container}>
-            <div >
-                <Row>
-                    <Col span={12}>
-                    </Col>
-                    <Col span={12} className={styles.filter_rg_br_rg_prt_cnt_col}>
-                        <div>
-                            1 of 9
-                        </div>
-                        <Button ><FaAngleUp /></Button>
-                        <Button><FaAngleDown /></Button>
-                    </Col>
-                </Row>
-            </div>
 
             <div className={styles.filter_rg_br_rg_prt_sec_content}>
                 <Row>
                     <Col span={12}>
                     </Col>
                     <Col span={12} className={styles.filter_rg_br_rg_prt_cnt_col_sec}>
-                        <Button ><FaLockOpen /></Button>
-                        <Button><FaEye /> 0 </Button>
-                        <Button ><FaRegThumbsUp /></Button>
-                        <Button><FaShareNodes /></Button>
-                        <Button>
+                        <div className={styles.filter_rg_br_rg_prt_cnt_col_sec_ic_stl}><FaEye /> 1 </div>
+                        <div className={styles.filter_rg_br_rg_prt_cnt_col_sec_ic_stl}><FaRegThumbsUp /></div>
+                        <div className={styles.filter_rg_br_rg_prt_cnt_col_sec_ic_stl}><FaRegShareFromSquare /></div>
+                        <div className={styles.filter_rg_br_rg_prt_cnt_col_sec_ic_stl}>
                             <Dropdown
                                 rootClassName={styles.filter_rg_br_rg_prt_cnt_col_dropdown_cont}
                                 menu={{
@@ -225,12 +212,12 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
                                     </Space>
                                 </a>
                             </Dropdown>
-                        </Button>
+                        </div>
                     </Col>
                 </Row>
             </div>
 
-            <div>
+            <div className={styles.filter_rg_br_rg_prt_sec_content_insclt_3efb_item}>
                 {/* <Select
                     labelInValue
                     defaultValue={{
@@ -258,17 +245,27 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
                         })
                     }
                 /> */}
-                <SelectSection />
 
-                {
-                    getBoardIssueItem.flag
-                        ?
-                        <div>
-                            <FaFlag /> flagged
-                        </div>
-                        :
-                        null
-                }
+                <div className={styles.filter_rg_br_rg_prt_sec_content_insclt_3efb_item_1_item}>
+                    <SelectSection />
+                </div>
+
+                <div className={styles.filter_rg_br_rg_prt_sec_content_insclt_3efb_item_2_item}>
+                    {
+                        getBoardIssueItem.flag
+                            ?
+                            <div className={styles.filter_rg_br_rg_prt_sec_content_insclt_3efb_item_2_item_1_item}>
+                                <div className={styles.filter_rg_br_rg_prt_sec_content_insclt_3efb_item_2_item_1_item_1_item}>
+                                    <FaFlag />
+                                </div>
+                                <div className={styles.filter_rg_br_rg_prt_sec_content_insclt_3efb_item_2_item_1_item_2_item}>
+                                    Flagged
+                                </div>
+                            </div>
+                            :
+                            null
+                    }
+                </div>
             </div>
 
             <div>
@@ -315,10 +312,10 @@ export const FilterRightBarThirdSecItemComp: React.FC<FilterRightBarThirdSecItem
                             </Col>
                             <Col span={12}>
                                 <div className={styles.filt_rig_s_itm_sec_cont}>
-                                    <div>
-                                        <FaUser />
+                                    <div className={styles.filt_rig_s_itm_sec_cont_1_item}>
+                                        <FaRegUser />
                                     </div>
-                                    <div>
+                                    <div className={styles.filt_rig_s_itm_sec_cont_2_item}>
                                         {getBoardIssueItem.reporter}
                                     </div>
                                 </div>
@@ -332,8 +329,8 @@ export const FilterRightBarThirdSecItemComp: React.FC<FilterRightBarThirdSecItem
                             </Col>
                             <Col span={12}>
                                 <div className={styles.filt_rig_s_itm_sec_cont}>
-                                    <div>
-                                        <FaUser />
+                                    <div className={styles.filt_rig_s_itm_sec_cont_1_item}>
+                                        <FaRegUser />
                                     </div>
                                     <div>
                                         {
@@ -366,8 +363,16 @@ export const FilterRightBarThirdSecItemComp: React.FC<FilterRightBarThirdSecItem
                                                     />
                                                 </div>
                                                 :
-                                                <div onClick={() => setAssigneeBtn(true)}>
-                                                    {getBoardIssueItem.assignee}
+                                                <div onClick={() => setAssigneeBtn(true)} className={styles.filt_rig_s_itm_sec_cont_2_item}>
+                                                    {
+                                                        getBoardIssueItem.assignee === ''
+                                                            ?
+                                                            <span>
+                                                                Unassigned
+                                                            </span>
+                                                            :
+                                                            getBoardIssueItem.assignee
+                                                    }
                                                 </div>
 
                                         }
@@ -404,9 +409,9 @@ export const FilterRightBarThirdThirdItemComp: React.FC<{}> = () => {
                     </div>
                 </Col>
                 <Col span={6} className={styles.filter_rg_br_rg_itm_footer_content_container_sec_col}>
-                    <NavLink to={'/'}>
-                        <FaGear /> Configure
-                    </NavLink>
+                    <div className={styles.filter_rg_br_rg_itm_footer_content_container_sec_col_iefqc_item}>
+                        <FaRegSun /> Configure
+                    </div>
                 </Col>
             </Row>
         </div>

@@ -13,30 +13,49 @@
     font-weight: 800;
 }
 
-.filter_itm_othr{
-    padding:0 2em;
+.filter_itm_othr {
+    padding: 0 2em;
     font-family: 'Oxygen', sans-serif;
     color: #172B4D;
     font-size: 1em;
     font-weight: 800;
 }
 
-.filter_inp_itm{
+.filter_inp_itm {
     margin-right: 1em;
 }
 
-.filter_sec_col{
+.filter_sec_col {
     display: flex;
     justify-content: flex-end;
 }
 
-.filter_sec_col_content svg{
+.filter_sec_col_content svg {
     font-size: 1.5em;
     color: #172B4D;
 }
 
-.fitler_rg_bar_views_content{
+.fitler_rg_bar_views_content {
     color: #172B4D;
     font-size: 1em;
     font-weight: 800;
+}
+
+.filter_sec_part_content_in_item_slct_item {
+    font-family: 'Oxygen', sans-serif;
+    margin-right: .5em;
+}
+
+.filter_inp_itm_srch_item {
+    background-color: transparent;
+    font-family: 'Oxygen', sans-serif;
+    padding: .3em;
+    border: 2px solid #172B4D;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+.filter_inp_itm_srch_item:hover {
+    color: white;
+    background-color: #172B4D;
 }

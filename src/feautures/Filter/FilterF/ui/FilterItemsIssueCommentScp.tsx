@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from './FilterItemsIssueCommentStl.module.css'
-import { FaUser } from 'react-icons/fa6'
+import { FaRegUser, FaUser } from 'react-icons/fa6'
 import { Button } from 'antd'
 import { IssuesCommentsType, IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { ChangeCommentIssueFuncType } from '../../FilterE/ui/FilterRightBarThirdInFItemTs.interface'
@@ -22,56 +22,63 @@ const IssueCommentComp: React.FC<IssueCommentCompOwnProps> = ({ issueCommentInfo
     }
 
     return (
-        <div >
-            <div>
-                <FaUser />
+        <div className={styles.filter_items_sub_issue_comments}>
+            <div className={styles.filter_items_sub_issue_comments_1_item}>
+                <FaRegUser />
             </div>
-            <div>
-                <div>
-                    {issueCommentInfo.name} {issueCommentInfo.date}
+            <div className={styles.filter_items_sub_issue_comments_2_item}>
+                <div className={styles.filter_items_sub_issue_comments_2_item_1_item}>
+                    <span>{issueCommentInfo.name}</span>
+                    <span>{issueCommentInfo.date}</span>
                 </div>
-                <div>
+                <div className={styles.filter_items_sub_issue_comments_2_item_2_item}>
                     {
                         !commentDvTp
                             ?
-                            <div>
+                            <div className={styles.filter_items_sub_issue_comments_2_item_2_item_1_item}>
                                 {issueCommentInfo.text}
                             </div>
                             :
-                            <div>
+                            <div className={styles.filter_items_sub_issue_comments_2_item_2_item_2_item}>
                                 <input onChange={(e) => setCommentStr(e.target.value)} />
-                                <div onClick={() => setCommentDvTp(false)}>
-                                    x
-                                </div>
-                                <div onClick={() => {
-                                    setCommentDvTp(false)
-                                    saveChangedCommentIssue(commentDvStr, getBoardIssueItem.id, getBoardIssueItem.issueStatus, issueCommentInfo.id)
-                                }
-                                }
-                                >
-                                    save
-                                </div>
                             </div>
                     }
 
                 </div>
-                <div>
-                    <Button
+                <div className={styles.filter_items_sub_issue_comments_2_item_3_item}>
+                    <div
                         onClick={() => {
-                            setCommentDvTp(true)
+                            setCommentDvTp(!commentDvTp)
                         }
                         }
+                        className={styles.filter_items_sub_issue_comments_2_item_3_item_1_item}
                     >
-                        Edit
-                    </Button>
-                    <Button
+                        {
+                            commentDvTp
+                                ?
+                                <span
+                                    onClick={() => {
+                                        saveChangedCommentIssue(commentDvStr, getBoardIssueItem.id, getBoardIssueItem.issueStatus, issueCommentInfo.id)
+                                    }
+                                    }
+                                >
+                                    Save
+                                </span>
+                                :
+                                <span>
+                                    Edit
+                                </span>
+                        }
+                    </div>
+                    <div
                         onClick={() => {
                             deleteCommentCompIssue(commentDvStr, getBoardIssueItem.id, getBoardIssueItem.issueStatus, issueCommentInfo.id)
                         }
                         }
+                        className={styles.filter_items_sub_issue_comments_2_item_3_item_1_item}
                     >
                         Delete
-                    </Button>
+                    </div>
                 </div>
             </div>
         </div>

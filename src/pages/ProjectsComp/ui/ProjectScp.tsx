@@ -173,23 +173,31 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                         IN THE LAST WEEK
                     </div>
                     {
-                        allProjectsWorkCompArr.map((val) => {
-                            return (
-                                <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
-                                    <div>
-                                        <div>
-                                            <img src={val.issueTypePic} />
+                        allProjectsWorkCompArr.length === 0
+                            ?
+                            <div className={styles.project_tab_content_txt_title}>
+                                Sorry there is not issue yet
+                            </div>
+                            :
+                            allProjectsWorkCompArr.map((val) => {
+                                return (
+                                    <NavLink className={styles.project_tab_content_txt} onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                        <div className={styles.project_tab_content_txt_in_item_cont}>
+                                            <div className={styles.project_tab_content_txt_in_item_cont_1_item}>
+                                                <img src={val.issueTypePic} />
+                                            </div>
+                                            <div className={styles.project_tab_content_txt_in_item_cont_2_item}>
+                                                <div className={styles.project_tab_content_txt_in_item_cont_2_item_1item}>
+                                                    {val.summary}
+                                                </div>
+                                                <div className={styles.project_tab_content_txt_in_item_cont_2_item_1item}>
+                                                    {val.issuesProject}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
-                                            {val.summary}
-                                        </div>
-                                        <div>
-                                            {val.issuesProject}
-                                        </div>
-                                    </div>
-                                </NavLink>
-                            )
-                        })
+                                    </NavLink>
+                                )
+                            })
                     }
 
                 </div>
@@ -204,23 +212,31 @@ const ProjectsComp: React.FC<OwnProps> = () => {
             ),
             children: (
 
-                allProjectsWorkCompAssigneArr.map((val) => {
-                    return (
-                        <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
-                            <div>
-                                <div>
-                                    <img src={val.issueTypePic} />
+                allProjectsWorkCompAssigneArr.length === 0
+                    ?
+                    <div className={styles.project_tab_content_txt_title}>
+                        Sorry there is not issue yet
+                    </div>
+                    :
+                    allProjectsWorkCompAssigneArr.map((val) => {
+                        return (
+                            <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`} className={styles.project_tab_content_txt}>
+                                <div className={styles.project_tab_content_txt_in_item_cont}>
+                                    <div className={styles.project_tab_content_txt_in_item_cont_1_item}>
+                                        <img src={val.issueTypePic} />
+                                    </div>
+                                    <div className={styles.project_tab_content_txt_in_item_cont_2_item}>
+                                        <div className={styles.project_tab_content_txt_in_item_cont_2_item_1item}>
+                                            {val.summary}
+                                        </div>
+                                        <div className={styles.project_tab_content_txt_in_item_cont_2_item_2_item}>
+                                            {val.issuesProject}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    {val.summary}
-                                </div>
-                                <div>
-                                    {val.issuesProject}
-                                </div>
-                            </div>
-                        </NavLink>
-                    )
-                })
+                            </NavLink>
+                        )
+                    })
 
             ),
         },
@@ -259,7 +275,7 @@ const ProjectsComp: React.FC<OwnProps> = () => {
             </div>
             <div className={styles.project_content_sec_item}>
                 <Row>
-                    <Col span={12} className={styles.project_content_sec_item}>
+                    <Col span={12} className={styles.project_content_sec_item_title}>
                         Recent projects
                     </Col>
                     <Col className={styles.sect_item} span={12}>
@@ -269,34 +285,37 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                     </Col>
                 </Row>
             </div>
-            <div className={styles.project_content_third_item}>
+            <Row className={styles.project_content_third_item}>
                 {
                     allProjectsWorkComp.map((item) => {
                         return (
-                            <div className={styles.project_content_third_item_content_in_txt_content}>
-                                <div className={styles.project_content_third_item_content_in_txt_content_1_item}>
-                                    <FaAlignCenter />
-                                </div>
-                                <div className={styles.project_content_third_item_content_in_txt_content_2_item}>
-                                    <div className={styles.project_content_third_item_content_in_txt_content_2_item_1_item}>
-                                        {item.name}
-                                    </div>
-                                    <div className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
-                                        QUICK LINKS
-                                    </div>
-                                    <div className={styles.project_content_third_item_content_in_txt_content_2_item_3_item}>
+                            <Col span={4} >
+                                <NavLink onClick={() => dispatch(setCurrentProject(item.id))} to={`/jiraItems/board/${item.id}`} className={styles.project_content_third_item_content_in_txt_content_2_item_2_item_ovrl}>
+                                    <Row className={styles.project_content_third_item_content_in_txt_content}>
+                                        <Col span={10} className={styles.project_content_third_item_content_in_txt_content_1_item}>
+                                            <img src={item.picture} />
+                                        </Col>
+                                        <Col span={10} className={styles.project_content_third_item_content_in_txt_content_2_item}>
+                                            <div className={styles.project_content_third_item_content_in_txt_content_2_item_1_item}>
+                                                {item.name}
+                                            </div>
+                                            <div className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
+                                                QUICK LINKS
+                                            </div>
+                                            <div className={styles.project_content_third_item_content_in_txt_content_2_item_3_item}>
 
-                                        <NavLink onClick={() => dispatch(setCurrentProject(item.id))} to={`/jiraItems/board/${item.id}`} className={styles.project_content_third_item_content_in_txt_content_2_item_2_item}>
-                                            {item.boardUniqName}
-                                        </NavLink>
+                                                {item.boardUniqName}
 
-                                    </div>
-                                </div>
-                            </div>
+
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </NavLink>
+                            </Col>
                         )
                     })
                 }
-            </div>
+            </Row>
             <div>
                 <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange} />
             </div>

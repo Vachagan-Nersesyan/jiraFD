@@ -11,6 +11,7 @@ import { changeProjectInfoFunc } from 'entities/project/projectReducer';
 import { OwnProps, ProjectSettingsFstObjType } from './ProjectSettingsTs.interface';
 import { useSelector } from 'react-redux';
 import { AppStateType } from 'entities/store/redux-store';
+import { NavLink } from 'react-router-dom';
 
 const ProjectSettingsComp: React.FC<OwnProps> = (props) => {
 
@@ -72,21 +73,12 @@ const ProjectSettingsComp: React.FC<OwnProps> = (props) => {
 
 
     return (
-        <div className={secStyles.development_page_content_overlay}>
+        <div className={styles.development_page_content_overlay}>
             <div className={secStyles.development_page_content_in_1_sect}>
                 <Breadcrumb
                     items={[
                         {
-                            title: 'Home',
-                        },
-                        {
-                            title: <a href="">Application Center</a>,
-                        },
-                        {
-                            title: <a href="">Application List</a>,
-                        },
-                        {
-                            title: 'An Application',
+                            title: <NavLink to={'/jiraItems/allProjects'}>Home</NavLink>,
                         },
                     ]}
                 />
@@ -117,66 +109,66 @@ const ProjectSettingsComp: React.FC<OwnProps> = (props) => {
                 </Row>
             </div>
             <div className={styles.development_page_content_form_content}>
-                <Form name="form_item_path" layout="vertical" >
-                    <MyFormItemGroup prefix={['user']}>
-                        <div className={styles.development_page_content_form_content_change_icon}>
-                            <img src={projectPictureSttngComp[projectPictureSttngCompNum].picture} />
-                        </div>
-                        <MyFormItemGroup prefix={['name']}>
-                            <MyFormItem name="firstName" label="Name">
-                                <Input onChange={(e) => setProjectName(e.target.value)} />
-                            </MyFormItem>
-                            <MyFormItem name="lastName" label="Key">
-                                <Input onChange={(e) => setProjectKey(e.target.value)} />
-                            </MyFormItem>
-                        </MyFormItemGroup>
 
-                        <MyFormItem name="firstName" label="Project lead">
-                            <Select
-                                showSearch
-                                placeholder="Select a person"
-                                optionFilterProp="children"
-                                onChange={(value: string) => setProjectLead(value)}
-                                options={[
-                                    {
-                                        value: 'Vachagan',
-                                        label: 'Vachagan',
-                                    }
-                                ]}
-                            />
-                            <div>
-                                Make sure your project lead has access to issues in the project.
-                            </div>
-                        </MyFormItem>
-                        <MyFormItem name="firstName" label="Default assignee ">
-                            <Select
-                                showSearch
-                                placeholder="Select a person"
-                                optionFilterProp="children"
-                                onChange={(value: string) => setProjectAssignee(value)}
+                <div className={styles.development_page_content_form_content_change_icon}>
+                    <img src={projectPictureSttngComp[projectPictureSttngCompNum].picture} />
+                </div>
+                <div className={styles.development_page_content_form_content_1_item}>
+                    <div className={styles.development_page_content_form_content_1_item_1_item}>
+                        <input placeholder='Please write project name' onChange={(e) => setProjectName(e.target.value)} />
+                    </div>
+                    <div className={styles.development_page_content_form_content_1_item_2_item}>
+                        <input placeholder='Please write project key' onChange={(e) => setProjectKey(e.target.value)} />
+                    </div>
+                </div>
 
-                                options={[
-                                    {
-                                        value: 'Project Lead',
-                                        label: 'Project Lead',
-                                    },
-                                    {
-                                        value: 'Unassigned',
-                                        label: 'Unassigned',
-                                    }
-                                ]}
-                            />
-                        </MyFormItem>
+                <div className={styles.development_page_content_form_content_2_item}>
+                    <Select
+                        showSearch
+                        placeholder="Select a person"
+                        optionFilterProp="children"
+                        className={styles.development_page_content_form_content_2_item_1_item}
+                        onChange={(value: string) => setProjectLead(value)}
+                        options={[
+                            {
+                                value: 'Vachagan',
+                                label: 'Vachagan',
+                            }
+                        ]}
+                    />
+                    <div className={styles.development_page_content_form_content_2_item_1_item_txt}>
+                        Make sure your project lead has access to issues in the project.
+                    </div>
+                </div>
+                <div className={styles.development_page_content_form_content_2_item}>
+                    <Select
+                        showSearch
+                        placeholder="Select a person"
+                        optionFilterProp="children"
+                        className={styles.development_page_content_form_content_2_item_1_item}
+                        onChange={(value: string) => setProjectAssignee(value)}
 
-
-                    </MyFormItemGroup>
-
+                        options={[
+                            {
+                                value: 'Project Lead',
+                                label: 'Project Lead',
+                            },
+                            {
+                                value: 'Unassigned',
+                                label: 'Unassigned',
+                            }
+                        ]}
+                    />
+                </div>
+                <div>
                     <Button type="primary" htmlType="submit" onClick={setNewSettingsProject}>
                         Save
                     </Button>
-                </Form>
+                </div>
+
             </div>
-        </div>
+
+        </div >
     )
 }
 

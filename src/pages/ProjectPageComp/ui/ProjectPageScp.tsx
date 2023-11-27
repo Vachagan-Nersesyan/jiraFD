@@ -5,6 +5,7 @@ import { Breadcrumb, Button, Col, Row, Tabs } from 'antd'
 import { FaRegCompass, FaRegFileLines, FaRegRectangleList, FaRoad, FaTurnUp, FaUserGroup } from 'react-icons/fa6'
 import firstPic from '../images/1.svg'
 import { OwnProps } from './ProjectTs.interface'
+import { NavLink } from 'react-router-dom'
 
 
 const ProjectPageComp: React.FC<OwnProps> = (props) => {
@@ -15,35 +16,35 @@ const ProjectPageComp: React.FC<OwnProps> = (props) => {
             icon: <FaRegFileLines />,
             title: 'Blank page',
             text: 'Start a page from scratch.',
-            pic: '../pictures/projectPageImages/1.svg'
+            pic: '/pictures/projectPageImages/1.svg'
         },
         {
             id: 1,
             icon: <FaRegRectangleList />,
             title: 'Product requirements',
             text: ' Define,track and scope requirements for your product or feature.',
-            pic: '../pictures/projectPageImages/2.svg'
+            pic: '/pictures/projectPageImages/2.svg'
         },
         {
             id: 2,
             icon: <FaRoad />,
             title: 'Design decision',
             text: 'Record important project decisions and communciate them with your team.',
-            pic: '../pictures/projectPageImages/3.svg'
+            pic: '/pictures/projectPageImages/3.svg'
         },
         {
             id: 3,
             icon: <FaUserGroup />,
             title: 'Meeting notes',
             text: 'Set meeting agendas,take notes, and share action items with your team.',
-            pic: '../pictures/projectPageImages/4.svg'
+            pic: '/pictures/projectPageImages/4.svg'
         },
         {
             id: 4,
             icon: <FaTurnUp />,
             title: 'Retrospective',
             text: 'What went well? What could have gone better ? Crowdsource imporvements with your team.',
-            pic: '../pictures/projectPageImages/5.svg'
+            pic: '/pictures/projectPageImages/5.svg'
         },
         {
             id: 5,
@@ -63,16 +64,7 @@ const ProjectPageComp: React.FC<OwnProps> = (props) => {
                         <Breadcrumb
                             items={[
                                 {
-                                    title: 'Home',
-                                },
-                                {
-                                    title: <a href="">Application Center</a>,
-                                },
-                                {
-                                    title: <a href="">Application List</a>,
-                                },
-                                {
-                                    title: 'An Application',
+                                    title: <NavLink to={'/jiraItems/allProjects'}>Home</NavLink>,
                                 },
                             ]}
                         />

@@ -258,6 +258,7 @@ const FilterRightBarNavBarSecComp: React.FC<FilterRightBarNavBarSecCompType> = (
                             mode="tags"
                             style={{ width: '10em' }}
                             onChange={handleChange}
+                            className={styles.filter_sec_part_content_in_item_slct_item}
                             tokenSeparators={[]}
                             options={
                                 projectsArr.map((val) => {
@@ -375,6 +376,7 @@ const FilterRightBarNavBarSecComp: React.FC<FilterRightBarNavBarSecCompType> = (
                                 style={{ width: '10em' }}
                                 onChange={typeHandleChange}
                                 tokenSeparators={[]}
+                                className={styles.filter_sec_part_content_in_item_slct_item}
                                 options={[
                                     ...projectTypeFilterArr.map((val) => {
                                         return (
@@ -458,6 +460,7 @@ const FilterRightBarNavBarSecComp: React.FC<FilterRightBarNavBarSecCompType> = (
                             mode="tags"
                             style={{ width: '10em' }}
                             onChange={statusHandleChange}
+                            className={styles.filter_sec_part_content_in_item_slct_item}
                             tokenSeparators={[]}
                             options={
                                 projectStatusStrOvrkArr.map((val) => {
@@ -478,11 +481,11 @@ const FilterRightBarNavBarSecComp: React.FC<FilterRightBarNavBarSecCompType> = (
 
                     </div>
                     <div className={styles.filter_inp_itm}>
-                        <Input placeholder="Basic usage" onChange={(e) => setFilterInpVal(e.target.value)} />
+                        <Input placeholder="Please write issue's name" onChange={(e) => setFilterInpVal(e.target.value)} />
 
                     </div>
-                    <div>
-                        <Button onClick={() => textHandleChange(filterInpVal)} type="primary">Search</Button>
+                    <div className={styles.filter_inp_itm_srch_item}>
+                        <div onClick={() => textHandleChange(filterInpVal)} >Search</div>
                     </div>
                 </div>
 

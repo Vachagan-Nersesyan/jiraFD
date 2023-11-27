@@ -257,10 +257,8 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                                     </div>
                                     <Modal
                                         className={styles.board_issue_modal_itm}
-                                        title="Basic Modal"
                                         open={isIssueModalOpen} onOk={handleIssueOk} onCancel={handleIssueCancel}>
                                         <div>
-                                            change modal items
                                             <IssueInCntComp />
                                         </div>
                                     </Modal>

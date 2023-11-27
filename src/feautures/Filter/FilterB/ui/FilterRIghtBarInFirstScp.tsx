@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './FilterRightBarInFirstStl.module.css'
 import { Checkbox, Col, Dropdown, Form, Menu, Row, Space } from 'antd'
 import { NavLink } from 'react-router-dom'
-import { FaBarsStaggered, FaFileExcel, FaFileExport, FaFileWord, FaShareFromSquare } from 'react-icons/fa6'
+import { FaBarsStaggered, FaEllipsis, FaFileExcel, FaFileExport, FaFileWord, FaRegFile, FaRegShareFromSquare, FaShareFromSquare } from 'react-icons/fa6'
 import { OwnProps, SecOwnProps } from './FIlterRightBarInFirstTs.interface'
 
 
@@ -15,36 +15,30 @@ const FilterRightBarNavBarComp: React.FC<SecOwnProps> = () => {
                     <div className={styles.filter_right_bar_first_content_title}>
                         Search
                     </div>
-                    <div>
-                        <NavLink to={'/'} className={styles.filter_right_bar_first_content_lnk}>
-                            Save as
-                        </NavLink>
-                    </div>
                 </div>
             </Col>
             <Col span={12} className={styles.filter_right_bar_first_content_sec_col_content}>
                 <div className={styles.filter_right_bar_first_content_sec_col_content_in_container}>
                     <div className={styles.filter_right_bar_first_content_sec_col_content_in_container_in_item}>
-                        <NavLink to={'/'}>
-                            <FaFileExcel />
-                        </NavLink>
+
+                        <FaFileExcel />
+
                     </div>
                     <div className={styles.filter_right_bar_first_content_sec_col_content_in_container_in_item}>
-                        <NavLink to={'/'}>
-                            <FaFileWord />
-                        </NavLink>
+
+                        <FaFileWord />
+
                     </div>
                     <div className={styles.filter_right_bar_first_content_sec_col_content_in_container_in_item}>
-                        <NavLink to={'/'}>
-                            <FaShareFromSquare />
-                            Share
-                        </NavLink>
+
+                        <FaRegShareFromSquare />
+                        <span>Share</span>
+
                     </div>
                     <div className={styles.filter_right_bar_first_content_sec_col_content_in_container_in_item}>
-                        <NavLink to={'/'}>
-                            <FaFileExport />
-                            Export
-                        </NavLink>
+
+                        <FaRegFile />
+                        <span>Export</span>
                     </div>
                     <div>
                         <NavLink to={'/'}>
@@ -78,7 +72,7 @@ const FilterRightBarNavBarComp: React.FC<SecOwnProps> = () => {
                             }} trigger={['click']}>
                                 <a onClick={(e) => e.preventDefault()}>
                                     <Space className={styles.filter_right_bar_sec_content_itm}>
-                                        <FaBarsStaggered />
+                                        <FaEllipsis />
                                     </Space>
                                 </a>
                             </Dropdown>
