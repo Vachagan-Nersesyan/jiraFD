@@ -4,7 +4,7 @@ import styles from './LoginStl.module.css'
 
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import { FaAtlassian, FaCircle, FaJira } from 'react-icons/fa6';
+import { FaAtlassian, FaCircle, FaJira, FaTriangleExclamation } from 'react-icons/fa6';
 import { Button, Input } from 'antd';
 import { NavLink, useNavigate } from 'react-router-dom';
 import SignIn from '../../SignIn';
@@ -15,7 +15,19 @@ import { useDispatch } from 'react-redux';
 
 import pic from '../images/1.png'
 import { OwnProps } from './LoginTs.interface';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from "yup";
 
+
+const SignupSchema = Yup.object().shape({
+    password: Yup.string()
+        .min(2, 'Too Short!')
+        .max(70, 'Too Long!')
+        .required('Required'),
+    email: Yup.string()
+        .email('Invalid email')
+        .required('Required'),
+});
 
 const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
@@ -26,46 +38,46 @@ const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
     const [userEmail, setUserEmail] = useState<string>('')
     const [userPassword, setUserPassword] = useState<string>('')
 
+    const [errorMessage, setErrorMessage] = useState<string>('')
+
+
+
     const dispatch = useDispatch()
 
     const loginEmailPassword = () => {
 
-        debugger
-
-        try {
-
-            signInWithEmailAndPassword(auth, userEmail, userPassword)
-                .then((userCredential) => {
-
-                    console.log(userCredential)
-
-                    // let frbsuser = userCredential.user
-
-                    console.log(userCredential)
-
-                    localStorage.setItem('user', JSON.stringify(userCredential.user));
-                    setLocalStorageHook(true)
 
 
-                    dispatch(changeUserOtherInfoFBFunc({
-                        name: userCredential.user.email?.slice(0, userCredential.user.email?.indexOf('@')),
-                        picture: userCredential.user.photoURL ? null : pic,
-                        email: userCredential.user.email,
-                    }))
-                })
+        signInWithEmailAndPassword(auth, userEmail, userPassword)
+            .then((userCredential) => {
 
-                .catch((error) => {
-                    debugger
-                    console.log(error)
-                })
+                console.log(userCredential)
+
+                // let frbsuser = userCredential.user
+
+                console.log(userCredential)
+
+                localStorage.setItem('user', JSON.stringify(userCredential.user));
+                setLocalStorageHook(true)
+
+                setErrorMessage('')
+
+                dispatch(changeUserOtherInfoFBFunc({
+                    name: userCredential.user.email?.slice(0, userCredential.user.email?.indexOf('@')),
+                    picture: userCredential.user.photoURL ? null : pic,
+                    email: userCredential.user.email,
+                }))
+            })
+
+            .catch((error) => {
+
+                setErrorMessage(error.message)
+            })
 
 
 
-            navigate('/jiraItems/userPage')
+        navigate('/jiraItems/userPage')
 
-        } catch (err) {
-            console.log(err)
-        }
 
     }
 
@@ -95,22 +107,59 @@ const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
                 </div>
 
 
+                <Formik
+                    initialValues={{
+                        email: '',
+                        password: '',
+                    }}
+                    validationSchema={SignupSchema}
+                    onSubmit={values => {
 
-                <div className={styles.register_content_3_item}>
-                    <div className={styles.register_content_3_item_1_item}>
-                        <Input onChange={(e) => setUserEmail(e.target.value)} placeholder="Please Write Your Email" />
-                    </div>
-                    <div className={styles.register_content_3_item_1_item}>
-                        <Input onChange={(e) => setUserPassword(e.target.value)} placeholder="Please Write Your Password" />
-                    </div>
-                </div>
+                        setUserEmail(values.email)
+                        setUserPassword(values.password)
+                        loginEmailPassword()
+                    }}
+                >
+                    {({ }) => (
+                        <Form style={{ width: '100%' }}>
+                            <div className={styles.register_content_3_item_overlay}>
+                                <div className={styles.register_content_3_item}>
+                                    <div className={styles.register_content_3_item_1_item}>
+                                        <Field name="email" placeholder="Please Write Your Email" />
+                                        <div className={styles.register_content_3_item_1_item_1_item}>
+                                            <ErrorMessage name="email" />
+                                            {/* <FaTriangleExclamation /> */}
+                                        </div>
+                                    </div>
+                                    <div className={styles.register_content_3_item_1_item}>
+                                        <Field name="password" type='password' placeholder="Please Write Your Password" />
+                                        <div className={styles.register_content_3_item_1_item_1_item}>
+                                            <ErrorMessage name="password" />
+                                            {/* <FaTriangleExclamation /> */}
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {
+                                    errorMessage !== ''
+                                        ?
+                                        <div className={styles.register_content_3_item_1_item_1_item_sec}>
+                                            {
+                                                errorMessage
+                                            }
+                                        </div>
+                                        :
+                                        null
+                                }
+                                <div className={styles.register_content_4_item}>
+                                    <button type="submit">Log in</button>
+                                </div>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
 
 
-
-
-                <div className={styles.register_content_4_item}>
-                    <Button onClick={loginEmailPassword} type="primary">Log in</Button>
-                </div>
 
                 <SignIn setLocalStorageHook={setLocalStorageHook} />
 
