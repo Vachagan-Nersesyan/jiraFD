@@ -20,16 +20,28 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    /* z-index: 10000 !important; */
     top: auto;
     overflow: scroll;
     height: 70%;
 }
+
+/* .main_bar_create_iss_modal_content_sec{
+    pos
+} */
+
+/* uxxel */
 
 .modal_third_type_wrp_itm {
     z-index: 100 !important;
     background-color: rgba(0, 0, 0, .4);
 }
 
+.modal_third_type_wrp_itmsec {
+    /* z-index: 0 !important; */
+    position: inherit !important;
+
+}
 
 .create_issue_modal_third_type {
     position: absolute;

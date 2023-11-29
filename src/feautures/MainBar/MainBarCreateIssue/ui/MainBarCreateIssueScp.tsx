@@ -267,8 +267,14 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
                     :
                     <Modal
 
-                        wrapClassName={styles.modal_third_type_wrp_itm}
-
+                        wrapClassName={
+                            crIssModalStlItm === '1'
+                            ?
+                            styles.modal_third_type_wrp_itm
+                            :
+                            styles.modal_third_type_wrp_itmsec
+                        }
+                        
                         closeIcon={false}
 
                         className={crIssModalStlItm === '1' ?
