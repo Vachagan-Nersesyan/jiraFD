@@ -13,8 +13,8 @@ export interface MapStateToPropsType {
 }
 
 export interface MapDispatchToPropsType {
-    addIssueToBoardsFunc: ({ obj, uniqtext }: IssueToBoardsFuncArgsType) => void,
-    addingIssueToCurrentBoard: ({ obj, str, projectName }: AddingIssueToCurrentBoardArgsType) => void,
+    // addIssueToBoardsFunc: ({ obj, uniqtext }: IssueToBoardsFuncArgsType) => void,
+    // addingIssueToCurrentBoard: ({ obj, str, projectName }: AddingIssueToCurrentBoardArgsType) => void,
 
 }
 

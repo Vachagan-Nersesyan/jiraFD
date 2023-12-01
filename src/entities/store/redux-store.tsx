@@ -7,6 +7,7 @@ import userSlice from '../user/userReducer'
 // import boardSlice  from './boardsReducer'
 
 import thunkMiddleware, { ThunkAction } from 'redux-thunk'
+import { useDispatch } from 'react-redux'
 
 
 
@@ -16,7 +17,6 @@ const store = configureStore({
         project: projectSlice,
         issues: issuesSlice,
         user: userSlice
-        // boards : boardSlice
     }
 })
 
@@ -31,6 +31,8 @@ export type InferActionsTypes<T extends { [key: string]: (...args: Array<any>) =
 
 export type BaseThunkType<AT extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, AT>
 
+export type AppDispatch = typeof store.dispatch
 
+export const useAppDispatch: () => AppDispatch = useDispatch
 
 export default store

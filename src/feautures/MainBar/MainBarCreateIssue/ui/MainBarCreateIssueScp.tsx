@@ -5,7 +5,7 @@ import { FaAngleDown, FaArrowRightArrowLeft, FaArrowUpRightFromSquare, FaArrowsU
 import { NavLink } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect, useSelector } from 'react-redux'
-import { AppStateType } from 'entities/store/redux-store';
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
 
 import { issuesSlice } from 'entities/issues/issuesReducer';
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
@@ -21,6 +21,7 @@ import { BoardArrType } from 'entities/project/projectReducerTs.interface';
 import { IssueToBoardsFuncArgsType } from 'pages/BoardComp/ui/BoardTs.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { IssueValueType, MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './MainBarCreateIssueTs.interface';
+import { addIssueToBoardsFunc, addingIssueToCurrentBoard, fetchProjects } from 'entities/project/projectReducerThunks';
 
 
 
@@ -33,13 +34,15 @@ const SignupSchema = Yup.object().shape({
 
 });
 
-const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ projectItem, projectArr, boardUniqName, boardsArr, addingIssueToCurrentBoard, issuesArr, addIssueToBoardsFunc }) => {
+const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ projectItem, projectArr, boardUniqName, boardsArr, issuesArr }) => {
 
     // delete this
 
+    debugger
+
     // const projectArr = useSelector((state: AppStateType) => state.project.projectArr)
 
-
+    const aDispatch = useAppDispatch()
 
     const [createIssIsModalOpen, setCreateIssTeamIsModalOpen] = useState([false, false]);
 
@@ -132,16 +135,19 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
 
 
-    const createIssueCompFunc: (obj: IssuesType, str: string, projectName: string) => void = (obj, str, projectName) => {
+    const createIssueCompFunc: (obj: IssuesType, str: string, projectName: string) => void = async (obj, str, projectName) => {
         // debugger
 
         if (boardUniqName.includes(obj.issuesProject)) {
-            addIssueToBoardsFunc({ obj, uniqtext: str })
+            await aDispatch(addIssueToBoardsFunc({ obj, uniqtext: str }))
+            await aDispatch(fetchProjects())
 
             // addingBoardToProject({projectName,})
 
         } else {
-            addingIssueToCurrentBoard({ obj, str, projectName })
+            await aDispatch(addingIssueToCurrentBoard({ obj, str, projectName }))
+            await aDispatch(fetchProjects())
+
 
         }
 
@@ -269,12 +275,12 @@ const MainBarCreateIssueComp: React.FC<OwnProps & MapStateToPropsType & MapDispa
 
                         wrapClassName={
                             crIssModalStlItm === '1'
-                            ?
-                            styles.modal_third_type_wrp_itm
-                            :
-                            styles.modal_third_type_wrp_itmsec
+                                ?
+                                styles.modal_third_type_wrp_itm
+                                :
+                                styles.modal_third_type_wrp_itmsec
                         }
-                        
+
                         closeIcon={false}
 
                         className={crIssModalStlItm === '1' ?
@@ -740,8 +746,8 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
 const MainBarCreateIssueCompCont = compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
-        addIssueToBoardsFunc: projectSlice.actions.addIssueToBoardsFunc,
-        addingIssueToCurrentBoard: projectSlice.actions.addingIssueToCurrentBoard
+        // addIssueToBoardsFunc: projectSlice.actions.addIssueToBoardsFunc,
+        // addingIssueToCurrentBoard: projectSlice.actions.addingIssueToCurrentBoard
     })
 )(MainBarCreateIssueComp)
 

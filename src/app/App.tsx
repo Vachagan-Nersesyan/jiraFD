@@ -3,10 +3,11 @@ import './styles/App.css';
 
 import { BrowserRouter, Routes as Switch, Route, Routes } from 'react-router-dom'
 import { Provider } from 'react-redux';
-import store from 'entities/store/redux-store';
+import store, { useAppDispatch } from 'entities/store/redux-store';
 import BoardCompCont from 'pages/BoardComp/ui/BoardScp';
 import LoaderComp from 'pages/LoaderComp/ui/LoaderScp';
 import { OwnProps } from './interface/AppTs.interface';
+import { fetchProjects } from 'entities/project/projectReducerThunks';
 
 
 const MainBarComp = lazy(() => import("widgets/MainBarComp"))
@@ -39,6 +40,13 @@ const TeamDeveloperPage = lazy(() => import("pages/TeamDeveloperComp"))
 
 const App: React.FC<OwnProps> = () => {
 
+  const asyncDispatch = useAppDispatch()
+
+
+  useEffect(() => {
+    asyncDispatch(fetchProjects())
+
+  }, [asyncDispatch])
 
   const [localStorageHook, setLocalStorageHook] = useState<boolean>(false)
 
@@ -54,65 +62,64 @@ const App: React.FC<OwnProps> = () => {
     <div className="App">
       <div className='App_container'>
         <BrowserRouter>
-          <Provider store={store}>
-            <Suspense fallback={<div className='loader_comp_content'><LoaderComp /></div>}>
+
+          <Suspense fallback={<div className='loader_comp_content'><LoaderComp /></div>}>
 
 
-              {
-                localStorageHook
-                  ?
-                  <MainBarComp setLocalStorageHook={setLocalStorageHook} />
-                  :
-                  <LoginScp setLocalStorageHook={setLocalStorageHook} />
-              }
+            {
+              localStorageHook
+                ?
+                <MainBarComp setLocalStorageHook={setLocalStorageHook} />
+                :
+                <LoginScp setLocalStorageHook={setLocalStorageHook} />
+            }
 
 
-              {
-                localStorageHook
-                  ?
+            {
+              localStorageHook
+                ?
 
-                  <Routes>
-
-
-
-                    <Route path='/jiraItems/filter/:id' element={<FilterComp />} />
-
-                    {/* jnjel dashboard ?  */}
-
-                    <Route path='/jiraItems/dashboard' element={<DashboardComp />} />
-                    <Route path='/jiraItems/searchPeople' element={<SearchPeopleComp />} />
-                    <Route path='/jiraItems/allProjects' element={<AllProjectsComp />} />
-                    <Route path='/jiraItems/projectsWork' element={<ProjectsComp />} />
-
-                    <Route path='/jiraItems/userPage' element={<UserPageComp />} />
+                <Routes>
 
 
 
-                    {/* make page for board */}
+                  <Route path='/jiraItems/filter/:id' element={<FilterComp />} />
+
+                  {/* jnjel dashboard ?  */}
+
+                  <Route path='/jiraItems/dashboard' element={<DashboardComp />} />
+                  <Route path='/jiraItems/searchPeople' element={<SearchPeopleComp />} />
+                  <Route path='/jiraItems/allProjects' element={<AllProjectsComp />} />
+                  <Route path='/jiraItems/projectsWork' element={<ProjectsComp />} />
+
+                  <Route path='/jiraItems/userPage' element={<UserPageComp />} />
 
 
-                    <Route path='/jiraItems/board/:id' element={<LayoutUnivComp />} />
-                    <Route path='/jiraItems/issues/:id' element={<LayoutUnivComp />} />
-                    <Route path='/jiraItems/timeline/:id' element={<LayoutUnivComp />} />
-                    <Route path='/jiraItems/backblog/:id' element={<LayoutUnivComp />} />
-                    <Route path='/jiraItems/development/:id' element={<LayoutUnivComp />} />
-                    <Route path='/jiraItems/projectPage/:id' element={<LayoutUnivComp />} />
-                    <Route path='/jiraItems/projectSettings/:id' element={<LayoutUnivComp />} />
 
-                    <Route path='/jiraItems/team/:id' element={<TeamPage />} />
-                    <Route path='/jiraItems/teamDeveloper/:id' element={<TeamDeveloperPage />} />
+                  {/* make page for board */}
 
 
-                    {/* <Route path='/' element={<ProjectsComp />} /> */}
+                  <Route path='/jiraItems/board/:id' element={<LayoutUnivComp />} />
+                  <Route path='/jiraItems/issues/:id' element={<LayoutUnivComp />} />
+                  <Route path='/jiraItems/timeline/:id' element={<LayoutUnivComp />} />
+                  <Route path='/jiraItems/backblog/:id' element={<LayoutUnivComp />} />
+                  <Route path='/jiraItems/development/:id' element={<LayoutUnivComp />} />
+                  <Route path='/jiraItems/projectPage/:id' element={<LayoutUnivComp />} />
+                  <Route path='/jiraItems/projectSettings/:id' element={<LayoutUnivComp />} />
+
+                  <Route path='/jiraItems/team/:id' element={<TeamPage />} />
+                  <Route path='/jiraItems/teamDeveloper/:id' element={<TeamDeveloperPage />} />
 
 
-                  </Routes>
-                  :
-                  null
-              }
+                  {/* <Route path='/' element={<ProjectsComp />} /> */}
 
-            </Suspense>
-          </Provider>
+
+                </Routes>
+                :
+                null
+            }
+
+          </Suspense>
         </BrowserRouter>
 
       </div>

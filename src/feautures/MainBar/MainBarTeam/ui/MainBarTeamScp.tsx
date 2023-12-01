@@ -4,8 +4,8 @@ import { Button, Checkbox, Col, Dropdown, Input, MenuProps, Modal, Row, Select, 
 import { FaAngleDown, FaEllipsis, FaJs, FaPlus, FaUserGroup, FaUsersRectangle } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { AppStateType } from 'entities/store/redux-store'
-import { addDeveloperFunc, chooseProjectForTeamFunc } from 'entities/project/projectReducer'
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
+
 import { DeveloperInfoType, ProjectType, TeamType } from 'entities/project/projectReducerTs.interface'
 
 import { createAvatar } from '@dicebear/core';
@@ -21,11 +21,13 @@ import { OwnProps } from './MainBarTeamTs.interface'
 import firstpic from '../images/1.png'
 import secondpic from '../images/2.png'
 import thirdpic from '../images/3.png'
+import { addDeveloperFunc, chooseProjectForTeamFunc, fetchProjects } from 'entities/project/projectReducerThunks'
 
 
 const MainBarTeamComp: React.FC<OwnProps> = () => {
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
     const [teamIsModalOpen, setTeamIsModalOpen] = useState([false, false]);
     const [teamIsSecModalOpen, setTeamSecIsModalOpen] = useState([false, false]);
@@ -91,7 +93,7 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
 
     const [developerTeam, setDeveloperTeam] = useState<string>('')
 
-    const addPeopleCompFunc = () => {
+    const addPeopleCompFunc = async () => {
 
         const avatarUser = createAvatar(avataaars, {
             seed: uuid(),
@@ -110,7 +112,9 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
 
         }
 
-        dispatch(addDeveloperFunc(developerObj))
+        await aDispatch(addDeveloperFunc(developerObj))
+        await aDispatch(fetchProjects())
+
     }
 
 
@@ -223,8 +227,9 @@ const MainBarTeamComp: React.FC<OwnProps> = () => {
         }
     ]
 
-    const addProjectForTeamComp = () => {
-        dispatch(chooseProjectForTeamFunc({ str: teamName, projectName: teamProjectName, id: uuidv4() }))
+    const addProjectForTeamComp = async () => {
+        await aDispatch(chooseProjectForTeamFunc({ str: teamName, projectName: teamProjectName, id: uuidv4() }))
+        await aDispatch(fetchProjects())
     };
 
 

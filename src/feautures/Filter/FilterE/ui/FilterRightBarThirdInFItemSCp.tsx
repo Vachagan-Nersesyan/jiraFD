@@ -3,12 +3,12 @@ import styles from './FilterRightBarThirdInFItemStl.module.css'
 import { Breadcrumb, Button, Col, Input, Row, Space } from 'antd'
 import { FaChartBar, FaChartLine, FaCheck, FaClosedCaptioning, FaEllipsis, FaEye, FaFileWord, FaLink, FaPencil, FaRegUser, FaSitemap, FaUser, FaUserLarge, FaXmark } from 'react-icons/fa6'
 import { IssuesCommentsType, IssuesType } from 'entities/issues/issuesReducerTs.interface'
-import { AppStateType } from '../../../../entities/store/redux-store'
+import { AppStateType, useAppDispatch } from '../../../../entities/store/redux-store'
 import { connect, useSelector } from 'react-redux'
 
 import { compose } from 'redux'
 import { ChangeIssNameFuncType } from 'pages/BoardComp/ui/BoardTs.interface'
-import { changeGetBoardIssueItemFunc, projectSlice } from 'entities/project/projectReducer'
+import { projectSlice } from 'entities/project/projectReducer'
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -16,13 +16,15 @@ import IssueCommentComp from '../../FilterF/ui/FilterItemsIssueCommentScp'
 import { useDispatch } from 'react-redux'
 import { MapDispatchToPropsType, MapStateToPropsType, OwnProps, SubIssueOwnPropsType } from './FilterRightBarThirdInFItemTs.interface'
 import { NavLink } from 'react-router-dom'
+import { addCommentIssueFunc, addIssueInnerIssueFunc, changeGetBoardIssueItemFunc, changeIssDescriptionFunc, changeIssNameFunc, changeIssueInnerIssueSummary, fetchProjects } from 'entities/project/projectReducerThunks'
 
-const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ changeIssueInnerIssueSummary, addIssueInnerIssueFunc, issuesInnerItems, getBoardIssueItem, deleteCommentIssueFunc, changeCommentIssueFunc, addCommentIssueFunc, changeIssDescriptionFunc, changeIssNameFunc }) => {
+const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ issuesInnerItems, getBoardIssueItem }) => {
 
 
     console.log(getBoardIssueItem, 'getBoardIssueItem')
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
 
     const [issueNameTp, setIssueNameTp] = useState<boolean>(false)
@@ -42,17 +44,22 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
 
 
-    const saveChangedIssueName: (str: string, id: number, boardName: string) => void = (str: string, id: number, boardName: string) => {
-        changeIssNameFunc({ str, id, boardName })
+    const saveChangedIssueName: (str: string, id: number, boardName: string) => void = async (str: string, id: number, boardName: string) => {
+        await aDispatch(changeIssNameFunc({ str, id, boardName }))
+        await aDispatch(fetchProjects())
     }
 
-    const saveChangedIssueDescription: (str: string, id: number, boardName: string) => void = (str: string, id: number, boardName: string) => {
-        changeIssDescriptionFunc({ str, id, boardName })
+    const saveChangedIssueDescription: (str: string, id: number, boardName: string) => void = async (str: string, id: number, boardName: string) => {
+        await aDispatch(changeIssDescriptionFunc({ str, id, boardName }))
+        await aDispatch(fetchProjects())
+
     }
 
 
-    const saveChangedIssueComment: (str: string, id: number, boardName: string) => void = (str: string, id: number, boardName: string) => {
-        addCommentIssueFunc({ str, id, boardName })
+    const saveChangedIssueComment: (str: string, id: number, boardName: string) => void = async (str: string, id: number, boardName: string) => {
+        await aDispatch(addCommentIssueFunc({ str, id, boardName }))
+        await aDispatch(fetchProjects())
+
         setIssueComment('')
     }
 
@@ -61,7 +68,7 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
 
 
-    const addIssueInnerIssueCompFunc: () => void = () => {
+    const addIssueInnerIssueCompFunc: () => void = async () => {
         let issueInnerObj: IssuesType = {
             id: issuesInnerItems.length + 1,
             uniqId: uuidv4(),
@@ -104,7 +111,10 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
         issueInnerObj.currentDate = cDate
 
-        addIssueInnerIssueFunc(issueInnerObj)
+
+
+        await aDispatch(addIssueInnerIssueFunc(issueInnerObj))
+        await aDispatch(fetchProjects())
 
         setInnerIssueSummary('')
 
@@ -258,7 +268,7 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
                                         {
                                             issuesInnerItems.map((val) => {
                                                 return (
-                                                    <SubIssueComp changeIssueInnerIssueSummary={changeIssueInnerIssueSummary} subIssueInfo={val} />
+                                                    <SubIssueComp subIssueInfo={val} />
                                                 )
                                             })
                                         }
@@ -335,7 +345,7 @@ const FilterRightBarThirdInFItemComp: React.FC<OwnProps & MapDispatchToPropsType
                             :
                             getBoardIssueItem.issueComments.map((val) => {
                                 return (
-                                    <IssueCommentComp deleteCommentIssueFunc={deleteCommentIssueFunc} changeCommentIssueFunc={changeCommentIssueFunc} issueCommentInfo={val} getBoardIssueItem={getBoardIssueItem} />
+                                    <IssueCommentComp issueCommentInfo={val} getBoardIssueItem={getBoardIssueItem} />
                                 )
                             })
                     }
@@ -374,13 +384,13 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
 const FilterRightBarThirdInFItemCompCont = compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
-        changeIssNameFunc: projectSlice.actions.changeIssNameFunc,
-        changeIssDescriptionFunc: projectSlice.actions.changeIssDescriptionFunc,
-        addCommentIssueFunc: projectSlice.actions.addCommentIssueFunc,
-        changeCommentIssueFunc: projectSlice.actions.changeCommentIssueFunc,
-        deleteCommentIssueFunc: projectSlice.actions.deleteCommentIssueFunc,
-        addIssueInnerIssueFunc: projectSlice.actions.addIssueInnerIssueFunc,
-        changeIssueInnerIssueSummary: projectSlice.actions.changeIssueInnerIssueSummary
+        // changeIssNameFunc: projectSlice.actions.changeIssNameFunc,
+        // changeIssDescriptionFunc: projectSlice.actions.changeIssDescriptionFunc,
+        // addCommentIssueFunc: projectSlice.actions.addCommentIssueFunc,
+        // changeCommentIssueFunc: projectSlice.actions.changeCommentIssueFunc,
+        // deleteCommentIssueFunc: projectSlice.actions.deleteCommentIssueFunc,
+        // addIssueInnerIssueFunc: projectSlice.actions.addIssueInnerIssueFunc,
+        // changeIssueInnerIssueSummary: projectSlice.actions.changeIssueInnerIssueSummary
     })
 )(FilterRightBarThirdInFItemComp)
 
@@ -392,15 +402,19 @@ export default FilterRightBarThirdInFItemCompCont
 
 // SUB ISSUE ITEM
 
-const SubIssueComp: React.FC<SubIssueOwnPropsType> = ({ subIssueInfo, changeIssueInnerIssueSummary }) => {
+const SubIssueComp: React.FC<SubIssueOwnPropsType> = ({ subIssueInfo }) => {
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
+
 
     const [innerIssueChangeNameCont, setInnerIssueChangeNameCont] = useState<boolean>(false)
     const [innerIssueChangeName, setInnerIssueChangeName] = useState<string>('')
 
-    const changeIssueInnerIssueSummartCompFunc: (str: string, id: string) => void = (str: string, id: string) => {
-        changeIssueInnerIssueSummary({ str, id })
+    const changeIssueInnerIssueSummartCompFunc: (str: string, id: string) => void = async (str: string, id: string) => {
+        await aDispatch(changeIssueInnerIssueSummary({ str, id }))
+        await aDispatch(fetchProjects())
+
     }
 
 
@@ -420,7 +434,10 @@ const SubIssueComp: React.FC<SubIssueOwnPropsType> = ({ subIssueInfo, changeIssu
                     <FaPencil />
                 </div>
 
-                <div onClick={() => dispatch(changeGetBoardIssueItemFunc(subIssueInfo))} className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_1_item_1_item}>
+                <div onClick={async () => {
+                    await aDispatch(changeGetBoardIssueItemFunc(subIssueInfo))
+                    await aDispatch(fetchProjects())
+                }} className={styles.filter_right_bar_third_in_1_item_content_3_item_btns_content_txt_cont_in_ovrl_in_item_2_overlay_container_ovrl_1_item_1_item}>
                     <FaEye />
                 </div>
 

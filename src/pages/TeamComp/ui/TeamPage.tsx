@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react'
 import styles from './TeamPageStyle.module.css'
 import { NavLink, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { AppStateType } from 'entities/store/redux-store'
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
 import { ProjectType, TeamType } from 'entities/project/projectReducerTs.interface'
 import { OwnProps } from './TeamTs.interface'
 import { Button, Col, Row } from 'antd'
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import pic from '../images/1.svg'
-import { changeGetBoardIssueItemFunc } from 'entities/project/projectReducer'
+// import { changeGetBoardIssueItemFunc } from 'entities/project/projectReducer'
 import { useDispatch } from 'react-redux'
+import { changeGetBoardIssueItemFunc, fetchProjects } from 'entities/project/projectReducerThunks'
 
 
 let issueTeamArrClone: Array<IssuesType> = []
@@ -18,6 +19,7 @@ const TeamPage: React.FC<OwnProps> = () => {
 
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
     const { id } = useParams()
 
@@ -128,7 +130,10 @@ const TeamPage: React.FC<OwnProps> = () => {
                                         issueTeamArr.map((val) => {
                                             return (
                                                 <div className={styles.team_second_col_1_content_1_issue_content_overlay}>
-                                                    <NavLink className={styles.team_second_col_1_content_1_issue_content} onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                                    <NavLink className={styles.team_second_col_1_content_1_issue_content} onClick={async () => {
+                                                        await aDispatch(changeGetBoardIssueItemFunc(val))
+                                                        await aDispatch(fetchProjects())
+                                                    }} to={`/jiraItems/issues/${val.id}`}>
                                                         <div className={styles.team_second_col_1_content_1_issue_content_1_item} >
                                                             <img src={val.issueTypePic} />
                                                         </div>

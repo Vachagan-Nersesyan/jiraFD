@@ -28,13 +28,13 @@ export interface MapStateToPropsType {
 }
 
 export interface MapDispatchToPropsType {
-    deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
-    addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
-    changeGetBoardIssueItemFunc: (obj: IssuesType) => void,
-    setBacklogIssueArr: (arr: Array<IssuesType>) => void,
-    addingIssueInBacklogFunc: (obj: IssuesType) => void,
-    addIssueToBacklogArr: ({ str, obj }: AddIssueToBacklogArrArgsType) => void,
-    addIssueBacklogToBoardFunc: ({ obj, projectName }: AddIssueBacklogToBoardFuncArgsType) => void,
-    addFlagToBacklogIssueFunc: (str: string) => void,
-    deleteFlagToBacklogIssueFunc: () => void
+    // deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
+    // addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
+    // changeGetBoardIssueItemFunc: (obj: IssuesType) => void,
+    // setBacklogIssueArr: (arr: Array<IssuesType>) => void,
+    // addingIssueInBacklogFunc: (obj: IssuesType) => void,
+    // addIssueToBacklogArr: ({ str, obj }: AddIssueToBacklogArrArgsType) => void,
+    // addIssueBacklogToBoardFunc: ({ obj, projectName }: AddIssueBacklogToBoardFuncArgsType) => void,
+    // addFlagToBacklogIssueFunc: (str: string) => void,
+    // deleteFlagToBacklogIssueFunc: () => void
 }

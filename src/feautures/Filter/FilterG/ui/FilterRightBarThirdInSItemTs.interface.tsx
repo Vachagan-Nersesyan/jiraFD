@@ -14,12 +14,12 @@ export interface MapStateToPropsType {
 }
 
 export interface MapDispatchToPropsType {
-    changeIssueBoardFunc: ({ id, boardName }: ChangeIssueBoardFuncArgsType) => void,
-    deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
-    addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
-    addDesctiptionIssFunc: ({ arr, id, boardName }: AddDesctiptionIssFuncType) => void,
-    changeBoardIssueProjectFunc: ({ board, status, project, id }: ChangeBoardIssueProjectFuncArgsType) => void,
-    changeAllBoardItems: (board: InitialStateBoardOverlayType) => void
+    // changeIssueBoardFunc: ({ id, boardName }: ChangeIssueBoardFuncArgsType) => void,
+    // deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
+    // addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
+    // addDesctiptionIssFunc: ({ arr, id, boardName }: AddDesctiptionIssFuncType) => void,
+    // changeBoardIssueProjectFunc: ({ board, status, project, id }: ChangeBoardIssueProjectFuncArgsType) => void,
+    // changeAllBoardItems: (board: InitialStateBoardOverlayType) => void
 
 }
 

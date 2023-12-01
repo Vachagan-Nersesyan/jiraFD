@@ -9,10 +9,9 @@ import { NavLink, NavigateFunction, Params, useLocation, useNavigate, useNavigat
 import { IssueInCntComp } from '../../IssuesComp/ui/IssuesScp'
 import { BackblogandBoardModal } from '../../BackblogComp/ui/BackblogScp';
 import { compose } from 'redux';
-import { AppStateType } from 'entities/store/redux-store';
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
 import { connect, useSelector } from 'react-redux';
 // import { InitialStateBoardOverlayType, boardSlice, changeAllBoardItems } from '../../redux/projectReducer';
-import { setCurrentProject } from 'entities/project/projectReducer';
 import { InitialStateBoardOverlayType } from 'entities/project/projectReducerTs.interface';
 
 
@@ -31,6 +30,7 @@ import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { filterBoardUtFunc } from '../../../widgets/helpers/helperScp';
 import { useDispatch } from 'react-redux';
 import { MapDispatchToPropsType, MapStateToPropsType, OwnProps, PropsWithRouter } from './BoardTs.interface';
+import { addBoardFunc, addIssueToBoardsFunc, changeBoardLimitFunc, deleteBoardFunc, fetchProjects, updateChangedBoardArrFunc } from 'entities/project/projectReducerThunks';
 
 
 function withRouter<T extends PropsWithRouter>(Component: React.FC<T>):
@@ -53,13 +53,14 @@ function withRouter<T extends PropsWithRouter>(Component: React.FC<T>):
 
 // const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ router, boardAllItem, addingBoardToProject, getBoardIssueItem, getBoardIssueFunc, changeBoardLimitFunc, deleteBoardFunc, addIssueFlagFunc, deleteIssueFunc, updateChangedBoardArrFunc, addBoardFunc, boardArr, issuesArr, addIssueToBoardsFunc, projectsArr, addDesctiptionIssFunc, changeIssNameFunc }) => {
 
-const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ router, addingBoardToProject, boardArr, getBoardIssueFunc, getBoardIssueItem, changeBoardLimitFunc, deleteBoardFunc, addIssueFlagFunc, deleteIssueFunc, updateChangedBoardArrFunc, addBoardFunc, addIssueToBoardsFunc, projectsArr, addDesctiptionIssFunc, changeIssNameFunc }) => {
+const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsType> = ({ router, boardArr, getBoardIssueItem, projectsArr }) => {
 
 
 
     const currentProject = projectsArr[Number(router.params.id)]
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
 
     console.log(currentProject)
@@ -81,13 +82,6 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
     }, [currentProject])
 
 
-
-    useEffect(() => {
-        debugger
-        console.log(cc)
-
-    }, [cc])
-
     const [filterVal, setFilterVal] = useState<string>('')
     const [limit, setLimit] = useState<string>('')
 
@@ -95,7 +89,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
     // ashxatel
 
     const changeProjectCompFunc: (projectName: string, board: InitialStateBoardOverlayType) => void = (projectName: string, board: InitialStateBoardOverlayType) => {
-        addingBoardToProject({ projectName, board })
+        // addingBoardToProject({ projectName, board })
     }
     let location = useLocation();
 
@@ -124,8 +118,9 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
 
 
-    const foo = (obj: IssuesType, uniqtext: string) => {
-        addIssueToBoardsFunc({ obj, uniqtext })
+    const foo = async (obj: IssuesType, uniqtext: string) => {
+        await aDispatch(addIssueToBoardsFunc({ obj, uniqtext }))
+        await aDispatch(fetchProjects())
     }
 
     const [addBoardBtn, setAddBoardBtn] = useState<boolean>(true)
@@ -136,16 +131,25 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
 
 
-    const inputColumnLimitFunc = (num: string, boardName: string) => {
-        changeBoardLimitFunc({ num, boardName })
+    const inputColumnLimitFunc = async (num: string, boardName: string) => {
+        await aDispatch(changeBoardLimitFunc({ num, boardName }))
+        await aDispatch(fetchProjects())
+
     };
 
 
     // ddd
 
-    const updateBoardIssArrCompFunc = (str: string, arr: Array<IssuesType>) => {
 
-        updateChangedBoardArrFunc({ str, arr })
+    const updateBoardIssArrCompFunc = async (str: string, arr: Array<IssuesType>, boardClone: null | Array<BoardArrType>) => {
+
+        debugger
+
+        await aDispatch(updateChangedBoardArrFunc({ str, arr, boardClone }))
+        await aDispatch(fetchProjects())
+
+        // await fo()
+
         // debugger
         // console.log(boardArr,'boardArrboardArrboardArr')
     }
@@ -174,11 +178,12 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
         const [removed] = result.splice(+fInd, 1)
         result.splice(+secInd, 0, removed)
         // console.log(result, 'result',boardInfo)
-        updateBoardIssArrCompFunc(boardInfo.uniqText, result)
+
+        updateBoardIssArrCompFunc(boardInfo.uniqText, result, null)
         return result
     }
 
-    const remove = (list: Array<IssuesType>, index: number, boardInfo: BoardArrType) => {
+    const remove = async (list: Array<IssuesType>, index: number, boardInfo: BoardArrType) => {
 
 
 
@@ -194,15 +199,42 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
         const result = [...list]
         result.splice(+fInd, 1)
 
+        debugger
+        console.log(initialBoardInfo)
 
-        updateBoardIssArrCompFunc(boardInfo.uniqText, result)
+
+
+
+        let fastArr = []
+
+        for (let i in initialBoardInfo) {
+
+            if (initialBoardInfo[i].uniqText === boardInfo.uniqText) {
+                initialBoardInfo[i].boardIssue = []
+
+
+                for (let j in result) {
+                    let o = { ...result[j] }
+                    o.issueStatus = boardInfo.uniqText
+                    o.id = Number(j) + 1
+                    fastArr.push(o)
+                }
+
+                initialBoardInfo[i].boardIssue = fastArr
+
+                break
+            }
+        }
+
+
+        // updateBoardIssArrCompFunc(boardInfo.uniqText, result)
         console.log(result)
 
-        return result
+        // return result
     }
 
     const appendAt = (list: Array<IssuesType>, index: number, issueItem: IssuesType, boardInfo: BoardArrType) => {
-
+        debugger
 
         let fInd: string | number = 0
         for (let i in list) {
@@ -214,8 +246,8 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
         const result = [...list]
         result.splice(index, 0, { ...issueItem })
 
-
-        updateBoardIssArrCompFunc(boardInfo.uniqText, result)
+        debugger
+        updateBoardIssArrCompFunc(boardInfo.uniqText, result, initialBoardInfo)
 
         console.log(result)
 
@@ -253,9 +285,10 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
             const srcItems = remove(currentProject.board.boardArr[+src.droppableId].boardIssue, src.index, currentProject.board.boardArr[+src.droppableId])
 
 
+
             for (let i in currentProject.board.boardArr[+src.droppableId].boardIssue) {
                 if (currentProject.board.boardArr[+src.droppableId].boardIssue[i].id === src.index) {
-                    // debugger
+                    debugger
 
                     appendAt(currentProject.board.boardArr[+dest.droppableId].boardIssue, dest.index, currentProject.board.boardArr[+src.droppableId].boardIssue[+i], currentProject.board.boardArr[+dest.droppableId])
                     break
@@ -271,6 +304,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
 
 
     }
+
 
 
 
@@ -437,7 +471,10 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                                                                     },
                                                                     {
                                                                         label: (
-                                                                            <div onClick={() => deleteBoardFunc(val.uniqText)}>
+                                                                            <div onClick={async () => {
+                                                                                await aDispatch(deleteBoardFunc({ str: val.uniqText }))
+                                                                                await aDispatch(fetchProjects())
+                                                                            }}>
                                                                                 Delete
                                                                             </div>
                                                                         ),
@@ -486,7 +523,7 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                                                         val.boardIssue.map((val2) => {
                                                             // if (val.uniqText === val2.issueStatus) {
                                                             //     debugger
-                                                            return <BoardIssueComp getBoardIssueItem={getBoardIssueItem} getBoardIssueFunc={getBoardIssueFunc} deleteIssueFunc={deleteIssueFunc} addIssueFlagFunc={addIssueFlagFunc} boardArr={initialBoardInfo} valueInd={val2.id} val={val} currentProject={currentProject} changeIssNameFunc={changeIssNameFunc} addDesctiptionIssFunc={addDesctiptionIssFunc} val2={val2} />
+                                                            return <BoardIssueComp getBoardIssueItem={getBoardIssueItem} boardArr={initialBoardInfo} valueInd={val2.id} val={val} currentProject={currentProject} val2={val2} />
                                                             // }
                                                         })
                                                     }
@@ -523,8 +560,10 @@ const BoardComp: React.FC<OwnProps & MapStateToPropsType & MapDispatchToPropsTyp
                                     <div onClick={() => setAddBoardBtn(true)} className={styles.timeline_content_in_fivth_add_card_section_2_item_2_item_1_item}>
                                         <FaXmark />
                                     </div>
-                                    <div onClick={() => {
-                                        addBoardFunc(boardName)
+                                    <div onClick={async () => {
+                                        await aDispatch(addBoardFunc({ str: boardName }))
+                                        await aDispatch(fetchProjects())
+
                                         setAddBoardBtn(true)
                                     }} className={styles.timeline_content_in_fivth_add_card_section_2_item_2_item_1_item}>
                                         <FaCheck />
@@ -563,17 +602,17 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
 const BoardCompCont = compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
-        addDesctiptionIssFunc: projectSlice.actions.addDesctiptionIssFunc,
-        addIssueToBoardsFunc: projectSlice.actions.addIssueToBoardsFunc,
-        addBoardFunc: projectSlice.actions.addBoardFunc,
-        updateChangedBoardArrFunc: projectSlice.actions.updateChangedBoardArrFunc,
-        changeIssNameFunc: projectSlice.actions.changeIssNameFunc,
-        addIssueFlagFunc: projectSlice.actions.addIssueFlagFunc,
-        deleteIssueFunc: projectSlice.actions.deleteIssueFunc,
-        deleteBoardFunc: projectSlice.actions.deleteBoardFunc,
-        changeBoardLimitFunc: projectSlice.actions.changeBoardLimitFunc,
-        getBoardIssueFunc: projectSlice.actions.getBoardIssueFunc,
-        addingBoardToProject: projectSlice.actions.addingBoardToProject
+        // addDesctiptionIssFunc: projectSlice.actions.addDesctiptionIssFunc,
+        // addIssueToBoardsFunc: projectSlice.actions.addIssueToBoardsFunc,
+        // addBoardFunc: projectSlice.actions.addBoardFunc,
+        // updateChangedBoardArrFunc: projectSlice.actions.updateChangedBoardArrFunc,
+        // changeIssNameFunc: projectSlice.actions.changeIssNameFunc,
+        // addIssueFlagFunc: projectSlice.actions.addIssueFlagFunc,
+        // deleteIssueFunc: projectSlice.actions.deleteIssueFunc,
+        // deleteBoardFunc: projectSlice.actions.deleteBoardFunc,
+        // changeBoardLimitFunc: projectSlice.actions.changeBoardLimitFunc,
+        // getBoardIssueFunc: projectSlice.actions.getBoardIssueFunc,
+        // addingBoardToProject: projectSlice.actions.addingBoardToProject
     }),
     withRouter
 )(BoardComp)

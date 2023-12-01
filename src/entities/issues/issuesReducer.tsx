@@ -1,6 +1,7 @@
 // import { InferActionsTypes } from "./redux-store";
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
 import { InitialStateType, IssuesType } from './issuesReducerTs.interface'
+import { fetchIssues } from './issuesReducerThunk'
 
 
 const initialState: InitialStateType = {
@@ -9,7 +10,8 @@ const initialState: InitialStateType = {
     filteredIssuesArr: [],
 
     filterIssueName: '',
-
+    loading: false,
+    error: false
 
 }
 
@@ -20,22 +22,39 @@ export const issuesSlice = createSlice({
     name: 'issues',
     initialState,
     reducers: {
-        addIssueFilterNameFunc(state: InitialStateType, action: PayloadAction<string>) {
 
-            state.filterIssueName = action.payload
-        },
-        changeActualFilterdIssuesArrFunc(state: InitialStateType, action: PayloadAction<Array<IssuesType>>) {
-            state.filteredIssuesInitArr = action.payload
-        },
-        changeActualFilterdCloneIssueArrFunc(state: InitialStateType, action: PayloadAction<Array<IssuesType>>) {
-            state.filteredIssuesArr = action.payload
-        },
 
+
+    },
+    extraReducers: {
+
+        [fetchIssues.pending as any]: (state) => {
+            state.loading = true
+            state.error = false
+
+        },
+        [fetchIssues.fulfilled as any]: (state, action) => {
+            state.loading = false
+            state.error = false
+
+            debugger
+
+            state.filteredIssuesInitArr = action.payload[0].filteredIssuesInitArr
+            state.filteredIssuesArr = action.payload[0].filteredIssuesArr
+            state.filterIssueName = action.payload[0].filterIssueName
+
+        },
+        [fetchIssues.rejected as any]: (state) => {
+            state.loading = false
+            state.error = true
+
+
+        },
 
     }
 })
 
-export const { addIssueFilterNameFunc, changeActualFilterdCloneIssueArrFunc, changeActualFilterdIssuesArrFunc } = issuesSlice.actions
+export const { } = issuesSlice.actions
 export default issuesSlice.reducer
 
 

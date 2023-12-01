@@ -5,11 +5,12 @@ import { FaAddressBook, FaAmazon, FaBagShopping, FaBuilding, FaCheck, FaJira, Fa
 import { NavLink } from 'react-router-dom'
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { useSelector } from 'react-redux'
-import { AppStateType } from 'entities/store/redux-store'
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
 import { useDispatch } from 'react-redux'
 import { changeUserInfo } from 'entities/user/userReducer'
-import { changeGetBoardIssueItemFunc, setCurrentProject } from 'entities/project/projectReducer'
+// import { changeGetBoardIssueItemFunc } from 'entities/project/projectReducer'
 import { OwnProps } from './UserPageTs.interface'
+import { changeGetBoardIssueItemFunc, fetchProjects, setCurrentProject } from 'entities/project/projectReducerThunks'
 
 
 
@@ -20,6 +21,7 @@ const UserPageComp: React.FC<OwnProps> = () => {
 
     const [issuesUserPageArr, setIssuesUserPageArr] = useState<Array<IssuesType>>([])
 
+    const aDispatch = useAppDispatch()
     const dispatch = useDispatch()
 
     let userPageInfoCompArr = [
@@ -198,7 +200,11 @@ const UserPageComp: React.FC<OwnProps> = () => {
                                         issuesUserPageArr.map((val) => {
                                             return (
                                                 <div className={styles.userpage_content_container_second_col_content_third_item_in_content}>
-                                                    <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                                    <NavLink onClick={async () => {
+                                                        await aDispatch(changeGetBoardIssueItemFunc(val))
+                                                        await aDispatch(fetchProjects())
+
+                                                    }} to={`/jiraItems/issues/${val.id}`}>
 
                                                         <div className={styles.userpage_content_container_second_col_content_third_item_in_content_in_item}>
                                                             <div className={styles.userpage_content_container_second_col_content_third_item_in_content_in_item_pic}>
@@ -235,7 +241,11 @@ const UserPageComp: React.FC<OwnProps> = () => {
                                         issuesArrUspgComp.map((val) => {
                                             return (
                                                 <div className={styles.userpage_content_container_second_col_content_project_items_in_content}>
-                                                    <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                                    <NavLink onClick={async () => {
+                                                        await aDispatch(setCurrentProject({ num: val.id }))
+                                                        await aDispatch(fetchProjects())
+
+                                                    }} to={`/jiraItems/board/${val.id}`}>
                                                         <div className={styles.userpage_content_container_second_col_content_project_items_in_content_title}>
                                                             <FaJira /> Jira
                                                         </div>

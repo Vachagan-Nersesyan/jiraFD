@@ -6,12 +6,12 @@ import type { CollapseProps } from 'antd'
 import { NavLink } from 'react-router-dom';
 import FilterRightBarThirdInFItemComp from '../../FilterE/ui/FilterRightBarThirdInFItemSCp';
 import FilterRightBarThirdInSItemComp from '../../FilterG/ui/FIlterRightBarThirdInSItemScp';
-import { changeActualFilterdIssuesArrFunc, issuesSlice } from 'entities/issues/issuesReducer';
+import { issuesSlice } from 'entities/issues/issuesReducer';
 import { InitialStateType, IssuesType } from 'entities/issues/issuesReducerTs.interface';
 
 import { IssueInCntComp } from 'pages/IssuesComp/ui/IssuesScp';
 import { connect } from 'react-redux';
-import { AppStateType } from 'entities/store/redux-store';
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
 import { compose } from 'redux';
 
 import { projectSlice } from 'entities/project/projectReducer';
@@ -28,13 +28,16 @@ import { filterBoardByGlobalTypeUtFunc, filterBoardByProjectUtFunc, filterBoardB
 import { MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './FilterRIghtBarThirdTs.interface';
 
 import pic from '../images/1.png'
+import { changeGetBoardIssueItemFunc, fetchProjects, setAllProjectsIssuesArr } from 'entities/project/projectReducerThunks';
+import { changeActualFilterdIssuesArrFunc, fetchIssues } from 'entities/issues/issuesReducerThunk';
 
 
 
-const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ allProjectsIssueArr, setAllProjectsIssuesArr, issueFilterType, changeActualFilterdIssuesArrFunc, boardArr, board, projectArr, currentBoard, addingBoardToProject, changeGetBoardIssueItemFunc }) => {
+const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ allProjectsIssueArr, issueFilterType, boardArr, board, projectArr, currentBoard }) => {
 
 
 
+    const aDispatch = useAppDispatch()
 
     const listUserArr = [
         {
@@ -51,7 +54,7 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
         },
     ];
 
-    debugger
+    // debugger
 
     const [boardsSecAllIssuefFilter, setBoardsSecAllIssuefFilter] = useState<Array<IssuesType>>(allProjectsIssueArr)
 
@@ -59,7 +62,7 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
 
 
     const changeProjectCompFunc: (projectName: string, board: InitialStateBoardOverlayType) => void = (projectName: string, board: InitialStateBoardOverlayType) => {
-        addingBoardToProject({ projectName, board })
+        // addingBoardToProject({ projectName, board })
     }
 
 
@@ -72,8 +75,14 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
         changeProjectCompFunc(currentBoard.boardUniqName, board)
     }, [])
 
+    const setAllProjectsIssuesArrCompFunc = async (arr: Array<IssuesType>) => {
+        await aDispatch(setAllProjectsIssuesArr(arr))
+        await aDispatch(fetchProjects())
+    }
+
 
     useEffect(() => {
+
         let boardsAllIssuefFilterClone: Array<IssuesType> = []
 
         for (let t in projectArr) {
@@ -85,30 +94,45 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
             }
         }
 
-        setAllProjectsIssuesArr(boardsAllIssuefFilterClone)
+        setAllProjectsIssuesArrCompFunc(boardsAllIssuefFilterClone)
+
 
         // setBoardsAllIssuefFilter(boardsAllIssuefFilterClone)
         // setBoardsSecAllIssuefFilter(boardsAllIssuefFilterClone)
 
         // changeActualFilterdIssuesArrFunc(boardsAllIssuefFilterClone)
 
-    }, [projectArr])
+    }, [])
+
+
+    const changeActualFilterdIssuesArrFuncCompFunc = async (allProjectsIssueArr: Array<IssuesType>) => {
+        await aDispatch(changeActualFilterdIssuesArrFunc(allProjectsIssueArr))
+        await aDispatch(fetchIssues())
+    }
 
     useEffect(() => {
 
         console.log(allProjectsIssueArr)
         setBoardsAllIssuefFilter(allProjectsIssueArr)
         setBoardsSecAllIssuefFilter(allProjectsIssueArr)
-        changeActualFilterdIssuesArrFunc(allProjectsIssueArr)
 
+
+        changeActualFilterdIssuesArrFuncCompFunc(allProjectsIssueArr)
 
     }, [allProjectsIssueArr])
 
 
+    const changeGetBoardIssueItemCompFunc = async (obj: IssuesType) => {
+
+        await aDispatch(changeGetBoardIssueItemFunc(obj))
+        await aDispatch(fetchProjects())
+
+    }
+
     useEffect(() => {
         for (let i in boardArr) {
             if (boardArr[i].boardIssue.length !== 0) {
-                changeGetBoardIssueItemFunc(boardArr[i].boardIssue[0])
+                changeGetBoardIssueItemCompFunc(boardArr[i].boardIssue[0])
                 break
             }
         }
@@ -272,10 +296,10 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
 const FilterRightBarThirdCompCont = compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
-        changeGetBoardIssueItemFunc: projectSlice.actions.changeGetBoardIssueItemFunc,
-        addingBoardToProject: projectSlice.actions.addingBoardToProject,
-        changeActualFilterdIssuesArrFunc: issuesSlice.actions.changeActualFilterdIssuesArrFunc,
-        setAllProjectsIssuesArr: projectSlice.actions.setAllProjectsIssuesArr,
+        // changeGetBoardIssueItemFunc: projectSlice.actions.changeGetBoardIssueItemFunc,
+        // addingBoardToProject: projectSlice.actions.addingBoardToProject,
+        // changeActualFilterdIssuesArrFunc: issuesSlice.actions.changeActualFilterdIssuesArrFunc,
+        // setAllProjectsIssuesArr: projectSlice.actions.setAllProjectsIssuesArr,
 
     })
 )(FilterRightBarThirdComp)

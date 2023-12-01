@@ -18,8 +18,8 @@ export interface MapStateToPropsType {
 }
 
 export interface MapDispatchToPropsType {
-    changeGetBoardIssueItemFunc: (obj: IssuesType) => void,
-    addingBoardToProject: ({ projectName, board }: AddingBoardToProjectArgsType) => void
-    changeActualFilterdIssuesArrFunc: (arr: Array<IssuesType>) => void,
-    setAllProjectsIssuesArr: (arr: Array<IssuesType>) => void
+    // changeGetBoardIssueItemFunc: (obj: IssuesType) => void,
+    // addingBoardToProject: ({ projectName, board }: AddingBoardToProjectArgsType) => void
+    // changeActualFilterdIssuesArrFunc: (arr: Array<IssuesType>) => void,
+    // setAllProjectsIssuesArr: (arr: Array<IssuesType>) => void
 }

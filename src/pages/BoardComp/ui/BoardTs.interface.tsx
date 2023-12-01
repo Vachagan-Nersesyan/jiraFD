@@ -76,15 +76,15 @@ export interface MapStateToPropsType {
 }
 
 export interface MapDispatchToPropsType {
-    addDesctiptionIssFunc: ({ arr, id, boardName }: AddDesctiptionIssFuncType) => void,
-    changeIssNameFunc: ({ str, id, boardName }: ChangeIssNameFuncType) => void,
-    addIssueToBoardsFunc: ({ obj, uniqtext }: IssueToBoardsFuncArgsType) => void,
-    addBoardFunc: (str: string) => void,
-    updateChangedBoardArrFunc: ({ str, arr }: UpdateChangedBoardArrFuncArgsType) => void,
-    addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
-    deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
-    deleteBoardFunc: (str: string) => void,
-    changeBoardLimitFunc: ({ num, boardName }: ChangeBoardLimitFuncArgsType) => void,
-    getBoardIssueFunc: ({ id, boardName }: GetBoardIssueFuncType) => void,
-    addingBoardToProject: ({ projectName, board }: AddingBoardToProjectArgsType) => void
+    // addDesctiptionIssFunc: ({ arr, id, boardName }: AddDesctiptionIssFuncType) => void,
+    // changeIssNameFunc: ({ str, id, boardName }: ChangeIssNameFuncType) => void,
+    // addIssueToBoardsFunc: ({ obj, uniqtext }: IssueToBoardsFuncArgsType) => void,
+    // addBoardFunc: (str: string) => void,
+    // updateChangedBoardArrFunc: ({ str, arr }: UpdateChangedBoardArrFuncArgsType) => void,
+    // addIssueFlagFunc: ({ id, boardName }: AddIssueFlagFuncArgsType) => void,
+    // deleteIssueFunc: ({ id, boardName }: DeleteIssueFuncArgsType) => void,
+    // deleteBoardFunc: (str: string) => void,
+    // changeBoardLimitFunc: ({ num, boardName }: ChangeBoardLimitFuncArgsType) => void,
+    // getBoardIssueFunc: ({ id, boardName }: GetBoardIssueFuncType) => void,
+    // addingBoardToProject: ({ projectName, board }: AddingBoardToProjectArgsType) => void
 }

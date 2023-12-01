@@ -5,9 +5,9 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { FaAngleDown, FaAngleUp, FaEllipsis, FaEye, FaFlag, FaGear, FaLockOpen, FaRegShareFromSquare, FaRegSun, FaRegThumbsUp, FaRegUser, FaShareFromSquare, FaShareNodes, FaUser, FaUserAstronaut } from 'react-icons/fa6'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { AppStateType } from 'entities/store/redux-store'
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
-import { changeGetBoardIssueItemFunc, changeIssueAssigneeFunc, projectSlice } from 'entities/project/projectReducer'
+import { projectSlice } from 'entities/project/projectReducer'
 import { BoardArrType, InitialStateBoardOverlayType, ProjectType } from 'entities/project/projectReducerTs.interface'
 
 
@@ -16,10 +16,13 @@ import { FilterRightBarThirdItemComp } from '../../FilterH/ui/FilterRigthBarThir
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { FilterRightBarThirdSecItemCompType, MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './FilterRightBarThirdInSItemTs.interface'
+import { addIssueFlagFunc, changeIssueAssigneeFunc, changeIssueBoardFunc, deleteIssueFunc, fetchProjects } from 'entities/project/projectReducerThunks'
+import { fetchIssues } from 'entities/issues/issuesReducerThunk'
 
 
-const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ currentProjectCm, allProjectsIssueArr, currentBoard, changeAllBoardItems, changeBoardIssueProjectFunc, addDesctiptionIssFunc, getBoardIssueItem, boardArr, addIssueFlagFunc, deleteIssueFunc, changeIssueBoardFunc }) => {
+const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType & MapStateToPropsType> = ({ currentProjectCm, allProjectsIssueArr, currentBoard, getBoardIssueItem, boardArr }) => {
 
+    const aDispatch = useAppDispatch()
 
     const projectArr = useSelector((state: AppStateType) => state.project.projectArr)
 
@@ -43,12 +46,15 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
 
 
-    const deleteIssueCompFunc: (id: number, boardName: string) => void = (id: number, boardName: string) => {
-        deleteIssueFunc({ id, boardName })
+    const deleteIssueCompFunc: (id: number, boardName: string) => void = async (id: number, boardName: string) => {
+        await aDispatch(deleteIssueFunc({ id, boardName }))
+        await aDispatch(fetchProjects())
     }
 
-    const addFlagCompFunc: (id: number, boardName: string) => void = (id: number, boardName: string) => {
-        addIssueFlagFunc({ id, boardName })
+    const addFlagCompFunc: (id: number, boardName: string) => void = async (id: number, boardName: string) => {
+        await aDispatch(addIssueFlagFunc({ id, boardName }))
+        await aDispatch(fetchProjects())
+
     }
 
     const settingsfltArr = [
@@ -121,15 +127,21 @@ const FilterRightBarThirdInSItemComp: React.FC<OwnProps & MapDispatchToPropsType
 
     const location = useLocation()
 
-    const changeIssueBorderCompFunc: (id: number, boardName: string) => void = (id: number, boardName: string) => {
+    const changeIssueBorderCompFunc: (id: number, boardName: string) => void = async (id: number, boardName: string) => {
         // debugger
         if (location.pathname.includes('/jiraItems/board/')) {
-            changeIssueBoardFunc({ id, boardName })
+
+            await aDispatch(changeIssueBoardFunc({ id, boardName }))
+            await aDispatch(fetchProjects())
+
 
         } else {
-            changeIssueBoardFunc({ id, boardName })
+            await aDispatch(changeIssueBoardFunc({ id, boardName }))
+            await aDispatch(fetchProjects())
 
-            changeBoardIssueProjectFunc({ board: boardName, id, status: getBoardIssueItem.issueStatus, project: getBoardIssueItem.issuesProject })
+
+            // await aDispatch(changeBoardIssueProjectFunc({ board: boardName, id, status: getBoardIssueItem.issueStatus, project: getBoardIssueItem.issuesProject }))
+            // await aDispatch(fetchIssues())
 
         }
     }
@@ -293,6 +305,10 @@ export const FilterRightBarThirdSecItemComp: React.FC<FilterRightBarThirdSecItem
     const [assigneeBtn, setAssigneeBtn] = useState<boolean>(false)
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
+
+
+
 
     // useEffect(() => {
 
@@ -349,8 +365,9 @@ export const FilterRightBarThirdSecItemComp: React.FC<FilterRightBarThirdSecItem
                                                                     value: val.name,
                                                                     label: (
                                                                         <div
-                                                                            onClick={() => {
-                                                                                dispatch(changeIssueAssigneeFunc(val.name))
+                                                                            onClick={async () => {
+                                                                                await aDispatch(changeIssueAssigneeFunc({ str: val.name }))
+                                                                                await aDispatch(fetchProjects())
                                                                                 setAssigneeBtn(false)
                                                                             }}
                                                                         >
@@ -438,12 +455,12 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
 const FilterRightBarThirdInSItemCompCont = compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
-        changeIssueBoardFunc: projectSlice.actions.changeIssueBoardFunc,
-        deleteIssueFunc: projectSlice.actions.deleteIssueFunc,
-        addIssueFlagFunc: projectSlice.actions.addIssueFlagFunc,
-        addDesctiptionIssFunc: projectSlice.actions.addDesctiptionIssFunc,
-        changeBoardIssueProjectFunc: projectSlice.actions.changeBoardIssueProjectFunc,
-        changeAllBoardItems: projectSlice.actions.changeAllBoardItems
+        // changeIssueBoardFunc: projectSlice.actions.changeIssueBoardFunc,
+        // deleteIssueFunc: projectSlice.actions.deleteIssueFunc,
+        // addIssueFlagFunc: projectSlice.actions.addIssueFlagFunc,
+        // addDesctiptionIssFunc: projectSlice.actions.addDesctiptionIssFunc,
+        // changeBoardIssueProjectFunc: projectSlice.actions.changeBoardIssueProjectFunc,
+        // changeAllBoardItems: projectSlice.actions.changeAllBoardItems
     })
 )(FilterRightBarThirdInSItemComp)
 

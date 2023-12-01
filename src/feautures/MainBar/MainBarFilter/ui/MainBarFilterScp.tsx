@@ -5,18 +5,21 @@ import { FaAngleDown, FaJs, FaSignal } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import { filterBoardByGlobalTypeUtFunc } from 'widgets/helpers/helperScp'
 import { useDispatch } from 'react-redux'
-import { changeActualFilterdCloneIssueArrFunc } from 'entities/issues/issuesReducer'
-import { AppStateType } from 'entities/store/redux-store'
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
 import { useSelector } from 'react-redux'
 import { OwnProps } from './MainBarFilterTs.interface'
+import { changeActualFilterdCloneIssueArrFunc, fetchIssues } from 'entities/issues/issuesReducerThunk'
 
 const MainBarFilterComp: React.FC<OwnProps> = () => {
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
+
     const filteredIssuesInitArr = useSelector((state: AppStateType) => state.issues.filteredIssuesInitArr)
 
-    const chooseFilterNameCompFunc: (str: string) => void = (str: string) => {
-        dispatch(changeActualFilterdCloneIssueArrFunc(filterBoardByGlobalTypeUtFunc(str, filteredIssuesInitArr)))
+    const chooseFilterNameCompFunc: (str: string) => void = async (str: string) => {
+        await aDispatch(changeActualFilterdCloneIssueArrFunc(filterBoardByGlobalTypeUtFunc(str, filteredIssuesInitArr)))
+        await aDispatch(fetchIssues())
     }
 
     const filterItmsArr = [

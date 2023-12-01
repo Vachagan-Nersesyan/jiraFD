@@ -5,11 +5,12 @@ import { FaAngleDown, FaJs, FaTableList } from 'react-icons/fa6'
 import { NavLink } from 'react-router-dom'
 import type { TabsProps } from 'antd';
 import { useSelector } from 'react-redux'
-import { AppStateType } from 'entities/store/redux-store'
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { useDispatch } from 'react-redux'
-import { changeGetBoardIssueItemFunc, setCurrentProject } from 'entities/project/projectReducer'
+// import { changeGetBoardIssueItemFunc } from 'entities/project/projectReducer'
 import { BoardUserIssuesArrType, OwnProps } from './MainBarWorkTs.interface'
+import { changeGetBoardIssueItemFunc, fetchProjects, setCurrentProject } from 'entities/project/projectReducerThunks'
 
 let assigneeUserIssuesArr: Array<IssuesType> = []
 let recentUserIssuesArrClone: Array<IssuesType> = []
@@ -22,6 +23,7 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
 
     const projectCompArr = useSelector((state: AppStateType) => state.project.projectArr)
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
     const [recentUserIssuesArr, setRecentUserIssuesArr] = useState<Array<IssuesType>>(recentUserIssuesArrClone)
     const [assigneeUserIssuesHkArr, setAssigneeUserIssuesHkArr] = useState<Array<IssuesType>>(recentUserIssuesArrClone)
@@ -86,7 +88,11 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
 
                                         {assigneeUserIssuesArr.map((val) => {
                                             return (
-                                                <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                                <NavLink onClick={async () => {
+                                                    await aDispatch(changeGetBoardIssueItemFunc(val))
+                                                    await aDispatch(fetchProjects())
+
+                                                }} to={`/jiraItems/issues/${val.id}`}>
                                                     <div className={styles.menu_work_content_1_item_2_itm_in_1_itm}>
                                                         <FaJs />
                                                     </div>
@@ -134,7 +140,10 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
 
                                     return (
                                         <div className={styles.menu_work_content_1_item_2_itm_overlay}>
-                                            <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                            <NavLink onClick={async () => {
+                                                await aDispatch(changeGetBoardIssueItemFunc(val))
+                                                await aDispatch(fetchProjects())
+                                            }} to={`/jiraItems/issues/${val.id}`}>
                                                 <div className={styles.menu_work_content_1_item_2_itm_in_1_1_itm}>
                                                     <img src={val.issueTypePic} />
                                                 </div>
@@ -179,7 +188,10 @@ const MainBarWorkComp: React.FC<OwnProps> = () => {
 
                                     return (
                                         <div className={styles.menu_work_content_1_item_2_itm_overlay}>
-                                            <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                            <NavLink onClick={async () => {
+                                                await aDispatch(setCurrentProject({ num: val.id }))
+                                                await aDispatch(fetchProjects())
+                                            }} to={`/jiraItems/board/${val.id}`}>
                                                 <div className={styles.menu_work_content_1_item_2_itm_in_1_1_itm}>
                                                     <FaTableList />
                                                 </div>

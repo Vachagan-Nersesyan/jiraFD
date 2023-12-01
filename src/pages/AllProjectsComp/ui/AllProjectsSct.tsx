@@ -10,9 +10,8 @@ import { Divider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FaAddressCard, FaEllipsis, FaJira, FaSistrix } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-import { createProjectFunc, setCurrentProject } from "entities/project/projectReducer";
 import { ProjectType } from "entities/project/projectReducerTs.interface";
-import { AppStateType } from "entities/store/redux-store";
+import { AppStateType, useAppDispatch } from "entities/store/redux-store";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { filterProjectsUtFunc } from "widgets/helpers/helperScp";
@@ -20,11 +19,13 @@ import { DataType, OwnProps } from "./AllProjectTs.interface";
 
 import firstpic from '../images/1.svg'
 import secondpic from '../images/2.svg'
+import { createProjectFunc, fetchProjects, setCurrentProject } from "entities/project/projectReducerThunks";
 
 
 const AllProjectsComp: React.FC<OwnProps> = () => {
 
     const projectArr = useSelector((state: AppStateType) => state.project.projectArr)
+
 
     const menuitems: MenuProps['items'] = [
         {
@@ -130,6 +131,7 @@ const AllProjectsComp: React.FC<OwnProps> = () => {
 
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -142,8 +144,9 @@ const AllProjectsComp: React.FC<OwnProps> = () => {
         setIsModalOpen(true);
     };
 
-    const createProjectCompFunc = () => {
-        dispatch(createProjectFunc({ name: projectNameObj, key: projectKeyObj }))
+    const createProjectCompFunc = async () => {
+        await aDispatch(createProjectFunc({ name: projectNameObj, key: projectKeyObj }))
+        await aDispatch(fetchProjects())
     }
 
     const handleOk = () => {
@@ -228,7 +231,11 @@ const AllProjectsComp: React.FC<OwnProps> = () => {
                                                 items: [
                                                     {
                                                         label: (
-                                                            <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/projectSettings/${val.id}`}>
+                                                            <NavLink onClick={async () => {
+                                                                await aDispatch(setCurrentProject({ num: val.id }))
+                                                                await aDispatch(fetchProjects())
+
+                                                            }} to={`/jiraItems/projectSettings/${val.id}`}>
                                                                 Project settings
                                                             </NavLink>
                                                         ),
@@ -236,7 +243,12 @@ const AllProjectsComp: React.FC<OwnProps> = () => {
                                                     },
                                                     {
                                                         label: (
-                                                            <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                                            <NavLink onClick={async () => {
+                                                                await aDispatch(setCurrentProject({ num: val.id }))
+                                                                await aDispatch(fetchProjects())
+                                                            }}
+
+                                                                to={`/jiraItems/board/${val.id}`}>
                                                                 Go to project
                                                             </NavLink>
                                                         ),

@@ -1,6 +1,6 @@
 import { IssuesType } from "entities/issues/issuesReducerTs.interface"
 
-export interface InitialStateType  {
+export interface InitialStateType {
     projectArr: Array<ProjectType>,
     currentProject: string,
     currentBoard: InitialStateBoardOverlayType,
@@ -8,7 +8,8 @@ export interface InitialStateType  {
     currentProjectNumber: number,
     allProjectsIssueArr: Array<IssuesType>,
     backlogIssueArr: Array<IssuesType>,
-
+    error: boolean,
+    loading: boolean
 }
 
 
@@ -20,7 +21,7 @@ export interface DeveloperInfoType {
     teamName?: string
 }
 
-export interface ProjectType  {
+export interface ProjectType {
     id: number,
     picture: string,
     name: string,
@@ -42,7 +43,7 @@ export interface TeamType {
 
 
 
-export interface BoardArrType  {
+export interface BoardArrType {
     id: number,
     title: string,
     uniqText: string,
@@ -50,12 +51,12 @@ export interface BoardArrType  {
     boardLimit: number
 }
 
-export interface InitialStateBoardType  {
+export interface InitialStateBoardType {
     boardItem: InitialStateBoardOverlayType
 
 }
 
-export interface InitialStateBoardOverlayType  {
+export interface InitialStateBoardOverlayType {
     boardArr: Array<BoardArrType>,
     getBoardIssueItem: IssuesType,
     boardUniqName: string,

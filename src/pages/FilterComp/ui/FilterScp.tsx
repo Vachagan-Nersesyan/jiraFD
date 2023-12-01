@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import styles from './FilterStl.module.css'
 
-import { addIssueFilterNameFunc, changeActualFilterdCloneIssueArrFunc, changeActualFilterdIssuesArrFunc } from 'entities/issues/issuesReducer';
 
 import { Layout, Menu, Button, theme } from 'antd';
 import FilterRightBarComp from '../../../feautures/Filter/FilterA/ui/FilterRightBarScp';
@@ -10,9 +9,10 @@ import { NavLink } from 'react-router-dom';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { AppStateType } from 'entities/store/redux-store';
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
 import { filterBoardByGlobalTypeUtFunc } from 'widgets/helpers/helperScp';
 import { OwnProps } from './FilterTs.interface';
+import { addIssueFilterNameFunc, changeActualFilterdCloneIssueArrFunc } from 'entities/issues/issuesReducerThunk';
 
 const { Header, Sider, Content } = Layout;
 
@@ -60,13 +60,14 @@ const FilterComp: React.FC<OwnProps> = () => {
     ]
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
     const filteredIssuesInitArr = useSelector((state: AppStateType) => state.issues.filteredIssuesInitArr)
 
-    const chooseFilterNameCompFunc: (str: string) => void = (str: string) => {
-        dispatch(addIssueFilterNameFunc(str))
+    const chooseFilterNameCompFunc: (str: string) => void = async (str: string) => {
+        await aDispatch(addIssueFilterNameFunc({ str }))
 
-        dispatch(changeActualFilterdCloneIssueArrFunc(filterBoardByGlobalTypeUtFunc(str, filteredIssuesInitArr)))
+        await aDispatch(changeActualFilterdCloneIssueArrFunc(filterBoardByGlobalTypeUtFunc(str, filteredIssuesInitArr)))
     }
 
 

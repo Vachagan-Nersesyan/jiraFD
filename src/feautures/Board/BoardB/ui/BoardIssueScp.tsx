@@ -8,18 +8,19 @@ import { ProjectType } from 'entities/project/projectReducerTs.interface';
 import { IssueInCntComp } from '../../../../pages/IssuesComp/ui/IssuesScp';
 import { AddDesctiptionIssFuncType, AddIssueFlagFuncArgsType, ChangeIssNameFuncType, DeleteIssueFuncArgsType, GetBoardIssueFuncType } from 'pages/BoardComp/ui/BoardTs.interface';
 import useSelection from 'antd/es/table/hooks/useSelection';
-import { AppStateType } from '../../../../entities/store/redux-store';
+import { AppStateType, useAppDispatch } from '../../../../entities/store/redux-store';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { BoardArrType } from 'entities/project/projectReducerTs.interface';
 
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { OwnProps } from './BoardIssueTs.interface';
+import { addDesctiptionIssFunc, addIssueFlagFunc, changeIssNameFunc, deleteIssueFunc, fetchProjects, getBoardIssueFunc } from 'entities/project/projectReducerThunks';
 
 
-const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBoardIssueItem, deleteIssueFunc, addIssueFlagFunc, valueInd, val, addDesctiptionIssFunc, val2, changeIssNameFunc }) => {
+const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueItem, valueInd, val, val2 }) => {
 
-
+    const aDispatch = useAppDispatch()
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     let options: SelectProps['options'] = val2.description?.map((val) => {
@@ -33,8 +34,10 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
 
     const [currentIssue, setCurrentIssue] = useState<IssuesType | null>(null)
 
-    const handleChange = (arr: Array<string>, id: number, boardName: string) => {
-        addDesctiptionIssFunc({ arr, id, boardName })
+    const handleChange = async (arr: Array<string>, id: number, boardName: string) => {
+        await aDispatch(addDesctiptionIssFunc({ arr, id, boardName }))
+        await aDispatch(fetchProjects())
+
     }
 
     const showIssueModal = () => {
@@ -50,9 +53,11 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
         setIsIssueModalOpen(false);
     };
 
-    const getBoardIssueCompFunc: (id: number, boardName: string) => void = (id: number, boardName: string) => {
+    const getBoardIssueCompFunc: (id: string, boardName: string) => void = async (id: string, boardName: string) => {
 
-        getBoardIssueFunc({ id, boardName })
+        await aDispatch(getBoardIssueFunc({ id, boardName }))
+        await aDispatch(fetchProjects())
+
 
     }
 
@@ -66,17 +71,22 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
 
 
 
-    const changeIssueNameFunc: (str: string, id: number, boardName: string) => void = (str: string, id: number, boardName: string) => {
+    const changeIssueNameFunc: (str: string, id: number, boardName: string) => void = async (str: string, id: number, boardName: string) => {
         str = changeIssueName
-        changeIssNameFunc({ str, id, boardName })
+        await aDispatch(changeIssNameFunc({ str, id, boardName }))
+        await aDispatch(fetchProjects())
+
     }
 
-    const addFlagCompFunc: (id: number, boardName: string) => void = (id: number, boardName: string) => {
-        addIssueFlagFunc({ id, boardName })
+    const addFlagCompFunc: (id: number, boardName: string) => void = async (id: number, boardName: string) => {
+        await aDispatch(addIssueFlagFunc({ id, boardName }))
+        await aDispatch(fetchProjects())
     }
 
-    const deleteIssueCompFunc: (id: number, boardName: string) => void = (id: number, boardName: string) => {
-        deleteIssueFunc({ id, boardName })
+    const deleteIssueCompFunc: (id: number, boardName: string) => void = async (id: number, boardName: string) => {
+        await aDispatch(deleteIssueFunc({ id, boardName }))
+        await aDispatch(fetchProjects())
+
     }
 
 
@@ -244,7 +254,7 @@ const BoardIssueComp: React.FC<OwnProps> = ({ boardArr, getBoardIssueFunc, getBo
                                         </div>
                                         <div onClick={() => {
                                             showIssueModal()
-                                            getBoardIssueCompFunc(val2.id, val.uniqText)
+                                            getBoardIssueCompFunc(val2.uniqId, val.uniqText)
                                         }
 
                                         }

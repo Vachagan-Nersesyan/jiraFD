@@ -3,15 +3,15 @@ import styles from './MainBarProjectStl.module.css'
 import { Button, Col, Dropdown, MenuProps, Modal, Row, Space } from 'antd'
 import { FaAngleDown, FaJira, FaJs } from 'react-icons/fa6'
 import { NavLink, useLocation } from 'react-router-dom'
-import { addingBoardToProject, addingCurrentBoardToProject, changeBoardToProject, changeAllBoardItems, changeBoardUniqName, setCurrentProject, createProjectFunc } from 'entities/project/projectReducer'
 import { ProjectType } from 'entities/project/projectReducerTs.interface'
-import { AppStateType } from 'entities/store/redux-store'
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { OwnProps } from './MainBarProjectTs.interface'
 // import { InitialStateBoardOverlayType, InitialStateBoardType, changeAllBoardItems, changeBoardUniqName } from '../../../redux/projectReducer'
 import firstpic from '../images/1.svg'
 import secondpic from '../images/2.svg'
+import { createProjectFunc, fetchProjects, setCurrentProject } from 'entities/project/projectReducerThunks'
 
 
 let fg = false
@@ -20,6 +20,8 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
 
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
+
 
     // delete selector
 
@@ -28,7 +30,7 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
     const currentProjectIndex = useSelector((state: AppStateType) => state.project.currentProjectNumber)
 
 
-    const board = useSelector((state: AppStateType) => state.project.projectArr[currentProjectIndex].board)
+    // const board = useSelector((state: AppStateType) => state.project.projectArr[currentProjectIndex].board)
     const currentBoard = useSelector((state: AppStateType) => state.project.currentBoard)
 
     let location = useLocation();
@@ -40,35 +42,36 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
 
 
 
+    // useEffect(() => {
+    //     // debugger
+    //     // console.log('current board chagnes')
 
-    useEffect(() => {
-        // debugger
-        // console.log('current board chagnes')
-
-        console.log(location)
-
-
-        if (!location.pathname.includes('/jiraItems/filter/')) {
-
-            // alert('asdfasdfasd')
+    //     console.log(location)
 
 
-            dispatch(changeAllBoardItems(currentBoard))
-            // &&
+    //     if (!location.pathname.includes('/jiraItems/filter/')) {
 
-            // dispatch(changeAllBoardItems(board))
+    //         // alert('asdfasdfasd')
 
 
-        }
+    //         dispatch(changeAllBoardItems(currentBoard))
+    //         // &&
 
-    }, [board.boardUniqName])
+    //         // dispatch(changeAllBoardItems(board))
+
+
+    //     }
+
+    // }, [board.boardUniqName])
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
-    const createProjectCompFunc = () => {
-        dispatch(createProjectFunc({ name: projectNameObj, key: projectKeyObj }))
+    const createProjectCompFunc = async () => {
+        await aDispatch(createProjectFunc({ name: projectNameObj, key: projectKeyObj }))
+        await aDispatch(fetchProjects())
+
     }
 
     const handleOk = () => {
@@ -81,15 +84,17 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
     };
 
 
-    const changeProjectCompFunc: (projectName: string, id: number) => void = (projectName: string, id: number) => {
+    const changeProjectCompFunc: (projectName: string, id: number) => void = async (projectName: string, id: number) => {
 
         // sharunakelllll
 
-        dispatch(setCurrentProject(id))
+        await aDispatch(setCurrentProject({ num: id }))
+        await aDispatch(fetchProjects())
+
 
 
         console.log(currentBoard)
-        dispatch(addingBoardToProject({ projectName, board }))
+        // dispatch(addingBoardToProject({ projectName, board }))
 
         // debugger
         // console.log(location)
@@ -101,9 +106,6 @@ const MainBarProjectsComp: React.FC<OwnProps> = () => {
         // dispatch(changeAllBoardItems(currentBoard))
 
 
-        dispatch(changeBoardToProject(projectName))
-
-        dispatch(changeBoardUniqName(projectName))
     }
 
 

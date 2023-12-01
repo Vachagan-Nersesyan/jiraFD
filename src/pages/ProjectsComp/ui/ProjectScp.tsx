@@ -10,11 +10,12 @@ import type { TabsProps } from 'antd';
 import { NavLink } from "react-router-dom";
 import { FaAlignCenter } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import { AppStateType } from "entities/store/redux-store";
+import { AppStateType, useAppDispatch } from "entities/store/redux-store";
 import { IssuesType } from "entities/issues/issuesReducerTs.interface";
 import { useDispatch } from "react-redux";
-import { changeGetBoardIssueItemFunc, setCurrentProject } from "entities/project/projectReducer";
+// import { changeGetBoardIssueItemFunc } from "entities/project/projectReducer";
 import { OwnProps } from "./ProjectTs.interface";
+import { changeGetBoardIssueItemFunc, fetchProjects, setCurrentProject } from "entities/project/projectReducerThunks";
 
 let allProjectsWorkCompArr: Array<IssuesType> = []
 let allProjectsWorkCompAssigneArr: Array<IssuesType> = []
@@ -26,6 +27,7 @@ const ProjectsComp: React.FC<OwnProps> = () => {
     const allProjectsWorkComp = useSelector((state: AppStateType) => state.project.projectArr)
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
     useEffect(() => {
 
@@ -181,7 +183,11 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                             :
                             allProjectsWorkCompArr.map((val) => {
                                 return (
-                                    <NavLink className={styles.project_tab_content_txt} onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                    <NavLink className={styles.project_tab_content_txt} onClick={async () => {
+                                        await aDispatch(changeGetBoardIssueItemFunc(val))
+                                        await aDispatch(fetchProjects())
+
+                                    }} to={`/jiraItems/issues/${val.id}`}>
                                         <div className={styles.project_tab_content_txt_in_item_cont}>
                                             <div className={styles.project_tab_content_txt_in_item_cont_1_item}>
                                                 <img src={val.issueTypePic} />
@@ -220,7 +226,11 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                     :
                     allProjectsWorkCompAssigneArr.map((val) => {
                         return (
-                            <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`} className={styles.project_tab_content_txt}>
+                            <NavLink onClick={async () => {
+                                await aDispatch(changeGetBoardIssueItemFunc(val))
+                                await aDispatch(fetchProjects())
+
+                            }} to={`/jiraItems/issues/${val.id}`} className={styles.project_tab_content_txt}>
                                 <div className={styles.project_tab_content_txt_in_item_cont}>
                                     <div className={styles.project_tab_content_txt_in_item_cont_1_item}>
                                         <img src={val.issueTypePic} />
@@ -290,7 +300,11 @@ const ProjectsComp: React.FC<OwnProps> = () => {
                     allProjectsWorkComp.map((item) => {
                         return (
                             <Col span={4} >
-                                <NavLink onClick={() => dispatch(setCurrentProject(item.id))} to={`/jiraItems/board/${item.id}`} className={styles.project_content_third_item_content_in_txt_content_2_item_2_item_ovrl}>
+                                <NavLink onClick={async () => {
+                                    await aDispatch(setCurrentProject({ num: item.id }))
+                                    await aDispatch(fetchProjects())
+
+                                }} to={`/jiraItems/board/${item.id}`} className={styles.project_content_third_item_content_in_txt_content_2_item_2_item_ovrl}>
                                     <Row className={styles.project_content_third_item_content_in_txt_content}>
                                         <Col span={10} className={styles.project_content_third_item_content_in_txt_content_1_item}>
                                             <img src={item.picture} />

@@ -3,7 +3,6 @@ import { ChangeIssNameFuncType } from "pages/BoardComp/ui/BoardTs.interface"
 
 export interface SubIssueOwnPropsType {
     subIssueInfo: IssuesType,
-    changeIssueInnerIssueSummary: ({ str, id }: ChangeIssueInnerIssueSummaryArgsType) => void
 
 }
 
@@ -35,11 +34,11 @@ export interface MapStateToPropsType {
 }
 
 export interface MapDispatchToPropsType {
-    changeIssNameFunc: ({ str, id, boardName }: ChangeIssNameFuncType) => void,
-    changeIssDescriptionFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
-    addCommentIssueFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
-    changeCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
-    deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
-    addIssueInnerIssueFunc: (obj: IssuesType) => void,
-    changeIssueInnerIssueSummary: ({ str, id }: ChangeIssueInnerIssueSummaryArgsType) => void
+    // changeIssNameFunc: ({ str, id, boardName }: ChangeIssNameFuncType) => void,
+    // changeIssDescriptionFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
+    // addCommentIssueFunc: ({ str, id, boardName }: ChangeIssDescriptionFuncType) => void,
+    // changeCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
+    // deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
+    // // addIssueInnerIssueFunc: (obj: IssuesType) => void,
+    // changeIssueInnerIssueSummary: ({ str, id }: ChangeIssueInnerIssueSummaryArgsType) => void
 }

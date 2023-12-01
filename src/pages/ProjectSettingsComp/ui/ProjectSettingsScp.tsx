@@ -7,15 +7,16 @@ import { Breadcrumb, Button, Col, Dropdown, Form, Input, Row, Select, Space } fr
 import type { FormItemProps } from 'antd';
 import { FaAffiliatetheme, FaEllipsis } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
-import { changeProjectInfoFunc } from 'entities/project/projectReducer';
 import { OwnProps, ProjectSettingsFstObjType } from './ProjectSettingsTs.interface';
 import { useSelector } from 'react-redux';
-import { AppStateType } from 'entities/store/redux-store';
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
 import { NavLink } from 'react-router-dom';
+import { changeProjectInfoFunc, fetchProjects } from 'entities/project/projectReducerThunks';
 
 const ProjectSettingsComp: React.FC<OwnProps> = (props) => {
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
     const projectPictureSttngCompNum = useSelector((state: AppStateType) => state.project.currentProjectNumber)
     const projectPictureSttngComp = useSelector((state: AppStateType) => state.project.projectArr)
@@ -54,7 +55,7 @@ const ProjectSettingsComp: React.FC<OwnProps> = (props) => {
     const [зrojectAssignee, setProjectAssignee] = useState<string>('')
 
 
-    const setNewSettingsProject: () => void = () => {
+    const setNewSettingsProject: () => void = async () => {
         let projectSettingsFstObj: ProjectSettingsFstObjType = {
             name: '',
             key: '',
@@ -67,8 +68,8 @@ const ProjectSettingsComp: React.FC<OwnProps> = (props) => {
         projectSettingsFstObj.lead = projectLead
         projectSettingsFstObj.defaultAssignee = зrojectAssignee
 
-        dispatch(changeProjectInfoFunc(projectSettingsFstObj))
-
+        await aDispatch(changeProjectInfoFunc(projectSettingsFstObj))
+        await aDispatch(fetchProjects())
     }
 
 

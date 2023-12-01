@@ -5,20 +5,29 @@ import { Button } from 'antd'
 import { IssuesCommentsType, IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { ChangeCommentIssueFuncType } from '../../FilterE/ui/FilterRightBarThirdInFItemTs.interface'
 import { IssueCommentCompOwnProps } from './FilterItemsIssueCommentTs.interface'
+import { useAppDispatch } from 'entities/store/redux-store'
+import { changeCommentIssueFunc, deleteCommentIssueFunc, fetchProjects } from 'entities/project/projectReducerThunks'
 
 
 
-const IssueCommentComp: React.FC<IssueCommentCompOwnProps> = ({ issueCommentInfo, getBoardIssueItem, changeCommentIssueFunc, deleteCommentIssueFunc }) => {
+const IssueCommentComp: React.FC<IssueCommentCompOwnProps> = ({ issueCommentInfo, getBoardIssueItem }) => {
 
     const [commentDvStr, setCommentStr] = useState<string>('')
     const [commentDvTp, setCommentDvTp] = useState<boolean>(false)
 
-    const saveChangedCommentIssue: (str: string, id: number, boardName: string, commId: number) => void = (str: string, id: number, boardName: string, commId: number) => {
-        changeCommentIssueFunc({ str, id, boardName, commId })
+    const aDispatch = useAppDispatch()
+
+    const saveChangedCommentIssue: (str: string, id: number, boardName: string, commId: number) => void = async (str: string, id: number, boardName: string, commId: number) => {
+        await aDispatch(changeCommentIssueFunc({ str, id, boardName, commId }))
+        await aDispatch(fetchProjects())
+
     }
 
-    const deleteCommentCompIssue: (str: string, id: number, boardName: string, commId: number) => void = (str: string, id: number, boardName: string, commId: number) => {
-        deleteCommentIssueFunc({ str, id, boardName, commId })
+    const deleteCommentCompIssue: (str: string, id: number, boardName: string, commId: number) => void = async (str: string, id: number, boardName: string, commId: number) => {
+        await aDispatch(deleteCommentIssueFunc({ str, id, boardName, commId }))
+
+        await aDispatch(fetchProjects())
+
     }
 
     return (

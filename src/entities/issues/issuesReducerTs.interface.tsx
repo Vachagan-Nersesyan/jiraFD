@@ -1,7 +1,9 @@
 export interface InitialStateType {
     filteredIssuesInitArr: Array<IssuesType>,
     filteredIssuesArr: Array<IssuesType>,
-    filterIssueName: string
+    filterIssueName: string,
+    loading: boolean,
+    error: boolean
 }
 
 

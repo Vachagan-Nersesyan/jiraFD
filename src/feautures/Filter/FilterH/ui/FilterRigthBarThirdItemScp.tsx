@@ -3,11 +3,12 @@ import styles from './FilterRigthBarThirdItemStl.module.css'
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { Col, Collapse, CollapseProps, Row, Select, SelectProps } from 'antd';
 import { useSelector } from 'react-redux';
-import { AppStateType } from 'entities/store/redux-store';
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
 import { useDispatch } from 'react-redux';
 import { projectSlice } from 'entities/project/projectReducer';
 import { AddDesctiptionIssFuncType } from 'pages/BoardComp/ui/BoardTs.interface';
 import { OwnProps } from './FilterRightBarThirdItemTs.interface';
+import { addDesctiptionIssFunc, fetchProjects } from 'entities/project/projectReducerThunks';
 
 
 export const FilterRightBarThirdItemComp: React.FC<OwnProps> = ({ }) => {
@@ -16,6 +17,8 @@ export const FilterRightBarThirdItemComp: React.FC<OwnProps> = ({ }) => {
     const getBoardIssueCompItem = useSelector((state: AppStateType) => state.project.getBoardIssueItem)
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
+
 
     const [filterRightBartiLabels, setFilterRightBartiLabels] = useState<boolean>(false)
 
@@ -29,8 +32,10 @@ export const FilterRightBarThirdItemComp: React.FC<OwnProps> = ({ }) => {
     })
 
 
-    const handleChange = (arr: Array<string>, id: number, boardName: string) => {
-        dispatch(projectSlice.actions.addDesctiptionIssFunc({ arr, id, boardName }))
+    const handleChange = async (arr: Array<string>, id: number, boardName: string) => {
+        await aDispatch(addDesctiptionIssFunc({ arr, id, boardName }))
+        await aDispatch(fetchProjects())
+
         setFilterRightBartiLabels(false)
     }
 

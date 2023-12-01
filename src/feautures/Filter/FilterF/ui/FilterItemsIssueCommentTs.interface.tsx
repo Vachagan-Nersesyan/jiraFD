@@ -4,8 +4,8 @@ import { ChangeCommentIssueFuncType } from "feautures/Filter/FilterE/ui/FilterRi
 export interface IssueCommentCompOwnProps {
     issueCommentInfo: IssuesCommentsType,
     getBoardIssueItem: IssuesType,
-    changeCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
-    deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void
+    // changeCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void,
+    // deleteCommentIssueFunc: ({ str, id, boardName, commId }: ChangeCommentIssueFuncType) => void
 
 
 }

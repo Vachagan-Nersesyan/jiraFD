@@ -26,14 +26,15 @@ import MainBarNotificationsComp from 'feautures/MainBar/MainBarNotifications/ui/
 import MainBarSettingsComp from 'feautures/MainBar/MainBarSettings/ui/MainBarSettingsScp';
 import MainBarAccountComp from 'feautures/MainBar/MainBarAccount/ui/MainBarAccountScp'
 import { useSelector } from 'react-redux';
-import { AppStateType } from 'entities/store/redux-store';
-import { changeGetBoardIssueItemFunc, setCurrentProject } from 'entities/project/projectReducer';
+import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
+// import { changeGetBoardIssueItemFunc } from 'entities/project/projectReducer';
 import { ProjectType } from 'entities/project/projectReducerTs.interface';
 
 import { IssuesType } from 'entities/issues/issuesReducerTs.interface';
 import { useDispatch } from 'react-redux';
 import { filterBacklogUtFunc, filterProjectsUtFunc } from '../../helpers/helperScp';
 import { OwnProps } from './MainBarTs.interface';
+import { changeGetBoardIssueItemFunc, fetchProjects, setCurrentProject } from 'entities/project/projectReducerThunks';
 
 
 const { Sider } = Layout;
@@ -45,6 +46,8 @@ let issueMainBarArrItemsClone: Array<IssuesType> = []
 const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
+
 
     const projectMainBarArr = useSelector((state: AppStateType) => state.project.projectArr)
 
@@ -357,7 +360,12 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
                                         value: val.name,
                                         label: (
                                             <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl}>
-                                                <NavLink onClick={() => dispatch(setCurrentProject(val.id))} to={`/jiraItems/board/${val.id}`}>
+                                                <NavLink onClick={async () => {
+
+                                                    await aDispatch(setCurrentProject({ num: val.id }))
+                                                    await aDispatch(fetchProjects())
+
+                                                }} to={`/jiraItems/board/${val.id}`}>
                                                     {/* click anell henc anuni vra */}
                                                     <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl_1_item}>
                                                         <img src={val.picture} />
@@ -376,7 +384,10 @@ const MainBarComp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
                                         value: val.summary,
                                         label: (
                                             <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl}>
-                                                <NavLink onClick={() => dispatch(changeGetBoardIssueItemFunc(val))} to={`/jiraItems/issues/${val.id}`}>
+                                                <NavLink onClick={async () => {
+                                                    await aDispatch(changeGetBoardIssueItemFunc(val))
+                                                    await aDispatch(fetchProjects())
+                                                }} to={`/jiraItems/issues/${val.id}`}>
                                                     <div className={styles.main_bar_content_sec_col_srch_item_in_option_stl_1_item}>
                                                         <img src={val.issueTypePic} />
                                                     </div>
