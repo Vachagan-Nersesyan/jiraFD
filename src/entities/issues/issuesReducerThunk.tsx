@@ -7,7 +7,7 @@ export const fetchIssues = createAsyncThunk(
     'project/fetchIssues',
     async () => {
 
-        const querySnapshot = await getDocs(collection(db, 'project'))
+        const querySnapshot = await getDocs(collection(db, 'issues'))
 
         return querySnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
     }
@@ -18,6 +18,8 @@ export const fetchIssues = createAsyncThunk(
 export const addIssueFilterNameFunc = createAsyncThunk(
     'project/addIssueFilterNameFunc',
     async (item: { str: string }) => {
+
+        debugger
 
         let collectionRef = await getDocs(collection(db, 'issues'))
         let data: any = collectionRef.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
@@ -32,7 +34,7 @@ export const addIssueFilterNameFunc = createAsyncThunk(
 
 
         await updateDoc(docRef, {
-            projectArr: projectArrCLone,
+            filterIssueName: projectArrCLone.filterIssueName,
         });
 
         return { ...item }
@@ -47,6 +49,8 @@ export const changeActualFilterdIssuesArrFunc = createAsyncThunk(
     'project/changeActualFilterdIssuesArrFunc',
     async (item: Array<IssuesType>) => {
 
+        debugger
+
         let collectionRef = await getDocs(collection(db, 'issues'))
         let data: any = collectionRef.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
 
@@ -59,7 +63,7 @@ export const changeActualFilterdIssuesArrFunc = createAsyncThunk(
 
 
         await updateDoc(docRef, {
-            projectArr: projectArrCLone,
+            filteredIssuesInitArr: projectArrCLone.filteredIssuesInitArr,
         });
 
         return { ...item }
@@ -73,6 +77,8 @@ export const changeActualFilterdIssuesArrFunc = createAsyncThunk(
 export const changeActualFilterdCloneIssueArrFunc = createAsyncThunk(
     'project/changeActualFilterdCloneIssueArrFunc',
     async (item: Array<IssuesType>) => {
+
+        debugger
 
         let collectionRef = await getDocs(collection(db, 'issues'))
         let data: any = collectionRef.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
@@ -88,7 +94,7 @@ export const changeActualFilterdCloneIssueArrFunc = createAsyncThunk(
 
 
         await updateDoc(docRef, {
-            projectArr: projectArrCLone,
+            filteredIssuesArr: projectArrCLone.filteredIssuesArr,
         });
 
         return { ...item }

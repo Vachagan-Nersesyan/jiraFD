@@ -30,6 +30,7 @@ import { MapDispatchToPropsType, MapStateToPropsType, OwnProps } from './FilterR
 import pic from '../images/1.png'
 import { changeGetBoardIssueItemFunc, fetchProjects, setAllProjectsIssuesArr } from 'entities/project/projectReducerThunks';
 import { changeActualFilterdIssuesArrFunc, fetchIssues } from 'entities/issues/issuesReducerThunk';
+import { useSelector } from 'react-redux';
 
 
 
@@ -65,8 +66,16 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
         // addingBoardToProject({ projectName, board })
     }
 
+    const filterIssuesArr = useSelector((state: AppStateType) => state.issues.filteredIssuesArr)
 
     console.log(boardsAllIssuefFilter)
+
+    useEffect(() => {
+
+        setBoardsAllIssuefFilter(filterIssuesArr)
+
+    }, [filterIssuesArr])
+
 
 
 
@@ -208,7 +217,10 @@ const FilterRightBarThirdComp: React.FC<OwnProps & MapDispatchToPropsType & MapS
                                 :
                                 boardsAllIssuefFilter.map((val) => {
                                     return (
-                                        <div onClick={() => changeGetBoardIssueItemFunc(val)} className={styles.filter_right_bar_third_part_content_issue_item}>
+                                        <div onClick={async () => {
+                                            await aDispatch(changeGetBoardIssueItemFunc(val))
+                                            await aDispatch(fetchProjects())
+                                        }} className={styles.filter_right_bar_third_part_content_issue_item}>
                                             <div className={styles.filter_right_bar_third_part_content_issue_item_in_item_1}>
                                                 <img src={val.issueTypePic} />
                                             </div>

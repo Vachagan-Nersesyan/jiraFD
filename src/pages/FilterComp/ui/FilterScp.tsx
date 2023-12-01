@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import { AppStateType, useAppDispatch } from 'entities/store/redux-store';
 import { filterBoardByGlobalTypeUtFunc } from 'widgets/helpers/helperScp';
 import { OwnProps } from './FilterTs.interface';
-import { addIssueFilterNameFunc, changeActualFilterdCloneIssueArrFunc } from 'entities/issues/issuesReducerThunk';
+import { addIssueFilterNameFunc, changeActualFilterdCloneIssueArrFunc, fetchIssues } from 'entities/issues/issuesReducerThunk';
 
 const { Header, Sider, Content } = Layout;
 
@@ -66,8 +66,11 @@ const FilterComp: React.FC<OwnProps> = () => {
 
     const chooseFilterNameCompFunc: (str: string) => void = async (str: string) => {
         await aDispatch(addIssueFilterNameFunc({ str }))
+        await aDispatch(fetchIssues())
 
         await aDispatch(changeActualFilterdCloneIssueArrFunc(filterBoardByGlobalTypeUtFunc(str, filteredIssuesInitArr)))
+        await aDispatch(fetchIssues())
+
     }
 
 

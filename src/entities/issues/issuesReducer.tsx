@@ -21,11 +21,7 @@ const initialState: InitialStateType = {
 export const issuesSlice = createSlice({
     name: 'issues',
     initialState,
-    reducers: {
-
-
-
-    },
+    reducers: {},
     extraReducers: {
 
         [fetchIssues.pending as any]: (state) => {
