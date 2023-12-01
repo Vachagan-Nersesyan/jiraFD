@@ -7,10 +7,10 @@ import { IssuesType } from 'entities/issues/issuesReducerTs.interface'
 import { useSelector } from 'react-redux'
 import { AppStateType, useAppDispatch } from 'entities/store/redux-store'
 import { useDispatch } from 'react-redux'
-import { changeUserInfo } from 'entities/user/userReducer'
 // import { changeGetBoardIssueItemFunc } from 'entities/project/projectReducer'
 import { OwnProps } from './UserPageTs.interface'
 import { changeGetBoardIssueItemFunc, fetchProjects, setCurrentProject } from 'entities/project/projectReducerThunks'
+import { changeUserInfo, fetchUser } from 'entities/user/userReducerThunks'
 
 
 
@@ -101,8 +101,10 @@ const UserPageComp: React.FC<OwnProps> = () => {
 
     const [userActiveInfo, setUserActiveInfo] = useState<number | null>(null)
 
-    const changeCurrentUserInfoFunc: (str: string) => void = (str: string) => {
-        dispatch(changeUserInfo({ str, infoName: userInfoHk }))
+    const changeCurrentUserInfoFunc: (str: string) => void = async (str: string) => {
+        await aDispatch(changeUserInfo({ str, infoName: userInfoHk }))
+        await aDispatch(fetchUser())
+
     }
 
     return (

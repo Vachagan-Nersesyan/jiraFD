@@ -10,13 +10,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import SignIn from '../../SignIn';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase';
-import { changeUserOtherInfoFBFunc } from 'entities/user/userReducer';
 import { useDispatch } from 'react-redux';
 
 import pic from '../images/1.png'
 import { OwnProps } from './LoginTs.interface';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from "yup";
+import { useAppDispatch } from 'entities/store/redux-store';
+import { changeUserOtherInfoFBFunc, fetchUser } from 'entities/user/userReducerThunks';
 
 
 const SignupSchema = Yup.object().shape({
@@ -43,6 +44,8 @@ const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
+
 
     const loginEmailPassword = () => {
 
@@ -62,11 +65,19 @@ const LoginScp: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
 
                 setErrorMessage('')
 
-                dispatch(changeUserOtherInfoFBFunc({
-                    name: userCredential.user.email?.slice(0, userCredential.user.email?.indexOf('@')),
-                    picture: userCredential.user.photoURL ? null : pic,
-                    email: userCredential.user.email,
+                return userCredential
+
+            })
+            .then((data) => {
+                aDispatch(changeUserOtherInfoFBFunc({
+                    name: data.user.email?.slice(0, data.user.email?.indexOf('@')),
+                    picture: data.user.photoURL ? null : pic,
+                    email: data.user.email,
                 }))
+            })
+            .then((data) => {
+                aDispatch(fetchUser())
+
             })
 
             .catch((error) => {

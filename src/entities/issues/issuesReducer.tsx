@@ -33,7 +33,7 @@ export const issuesSlice = createSlice({
             state.loading = false
             state.error = false
 
-            debugger
+            
 
             state.filteredIssuesInitArr = action.payload[0].filteredIssuesInitArr
             state.filteredIssuesArr = action.payload[0].filteredIssuesArr

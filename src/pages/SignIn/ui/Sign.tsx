@@ -6,8 +6,9 @@ import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebas
 import styles from './SignIn.module.css'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { changeUserOtherInfoFBFunc } from 'entities/user/userReducer'
 import { OwnProps } from './SignTs.interface'
+import { changeUserOtherInfoFBFunc, fetchUser } from 'entities/user/userReducerThunks'
+import { useAppDispatch } from 'entities/store/redux-store'
 
 
 const SignIn: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
@@ -15,6 +16,7 @@ const SignIn: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
+    const aDispatch = useAppDispatch()
 
 
     const authButtons = [
@@ -62,11 +64,12 @@ const SignIn: React.FC<OwnProps> = ({ setLocalStorageHook }) => {
             setLocalStorageHook(true)
 
 
-            dispatch(changeUserOtherInfoFBFunc({
+            await aDispatch(changeUserOtherInfoFBFunc({
                 name: auth.currentUser?.displayName,
                 picture: auth.currentUser?.photoURL,
                 email: auth.currentUser?.email
             }))
+            await aDispatch(fetchUser())
 
 
             navigate('/jiraItems/userPage')

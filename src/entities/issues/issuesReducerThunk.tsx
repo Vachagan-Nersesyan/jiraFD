@@ -19,7 +19,7 @@ export const addIssueFilterNameFunc = createAsyncThunk(
     'project/addIssueFilterNameFunc',
     async (item: { str: string }) => {
 
-        debugger
+
 
         let collectionRef = await getDocs(collection(db, 'issues'))
         let data: any = collectionRef.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
@@ -49,7 +49,7 @@ export const changeActualFilterdIssuesArrFunc = createAsyncThunk(
     'project/changeActualFilterdIssuesArrFunc',
     async (item: Array<IssuesType>) => {
 
-        debugger
+
 
         let collectionRef = await getDocs(collection(db, 'issues'))
         let data: any = collectionRef.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
@@ -78,7 +78,7 @@ export const changeActualFilterdCloneIssueArrFunc = createAsyncThunk(
     'project/changeActualFilterdCloneIssueArrFunc',
     async (item: Array<IssuesType>) => {
 
-        debugger
+
 
         let collectionRef = await getDocs(collection(db, 'issues'))
         let data: any = collectionRef.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))

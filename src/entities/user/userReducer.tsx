@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
 import { InitialStateType } from './userReducerTs.interface'
+import { fetchUser } from './userReducerThunks'
 
 const initialState: InitialStateType = {
 
@@ -13,19 +14,16 @@ const initialState: InitialStateType = {
         department: '',
         organization: '',
         location: '',
-    }
+    },
+    loading: false,
+    error: false
+
 
 
 }
 
 
 
-enum UserResponse {
-    location = 'Your location',
-    manager = 'IT Support Manager',
-    department = 'Your department',
-    organization = 'Your organization'
-}
 
 
 
@@ -33,45 +31,35 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        changeUserInfo(state: InitialStateType, action: PayloadAction<{ infoName: string, str: string }>) {
+       
+    },
+    extraReducers: {
+        [fetchUser.pending as any]: (state) => {
+            state.loading = true
+            state.error = false
 
-            switch (action.payload.str) {
-
-                case UserResponse.location: {
-                    state.info.location = action.payload.infoName
-                    break
-                }
-
-                case UserResponse.manager: {
-                    state.info.itSupportManager = action.payload.infoName
-                    break
-                }
-
-                case UserResponse.department: {
-                    state.info.department = action.payload.infoName
-                    break
-                }
-
-                case UserResponse.organization: {
-                    state.info.organization = action.payload.infoName
-                    break
-                }
-
-
-                default: break
-            }
-            console.log(action.payload, current(state))
         },
-        changeUserOtherInfoFBFunc(state: InitialStateType, action: PayloadAction<{ name: string | undefined | null, picture: string | undefined | null, email: string | undefined | null }>) {
-            state.info.picture = action.payload.picture
-            state.info.name = action.payload.name
-            state.info.email = action.payload.email
+        [fetchUser.fulfilled as any]: (state, action) => {
+            state.loading = false
+            state.error = false
 
-        }
+
+
+            state.info = { ...action.payload[0].info }
+            state.loading = action.payload[0].loading
+            state.error = action.payload[0].error
+
+        },
+        [fetchUser.rejected as any]: (state) => {
+            state.loading = false
+            state.error = true
+
+
+        },
     }
 })
 
-export const { changeUserInfo, changeUserOtherInfoFBFunc } = userSlice.actions
+export const {  } = userSlice.actions
 
 
 export default userSlice.reducer

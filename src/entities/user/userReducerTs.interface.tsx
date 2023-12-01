@@ -1,5 +1,7 @@
 export interface InitialStateType {
-    info: userInfo
+    info: userInfo,
+    loading: boolean,
+    error: boolean
 
 }
 
